@@ -9,11 +9,11 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu " style="background-color:white;">
                 <div class="nav">
-                    <a class="nav-link m-0" style="padding: 2px; padding-left: 12px">
+                    <a class="nav-link " style="padding: 2px; padding-left: 12px">
                         <i class="fa fa-users" aria-hidden="true"></i>
                         Department
                     </a>
-                    <a class="nav-link m-0"  style="padding: 2px; padding-left: 12px" asp-action="index" asp-route-id="0">
+                    <a class="nav-link "  style="padding: 2px; padding-left: 12px" asp-action="index" asp-route-id="0">
                         All
                     </a>
                     @foreach (var item in @Department)
@@ -21,7 +21,7 @@
                         if (item.parentcount > 0 && item.RouteLength < 2 && item.Id != 77)
                         {
 
-                            <a class="nav-link collapsed m-0 wa" style="color:black;font-size:12px;padding:2px;padding-left:12px;" asp-action="index" asp-route-id="@item.Id" data-toggle="collapse" data-target="#collapse_@item.Id">
+                            <a class="nav-link collapsed  wa" style="color:black;font-size:12px;padding:2px;padding-left:12px;" asp-action="index" asp-route-id="@item.Id" data-toggle="collapse" data-target="#collapse_@item.Id">
                                 @item.Name
 
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -35,7 +35,7 @@
                                         {
                                             if (child.RouteLength < 3)
                                             {
-                                                <a style="color:black;font-size:12px;padding:2px;padding-left:12px;" class="nav-link m-0 wa" asp-action="index" asp-route-id="@child.Id">@child.Name</a>
+                                                <a style="color:black;font-size:12px;padding:2px;padding-left:12px;" class="nav-link  wa" asp-action="index" asp-route-id="@child.Id">@child.Name</a>
                                             }
                                         }
                                     }
@@ -54,7 +54,7 @@
                                 {
                                     if (item.Id == child.ParentId && child.parentcount == 0)
                                     {
-                                        <a style="color:black;font-size:12px;padding:2px;padding-left:12px;" style="color:black;font-size:12px;padding:2px;padding-left:12px;" class="nav-link m-0 wa" asp-action="index" asp-route-id="@child.Id">
+                                        <a style="color:black;font-size:12px;padding:2px;padding-left:12px;"  class="nav-link  wa" asp-action="index" asp-route-id="@child.Id">
                                             @child.Name
                                         </a>
                                     }
@@ -111,7 +111,7 @@
                         }
                         if (item.ParentId is null & item.parentcount == 0)
                         {
-                            <a style="color:black;font-size:12px;padding:2px;padding-left:12px;" class="nav-link m-0 wa" asp-action="index" asp-route-id="@item.Id">
+                            <a style="color:black;font-size:12px;padding:2px;padding-left:12px;" class="nav-link wa" asp-action="index" asp-route-id="@item.Id">
                                 @item.Name
                             </a>
                         }

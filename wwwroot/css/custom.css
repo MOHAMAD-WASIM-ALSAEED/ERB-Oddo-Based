@@ -1,3 +1,6 @@
 ﻿nav.bg-dark {
     background-color: #875A7B !important;
 }
+nav a {
+    margin-top: 5px !important;
+}

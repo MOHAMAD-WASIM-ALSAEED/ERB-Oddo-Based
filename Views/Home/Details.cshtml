@@ -12,7 +12,11 @@
             <li class="breadcrumb-item"><a href="/home/index">Employee</a></li>
             @foreach (var item in Model.BreadCrumbsEmployees)
             {
-                <li class="breadcrumb-item"><a href="/home/details?id=@(item.Id)">@item.Name</a></li>
+                @if (item != null)
+                {
+                    <li class="breadcrumb-item"><a href="/home/details?id=@(item.Id)">@item.Name</a></li>
+
+                }
 
             }
         </ol>
@@ -187,9 +191,8 @@
                                         <br />
 
                                         <p class="card-text" style="display: inline;font-weight: bold;">Time OFF</p>
-                                        <a href="/home/details?id=@(@Model.TimeOff.Id)">
                                             <p class="card-text" style="display: inline;margin-left: 60px;">@Model.TimeOff.Name</p>
-                                            </a>
+                                           
                                             <br />
                                             <p class="card-text disabled" style="display: inline;font-weight: bold; color: gray;">Expense</p>
 

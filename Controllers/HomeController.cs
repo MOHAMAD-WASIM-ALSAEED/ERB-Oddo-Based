@@ -33,6 +33,7 @@ namespace oddo.Controllers
 
         public IActionResult Index(int id)
         {
+            HttpContext.Session.SetString("Employee", "");
             var department = _hRContext.Department.ToList<Department>();
             foreach (var item in department)
             {
@@ -68,9 +69,12 @@ namespace oddo.Controllers
             BreadCrumbsIds = HttpContext.Session.GetString("Employee");
             BreadCrumbsIds += "-" + id.ToString();
             HttpContext.Session.SetString("Employee", BreadCrumbsIds);
-            var breadcrumbsArray = BreadCrumbsIds.Split("-");
-            EmployeeBreadCrumbs = _hRContext.Employee.Where(x => breadcrumbsArray.Contains(x.Id.ToString())).ToList<Employee>();
-            EmployeeBreadCrumbs.Reverse();
+            if (BreadCrumbsIds.Split("-").Length > 1) { 
+            foreach (var item in BreadCrumbsIds.Split("-"))
+            {
+                EmployeeBreadCrumbs.Add(_hRContext.Employee.Where(x => x.Id.ToString() == item).FirstOrDefault());
+            }
+            }
             var Tags = _hRContext.Tags.Where(x => x.EmpId == Employee.Id).Select(x => x.CategoryId).ToList<double?>();
             var TagVAlues = _hRContext.TagValue.Where(x => Tags.Contains(x.Id)).ToList<TagValue>();
             var department = _hRContext.Department.Where(x => x.Id == Employee.DepartmentId).FirstOrDefault();
