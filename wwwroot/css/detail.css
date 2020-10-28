@@ -1,0 +1,14 @@
+div p {
+font-size: small;
+}
+
+div a p{
+  color:#008784;
+}
+.b{
+    font-weight: bold;
+}
+.alert-secondary{
+background-color: white;
+
+}

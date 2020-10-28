@@ -1,0 +1,170 @@
+﻿@model List<oddo.ViewModel.IndexViewModel>
+@{
+    var Department = (List<Department >)ViewBag.Department;
+ }
+
+
+<div id="layoutSidenav" >
+    <div id="layoutSidenav_nav" style="background-color:white;max-width:200px">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu " style="background-color:white;">
+                <div class="nav">
+                    <a class="nav-link m-0" style="padding: 2px; padding-left: 12px">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        Department
+                    </a>
+                    <a class="nav-link m-0"  style="padding: 2px; padding-left: 12px" asp-action="index" asp-route-id="0">
+                        All
+                    </a>
+                    @foreach (var item in @Department)
+                    {
+                        if (item.parentcount > 0 && item.RouteLength < 2 && item.Id != 77)
+                        {
+
+                            <a class="nav-link collapsed m-0 wa" style="color:black;font-size:12px;padding:2px;padding-left:12px;" asp-action="index" asp-route-id="@item.Id" data-toggle="collapse" data-target="#collapse_@item.Id">
+                                @item.Name
+
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapse_@item.Id" aria-labelledby="headingOne">
+                                <nav class="sb-sidenav-menu-nested nav">
+
+                                    @foreach (var child in @Department)
+                                    {
+                                        if (child.ParentId == item.Id)
+                                        {
+                                            if (child.RouteLength < 3)
+                                            {
+                                                <a style="color:black;font-size:12px;padding:2px;padding-left:12px;" class="nav-link m-0 wa" asp-action="index" asp-route-id="@child.Id">@child.Name</a>
+                                            }
+                                        }
+                                    }
+
+                                </nav>
+                            </div>
+                        }
+                        if (item.Id == 77)
+                        {
+                            <a style="color:black;font-size:12px;padding:2px;padding-left:12px;" class="nav-link collapsed" asp-action="index" asp-route-id="@item.Id" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    @item.Name
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo">
+                                @foreach (var child in Department)
+                                {
+                                    if (item.Id == child.ParentId && child.parentcount == 0)
+                                    {
+                                        <a style="color:black;font-size:12px;padding:2px;padding-left:12px;" style="color:black;font-size:12px;padding:2px;padding-left:12px;" class="nav-link m-0 wa" asp-action="index" asp-route-id="@child.Id">
+                                            @child.Name
+                                        </a>
+                                    }
+                                    if (item.Id == child.ParentId && child.parentcount != 0)
+                                    {
+
+                                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                            <a style="color:black;font-size:12px;padding:2px;padding-left:12px;" class="nav-link collapsed" asp-action="index" asp-route-id="@child.Id" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                                @child.Name
+                                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                            </a>
+                                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne">
+                                                <nav class="sb-sidenav-menu-nested nav">
+                                                    @foreach (var childofChild in Department)
+                                                    {
+                                                        if (child.Id == childofChild.ParentId)
+                                                        {
+                                                            <a style="color:black;font-size:12px;padding:2px;padding-left:12px;" class="nav-link collapsed" asp-action="index" asp-route-id="@childofChild.Id" data-toggle="collapse" data-target="#pagesCollapseError1">
+                                                                @childofChild.Name
+                                                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                                            </a>
+                                                            <div class="collapse" id="pagesCollapseError1">
+                                                                <nav class="sb-sidenav-menu-nested nav">
+                                                                    @foreach (var childofChild2 in Department)
+                                                                    {
+                                                                        if (childofChild.Id == childofChild2.ParentId)
+                                                                        {
+                                                                            <a style="color:black;font-size:12px;padding:2px;padding-left:12px;" class="nav-link" asp-action="index" asp-route-id="@childofChild2.Id">@childofChild2.Name</a>
+                                                                        }
+
+                                                                    }
+                                                                    {
+
+                                                                    }
+                                                                </nav>
+                                                            </div>
+
+                                                        }
+                                                    }
+                                                </nav>
+                                            </div>
+                                           
+                                        </nav>
+                                    }
+
+
+                                }
+
+
+
+                            </div>
+
+
+                        }
+                        if (item.ParentId is null & item.parentcount == 0)
+                        {
+                            <a style="color:black;font-size:12px;padding:2px;padding-left:12px;" class="nav-link m-0 wa" asp-action="index" asp-route-id="@item.Id">
+                                @item.Name
+                            </a>
+                        }
+                    }
+
+
+
+                </div>
+
+            </div>
+
+        </nav>
+    </div>
+    <div id="layoutSidenav_content">
+        <div class="container-fluid p-0">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div style="min-width:325px; max-height: 131px" class="col-md-2 card m-1 ml-0 mr-0 p-0" >
+                        <div class=" mb-1 mt-1" style="max-width: 540px;">
+                            <a style="color:black;text-decoration:none" asp-action="details" asp-route-id="@item.employee.Id">
+                                <div class="row no-gutters">
+                                    <div class="col-md-4" style="background-image:url('/images/s.png');width:92px;height:123px; background-repeat: no-repeat; background-size:cover">
+
+                                    </div>
+                                    <div class="col-md-8 m-0 ">
+                                        <div class="card-body p-0 ml-2">
+                                            <span class="dot mt-1 mr-1"></span>
+                                            <p style="font-weight:bold;font-size:12px" class="card-title m-0  ">@item.employee.Name</p>
+                                            <p style="font-size:12px;margin-top:0.5px" class="p-0 m-0 ">@item.employee.JobTitle </p>
+                                            <div class="m-0">
+                                                @foreach (var tag in item.tags)
+                                                {
+                                                    <span class="dotgreen "></span>
+                                                    <p style="font-size:11px;" class="p-0 m-0 mt=0 ">@tag.Name</p>
+                                                    break;
+
+                                                }
+                                            </div>
+                                            <p style="font-size:11px;margin-top:0.5px" class="p-0 m-0 ">@item.employee.WorkEmail</p>
+                                            <p style="font-size:11px ;margin-top:0.5px" class="p-0 m-0 ">@item.employee.WorkPhone</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
