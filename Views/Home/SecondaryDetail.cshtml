@@ -1,0 +1,55 @@
+﻿@model oddo.ViewModel.SecondaryDetailViewModel;
+
+<div class="container-fluid" style=" margin-top: 80px;
+        background: #fff;
+        padding-top: 8px;
+        padding-bottom: 8px;
+">
+    <nav aria-label="breadcrumb" class="">
+        <ol class="breadcrumb bg-white">
+            <li class="breadcrumb-item"><a href="/home/index">Employee</a></li>
+            @foreach (var item in Model.BreadCrumbsEmployees)
+            {
+                @if (item != null)
+                {
+                    <li class="breadcrumb-item"><a href="/home/details?id=@(item.Id)">@item.Name</a></li>
+                }
+
+            }
+            <li class="breadcrumb-item">@Model.User.Name</li>
+        </ol>
+    </nav>
+</div>
+
+
+
+    <div class="row cen justify-content-center" >
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">@Model.User.Name</h3>
+                    <h4>@Model.User.Email</h4>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2 b">
+                            <p class="card-text">Phone </p>
+                        </div>
+                        <div class="col-lg-3">
+                            <p class="card-text">@Model.User.Phone</p>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 b">
+                            <p class="card-text">Mobile </p>
+                        </div>
+                        <div class="col-lg-3">
+                            <p class="card-text">@Model.User.Mobile</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

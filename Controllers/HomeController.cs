@@ -100,10 +100,20 @@ namespace oddo.Controllers
                  return View(employeeViewModel2);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult SecondaryDetail(int id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            List<Employee> EmployeeBreadCrumbs = new List<Employee>();
+          var   crumbsid = HttpContext.Session.GetString("Employee");
+            if (crumbsid.Split("-").Length > 1)
+            {
+                foreach (var item in crumbsid.Split("-"))
+                {
+                    EmployeeBreadCrumbs.Add(_hRContext.Employee.Where(x => x.Id.ToString() == item).FirstOrDefault());
+                }
+            }
+            var Partner = _hRContext.ResPartner.FirstOrDefault(x=>x.Id==id)??new ResPartner();
+            var Data = new SecondaryDetailViewModel { User = Partner, BreadCrumbsEmployees = EmployeeBreadCrumbs };
+            return View(Data);
         }
     }
 }
