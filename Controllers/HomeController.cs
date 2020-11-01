@@ -104,7 +104,7 @@ namespace oddo.Controllers
         {
             List<Employee> EmployeeBreadCrumbs = new List<Employee>();
           var   crumbsid = HttpContext.Session.GetString("Employee");
-            if (crumbsid.Split("-").Length > 1)
+            if (crumbsid !=null)
             {
                 foreach (var item in crumbsid.Split("-"))
                 {
