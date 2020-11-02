@@ -25,6 +25,7 @@ namespace oddo.Models
           public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<State> State { get; set; }
+        public virtual DbSet<Dependent> Dependent { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -78,6 +79,36 @@ namespace oddo.Models
                     .HasMaxLength(255);
 
                 entity.Property(e => e.ParentId).HasColumnName("parent_id");
+
+                entity.Property(e => e.WriteDate)
+                    .HasColumnName("write_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.WriteUid).HasColumnName("write_uid");
+            });
+            modelBuilder.Entity<Dependent>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("dependent");
+
+                entity.Property(e => e.Bdate)
+                    .HasColumnName("bdate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnName("create_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.CreateUid).HasColumnName("create_uid");
+
+                entity.Property(e => e.EmployeeDependantId).HasColumnName("employee_dependant_id");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.WriteDate)
                     .HasColumnName("write_date")

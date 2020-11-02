@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using oddo.Models;
 using oddo.ViewModel;
 using Microsoft.AspNetCore.Http;
+using Microsoft.VisualBasic;
 
 namespace oddo.Controllers
 {
@@ -86,6 +87,24 @@ namespace oddo.Controllers
             var RelatedUser = _hRContext.ResPartner.FirstOrDefault(m => m.Id.ToString() == EmployeepartnerRelatedId.PartnerId) ?? new ResPartner();
             var Country = _hRContext.Country.FirstOrDefault(m => m.Id == Employee.CountryId);
             var employeeLoop = _hRContext.Employee.FirstOrDefault(s => s.Id == id);
+            var dependant = _hRContext.Dependent.Where(x => x.EmployeeDependantId == id).ToList<Dependent>();
+            foreach (var item in dependant)
+            {
+                var birthday = item.Bdate;
+                var daycount = ((DateAndTime.Now - birthday.Value).TotalDays);
+                if (daycount < 730)
+                {
+                    item.Type = "Baby";
+                }
+                else if(daycount >= 730 && daycount < 4380)
+                {
+                    item.Type = "Child";
+                }
+                else {
+                    item.Type = "Adult";
+                }
+            }
+
             while (employeeLoop.ParentId != null)
             {
                 var parentid = employeeLoop.ParentId;
@@ -96,8 +115,8 @@ namespace oddo.Controllers
             employeesTree.Reverse();
             employeesTree.Add(Employee);
           
-            EmployeeViewModel employeeViewModel2 = new EmployeeViewModel { Employee = Employee, Tags = TagVAlues, Department = department, Maneger = EmployeeManeger, Coach = EmployeeCoach, TimeOff = timeoff,RelatedUser=RelatedUser,CountryName=Country.Name,EmployeeTree=employeesTree,BreadCrumbsEmployees= EmployeeBreadCrumbs };
-                 return View(employeeViewModel2);
+            EmployeeViewModel employeeViewModel = new EmployeeViewModel { Employee = Employee, Tags = TagVAlues, Department = department, Maneger = EmployeeManeger, Coach = EmployeeCoach, TimeOff = timeoff,RelatedUser=RelatedUser,CountryName=Country.Name,EmployeeTree=employeesTree,BreadCrumbsEmployees= EmployeeBreadCrumbs,EmployeeDependents=dependant };
+                 return View(employeeViewModel);
         }
 
         public IActionResult SecondaryDetail(int id)
@@ -111,6 +130,7 @@ namespace oddo.Controllers
                     EmployeeBreadCrumbs.Add(_hRContext.Employee.Where(x => x.Id.ToString() == item).FirstOrDefault());
                 }
             }
+           
             var Partner = _hRContext.ResPartner.FirstOrDefault(x=>x.Id==id)??new ResPartner();
             var Data = new SecondaryDetailViewModel { User = Partner, BreadCrumbsEmployees = EmployeeBreadCrumbs };
             return View(Data);

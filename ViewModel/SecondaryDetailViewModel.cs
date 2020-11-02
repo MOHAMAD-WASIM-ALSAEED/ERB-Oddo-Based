@@ -10,6 +10,8 @@ namespace oddo.ViewModel
     {
         public ResPartner User { get; set; }
         public List<Employee> BreadCrumbsEmployees { get; set; }
+      
+
 
     }
 }

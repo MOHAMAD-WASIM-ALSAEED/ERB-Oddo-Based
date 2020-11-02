@@ -19,6 +19,7 @@ namespace oddo.ViewModel
         public string CountryName { get; set; }
         public List<Employee> EmployeeTree { get; set; }
         public List<Employee> BreadCrumbsEmployees { get; set; }
+        public List<Dependent> EmployeeDependents { get; set; }
 
 
 

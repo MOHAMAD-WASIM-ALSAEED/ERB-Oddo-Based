@@ -68,82 +68,82 @@
                         i++;
                     }
 
-                <div class="container m-0 p-0 mt-4" style="margin-top:19px">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col-lg-4 b">
-                                    <p class="card-text">Work Phone </p>
+                    <div class="container m-0 p-0 mt-4" style="margin-top:19px">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-lg-4 b">
+                                        <p class="card-text">Work Phone </p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <p class="card-text">@(Model.Employee.WorkPhone ?? "Not available")</p>
+                                    </div>
                                 </div>
-                                <div class="col-lg-8">
-                                    <p class="card-text">@(Model.Employee.WorkPhone ?? "Not available")</p>
+
+                                <div class="row">
+                                    <div class="col-lg-4 b">
+                                        <p class="card-text">Mobile Phone </p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <p class="card-text">@Model.Employee.MobilePhone</p>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-lg-4 b">
+                                        <p class="card-text">Work Email </p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <p class="card-text">@Model.Employee.WorkEmail</p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-4 b">
+                                        <p class="card-text">Work Location </p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <p class="card-text">@Model.Employee.WorkLocation</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-lg-4 b">
+                                        <p class="card-text">Department </p>
+                                    </div>
+                                    <div class="col-lg-8 ">
+                                        <p class="card-text">@Model.Department.CompleteName</p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-4 b">
+                                        <p class="card-text">Job Position </p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <p class="card-text">@Model.Employee.JobTitle</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 b">
+                                        <p class="card-text">Maneger</p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <a asp-action="details" asp-route-id="@Model.Maneger.Id">
+                                            <p class="card-text">@Model.Maneger.Name </p>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-lg-4 b">
-                                    <p class="card-text">Mobile Phone </p>
-                                </div>
-                                <div class="col-lg-8">
-                                    <p class="card-text">@Model.Employee.MobilePhone</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-lg-4 b">
-                                    <p class="card-text">Work Email </p>
-                                </div>
-                                <div class="col-lg-8">
-                                    <p class="card-text">@Model.Employee.WorkEmail</p>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-4 b">
-                                    <p class="card-text">Work Location </p>
-                                </div>
-                                <div class="col-lg-8">
-                                    <p class="card-text">@Model.Employee.WorkLocation</p>
-                                </div>
-                            </div>
-
                         </div>
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col-lg-4 b">
-                                    <p class="card-text">Department </p>
-                                </div>
-                                <div class="col-lg-8 ">
-                                    <p class="card-text">@Model.Department.CompleteName</p>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-lg-4 b">
-                                    <p class="card-text">Job Position </p>
-                                </div>
-                                <div class="col-lg-8">
-                                    <p class="card-text">@Model.Employee.JobTitle</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 b">
-                                    <p class="card-text">Maneger</p>
-                                </div>
-                                <div class="col-lg-8">
-                                    <a asp-action="details" asp-route-id="@Model.Maneger.Id">
-                                        <p class="card-text">@Model.Maneger.Name </p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+
+
+
                     </div>
-
-
-
-
-                </div>
 
                     <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
                         <li class="nav-item">
@@ -227,7 +227,13 @@
                                         <p class="card-text" style="display: inline;margin-left: 80px;">@(Model.Employee.KmHomeWork??0)</p>
                                         <h5 class="mt-5">Marial Status</h5>
                                         <p class="card-text" style="display: inline;font-weight: bold;">Marial Status</p>
-                                        <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Employee.Marital</p>
+                                        <p class="card-text" style="display: inline;margin-left: 35px;">@Model.Employee.Marital</p>
+                                        <br />
+                                        <p class="card-text " style="font-weight: bold;display: inline;">Spouse Complete Name</p>
+                                        <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Employee.SpouseCompleteName</p>
+                                        <br />
+                                        <p class="card-text " style="font-weight: bold;display: inline;">Spouse Birthdate</p>
+                                        <p class="card-text" style="display: inline;margin-left: 80px;">@(Model.Employee.SpouseBirthdate == null? "--" : Model.Employee.Birthday.Value.ToString("MM/dd/yyyy"))</p>
                                         <h5 class="mt-5">Emergency </h5>
                                         <p class="card-text " style="font-weight: bold;color: gray;"> Emergency Contact</p>
                                         <p class="card-text " style="font-weight: bold;color: gray;">Emergency Phone</p>
@@ -257,7 +263,29 @@
                                         <p class="card-text m-0" style="font-weight: bold;color: gray;">Place Of Birth</p>
                                         <p class="card-text" style="font-weight: bold;color: gray;">Country Of Birth</p>
                                         <h5 class="mt-5">Dependant</h5>
-                                        <p class="card-text" style="font-weight: bold;color: gray;">Number of Children</p>
+                                        <p class="card-text" style="font-weight: bold; display:inline;">Number of Children</p>
+                                        <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Employee.Children</p>
+                                        <table id="example" class="display  table-sm table-hover table-striped" style="width:100%;margin-top:18px!important">
+                                            <thead>
+                                                <tr>
+                                                    <th>Dependant Name</th>
+                                                    <th>Birth Date</th>
+                                                    <th>Dependant Type </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @foreach (var item in Model.EmployeeDependents)
+                                                {
+                                                    <tr>
+                                                        <td>@item.Name</td>
+                                                        <td>@(item.Bdate == null? "--" : Model.Employee.Birthday.Value.ToString("MM/dd/yyyy"))</td>
+                                                        <td>@item.Type</td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
                                         <h5 class="mt-5">Work Permit</h5>
                                         <p class="card-text m-0" style="font-weight: bold;color: gray;"> Visa No</p>
                                         <p class="card-text m-0 " style="font-weight: bold;color: gray;">Work Permit No</p>
@@ -284,7 +312,7 @@
                                             </a>
                                         </p>
 
-                                        <p class="card-text m-0 " style="font-weight: bold;color: gray;"> Registration Number of the Employee</p>
+                                        <p class="card-text m-0 " style="font-weight: bold;color: gray;"> Registration Number <br />of the Employee</p>
 
 
 
@@ -330,6 +358,23 @@
 
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                paging: false,
+                "lengthChange": false,
+                searching: false, info: false
+            }
+            );
+
+           
+        });
+    </script>
+ }
+
+
 
 
 

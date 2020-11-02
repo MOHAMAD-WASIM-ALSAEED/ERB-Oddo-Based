@@ -20,7 +20,7 @@ namespace oddo.Models
         public DateTime? CreateDate { get; set; }
         public double? WriteUid { get; set; }
         public DateTime? WriteDate { get; set; }
-         [NotMapped]
+        [NotMapped]
         public int parentcount { get; set; }
         [NotMapped]
         public int RouteLength { get; set; }
