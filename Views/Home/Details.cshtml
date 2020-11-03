@@ -12,13 +12,17 @@
             <li class="breadcrumb-item"><a href="/home/index">Employee</a></li>
             @foreach (var item in Model.BreadCrumbsEmployees)
             {
-                @if (item != null)
+                @if (item != null && item.Id != Model.Employee.Id)
                 {
                     <li class="breadcrumb-item"><a href="/home/details?id=@(item.Id)">@item.Name</a></li>
 
                 }
-
+                if (item != null&&item.Id == Model.Employee.Id)
+                {
+                    <li class="breadcrumb-item"><a>@Model.Employee.Name</a></li>
+                }
             }
+
         </ol>
     </nav>
 </div>
@@ -165,14 +169,14 @@
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" style=margin-left: 460px;">
-                            <h5>Skills</h5>
+                            <h5 style="margin-left: 450px;">Skills</h5>
 
 
                         </div>
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-9 border-right ">
+                                    <div class="col-8 border-right ">
                                         <h5 class="mt-5">Location</h5>
                                         <p class="card-text" style="display: inline;font-weight: bold;">Work Address</p>
 
@@ -195,19 +199,59 @@
 
                                         <br />
                                         <p class="card-text disabled" style="display: inline;font-weight: bold; color: gray;">Expense</p>
+                                        <p class="card-text disabled" style="font-weight: bold; color: gray;">TimeSheet</p>
+                                        <h5 class="mt-5">Schedule</h5>
+                                        <p class="card-text" style="display: inline;font-weight: bold;">Working Hours</p>
 
+                                        <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Employee.WorkLocation</p>
+                                        <br />
+                                        <p class="card-text" style="display: inline;font-weight: bold;">Timezone</p>
+
+                                        <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Employee.WorkLocation</p>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-4">
                                         <h5 class="m-4">Organization Chart</h5>
                                         <ol class="timeline">
                                             @foreach (var item in Model.EmployeeTree)
                                             {
 
-                                                <li>
-                                                    <a href="/home/details?id=@(item.Id)">
+                                                if (item.Id == Model.Employee.Id) { 
+                                            <li>
+                                                <div>
+                                                    <a style="font-size:smaller;font-weight:bold;" href="/home/details?id=@(item.Id)">
                                                         @item.Name
                                                     </a>
-                                                </li>
+                                                    <p>@item.JobTitle</p>
+                                                </div>
+                                            </li>
+                                                    foreach (var employee in Model.EmployeeWithSameManeger)
+                                                    {
+                                        <li>
+                                            <div>
+                                                <a style="font-size:smaller;font-weight:bold" href="/home/details?id=@(employee.Id)">
+                                                    @employee.Name
+                                                </a>
+                                                <p>@employee.JobTitle</p>
+                                            </div>
+                                        </li>
+                                                    }
+
+
+                                                }
+                                                else {
+
+                                            <li>
+                                                <div>
+                                                    <a style="font-size:smaller;font-weight:bold" href="/home/details?id=@(item.Id)">
+                                                        @item.Name
+                                                    </a>
+                                                    <p>@item.JobTitle</p>
+                                                </div>
+                                            </li>
+                                                
+                                                
+                                                }
+                                                
                                             }
                                         </ol>
                                     </div>

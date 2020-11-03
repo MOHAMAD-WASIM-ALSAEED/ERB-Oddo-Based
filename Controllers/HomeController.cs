@@ -31,7 +31,7 @@ namespace oddo.Controllers
             }
             _logger = logger;
         }
-
+        [ResponseCache(NoStore =true)]
         public IActionResult Index(int id)
         {
             HttpContext.Session.SetString("Employee", "");
@@ -65,6 +65,7 @@ namespace oddo.Controllers
         {
             List<Employee> employeesTree = new List<Employee>();
             List<Employee> EmployeeBreadCrumbs = new List<Employee>();
+            List<Employee> EmployeeWithSameManeger = new List<Employee>();
             string BreadCrumbsIds = "";
             var Employee = _hRContext.Employee.FirstOrDefault(s => s.Id == id) ?? new Employee();
             BreadCrumbsIds = HttpContext.Session.GetString("Employee");
@@ -73,8 +74,11 @@ namespace oddo.Controllers
             if (BreadCrumbsIds.Split("-").Length > 1) { 
             foreach (var item in BreadCrumbsIds.Split("-"))
             {
+                    if (EmployeeBreadCrumbs.Where(x=>x.Id==Convert.ToDouble(item)).Count()>0) { continue; }
+                    if(!(item is null)&&item!="") {
                 EmployeeBreadCrumbs.Add(_hRContext.Employee.Where(x => x.Id.ToString() == item).FirstOrDefault());
-            }
+                    }
+                }
             }
             var Tags = _hRContext.Tags.Where(x => x.EmpId == Employee.Id).Select(x => x.CategoryId).ToList<double?>();
             var TagVAlues = _hRContext.TagValue.Where(x => Tags.Contains(x.Id)).ToList<TagValue>();
@@ -110,12 +114,15 @@ namespace oddo.Controllers
                 var parentid = employeeLoop.ParentId;
                 employeeLoop = _hRContext.Employee.FirstOrDefault(s => s.Id == parentid);
                 employeesTree.Add(employeeLoop);
-
             }
+            foreach (var item in _hRContext.Employee.ToList<Employee>())
+            {
+                if (item.ParentId == id) EmployeeWithSameManeger.Add(item);
+            } 
             employeesTree.Reverse();
             employeesTree.Add(Employee);
           
-            EmployeeViewModel employeeViewModel = new EmployeeViewModel { Employee = Employee, Tags = TagVAlues, Department = department, Maneger = EmployeeManeger, Coach = EmployeeCoach, TimeOff = timeoff,RelatedUser=RelatedUser,CountryName=Country.Name,EmployeeTree=employeesTree,BreadCrumbsEmployees= EmployeeBreadCrumbs,EmployeeDependents=dependant };
+            EmployeeViewModel employeeViewModel = new EmployeeViewModel { Employee = Employee, Tags = TagVAlues, Department = department, Maneger = EmployeeManeger, Coach = EmployeeCoach, TimeOff = timeoff,RelatedUser=RelatedUser,CountryName=Country.Name,EmployeeTree=employeesTree,BreadCrumbsEmployees= EmployeeBreadCrumbs,EmployeeDependents=dependant,EmployeeWithSameManeger=EmployeeWithSameManeger };
                  return View(employeeViewModel);
         }
 
