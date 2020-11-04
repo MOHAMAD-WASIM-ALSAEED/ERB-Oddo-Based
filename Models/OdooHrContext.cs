@@ -26,6 +26,7 @@ namespace oddo.Models
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<State> State { get; set; }
         public virtual DbSet<Dependent> Dependent { get; set; }
+        public virtual DbSet<Resources> Resources { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -129,7 +130,9 @@ namespace oddo.Models
                     .HasColumnName("additional_note")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.AddressHomeId).HasColumnName("address_home_id");
+                entity.Property(e => e.AddressHomeId)
+                    .HasColumnName("address_home_id")
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.AddressId).HasColumnName("address_id");
 
@@ -163,9 +166,7 @@ namespace oddo.Models
 
                 entity.Property(e => e.CountryId).HasColumnName("country_id");
 
-                entity.Property(e => e.CountryOfBirth)
-                    .HasColumnName("country_of_birth")
-                    .HasMaxLength(255);
+                entity.Property(e => e.CountryOfBirth).HasColumnName("country_of_birth");
 
                 entity.Property(e => e.CreateDate)
                     .HasColumnName("create_date")
@@ -195,9 +196,7 @@ namespace oddo.Models
                     .HasColumnName("emergency_phone")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.ExpenseManagerId)
-                    .HasColumnName("expense_manager_id")
-                    .HasMaxLength(255);
+                entity.Property(e => e.ExpenseManagerId).HasColumnName("expense_manager_id");
 
                 entity.Property(e => e.Gender)
                     .HasColumnName("gender")
@@ -309,6 +308,16 @@ namespace oddo.Models
                     .HasColumnName("study_school")
                     .HasMaxLength(255);
 
+                entity.Property(e => e.TimesheetCost).HasColumnName("timesheet_cost");
+
+                entity.Property(e => e.TimesheetManagerId)
+                    .HasColumnName("timesheet_manager_id")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.TimesheetValidated)
+                    .HasColumnName("timesheet_validated")
+                    .HasMaxLength(255);
+
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.Property(e => e.Vehicle)
@@ -341,6 +350,14 @@ namespace oddo.Models
 
                 entity.Property(e => e.WriteUid).HasColumnName("write_uid");
 
+                entity.Property(e => e.XSpouseBirthdate)
+                    .HasColumnName("x_spouse_birthdate")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.XSpouseCompleteName)
+                    .HasColumnName("x_spouse_complete_name")
+                    .HasMaxLength(255);
+
                 entity.Property(e => e.XStudioFieldXeed7Filename)
                     .HasColumnName("x_studio_field_XEED7_filename")
                     .HasMaxLength(255);
@@ -360,6 +377,48 @@ namespace oddo.Models
                 entity.Property(e => e.XStudioUploadFileFilename)
                     .HasColumnName("x_studio_upload_file_filename")
                     .HasMaxLength(255);
+            });
+            modelBuilder.Entity<Resources>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.Active)
+                    .HasColumnName("active")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.CalendarId).HasColumnName("calendar_id");
+
+                entity.Property(e => e.CompanyId).HasColumnName("company_id");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnName("create_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.CreateUid).HasColumnName("create_uid");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.ResourceType)
+                    .HasColumnName("resource_type")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.TimeEfficiency).HasColumnName("time_efficiency");
+
+                entity.Property(e => e.Tz)
+                    .HasColumnName("tz")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.Property(e => e.WriteDate)
+                    .HasColumnName("write_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.WriteUid).HasColumnName("write_uid");
             });
 
             modelBuilder.Entity<Jobs>(entity =>

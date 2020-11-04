@@ -27,7 +27,8 @@ namespace oddo.Controllers
             {
                 var Tags = _hRContext.Tags.Where(x => x.EmpId == item.Id).Select(x => x.CategoryId).ToList<double?>();
                 var TagVAlues = _hRContext.TagValue.Where(x => Tags.Contains(x.Id)).ToList<TagValue>();
-                _employees.Add(new IndexViewModel { employee = item, tags = TagVAlues });
+                var Jobs = _hRContext.Jobs.FirstOrDefault(x => x.Id == item.JobId)??new Jobs();
+                _employees.Add(new IndexViewModel { employee = item, tags = TagVAlues,Job=Jobs});
             }
             _logger = logger;
         }
@@ -92,6 +93,10 @@ namespace oddo.Controllers
             var Country = _hRContext.Country.FirstOrDefault(m => m.Id == Employee.CountryId);
             var employeeLoop = _hRContext.Employee.FirstOrDefault(s => s.Id == id);
             var dependant = _hRContext.Dependent.Where(x => x.EmployeeDependantId == id).ToList<Dependent>();
+            var Jobs = _hRContext.Jobs.FirstOrDefault(x => x.Id == Employee.JobId) ?? new Jobs();
+            var resourcesCalender = _hRContext.ResourceCalendar.FirstOrDefault(x => x.Id == Employee.ResourceCalendarId) ?? new ResourceCalendar();
+            var resources= _hRContext.Resources.FirstOrDefault(x => x.Id == Employee.ResourceId) ?? new Resources();
+
             foreach (var item in dependant)
             {
                 var birthday = item.Bdate;
@@ -122,7 +127,8 @@ namespace oddo.Controllers
             employeesTree.Reverse();
             employeesTree.Add(Employee);
           
-            EmployeeViewModel employeeViewModel = new EmployeeViewModel { Employee = Employee, Tags = TagVAlues, Department = department, Maneger = EmployeeManeger, Coach = EmployeeCoach, TimeOff = timeoff,RelatedUser=RelatedUser,CountryName=Country.Name,EmployeeTree=employeesTree,BreadCrumbsEmployees= EmployeeBreadCrumbs,EmployeeDependents=dependant,EmployeeWithSameManeger=EmployeeWithSameManeger };
+            EmployeeViewModel employeeViewModel = new EmployeeViewModel { Employee = Employee, Tags = TagVAlues, Department = department, Maneger = EmployeeManeger, Coach = EmployeeCoach, TimeOff = timeoff,RelatedUser=RelatedUser,CountryName=Country.Name,EmployeeTree=employeesTree,BreadCrumbsEmployees= EmployeeBreadCrumbs,EmployeeDependents=dependant,EmployeeWithSameManeger=EmployeeWithSameManeger,Job=Jobs,Timezone=resources,ResourceCalendar
+            =resourcesCalender};
                  return View(employeeViewModel);
         }
 

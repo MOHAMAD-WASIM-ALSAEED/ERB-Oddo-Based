@@ -10,5 +10,6 @@ namespace oddo.ViewModel
     {
         public Employee employee { get; set; }
         public List<TagValue> tags { get; set; }
+        public Jobs Job { get; set; }
     }
 }

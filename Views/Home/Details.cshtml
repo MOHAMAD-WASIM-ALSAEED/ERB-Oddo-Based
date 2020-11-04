@@ -75,14 +75,6 @@
                     <div class="container m-0 p-0 mt-4" style="margin-top:19px">
                         <div class="row">
                             <div class="col-6">
-                                <div class="row">
-                                    <div class="col-lg-4 b">
-                                        <p class="card-text">Work Phone </p>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <p class="card-text">@(Model.Employee.WorkPhone ?? "Not available")</p>
-                                    </div>
-                                </div>
 
                                 <div class="row">
                                     <div class="col-lg-4 b">
@@ -92,6 +84,17 @@
                                         <p class="card-text">@Model.Employee.MobilePhone</p>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-lg-4 b">
+                                        <p class="card-text">Work Phone </p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <p class="card-text">@(Model.Employee.WorkPhone ?? "Not available")</p>
+                                    </div>
+                                </div>
+
+
 
 
                                 <div class="row">
@@ -128,7 +131,7 @@
                                         <p class="card-text">Job Position </p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <p class="card-text">@Model.Employee.JobTitle</p>
+                                        <p class="card-text">@Model.Job.Name</p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -203,11 +206,11 @@
                                         <h5 class="mt-5">Schedule</h5>
                                         <p class="card-text" style="display: inline;font-weight: bold;">Working Hours</p>
 
-                                        <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Employee.WorkLocation</p>
+                                        <p class="card-text" style="display: inline;margin-left: 47px;">@Model.ResourceCalendar.Name</p>
                                         <br />
                                         <p class="card-text" style="display: inline;font-weight: bold;">Timezone</p>
 
-                                        <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Employee.WorkLocation</p>
+                                        <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Timezone.Tz</p>
                                     </div>
                                     <div class="col-4">
                                         <h5 class="m-4">Organization Chart</h5>
