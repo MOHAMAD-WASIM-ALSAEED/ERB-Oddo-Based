@@ -32,6 +32,20 @@ for details on configuring this project to bundle and minify static web assets. 
         left: -43px;
     }
 
+    timeline > li#w::after {
+    text-align: center;
+    padding-top: 10px;
+    z-index: 10;
+    content: counter(item);
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 3px solid white;
+    background-color: #dc3545;
+    border-radius: 50%;
+    top: 0;
+    left: -43px;
+}
 
     /*Content*/
     .timeline > li {

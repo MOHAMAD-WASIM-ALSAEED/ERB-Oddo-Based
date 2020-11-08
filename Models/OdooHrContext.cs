@@ -27,6 +27,7 @@ namespace oddo.Models
         public virtual DbSet<State> State { get; set; }
         public virtual DbSet<Dependent> Dependent { get; set; }
         public virtual DbSet<Resources> Resources { get; set; }
+        public virtual DbSet<image> Image { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -935,7 +936,19 @@ namespace oddo.Models
 
                 entity.Property(e => e.WriteUid).HasColumnName("write_uid");
             });
+            modelBuilder.Entity<image>(entity =>
+            {
+                entity.HasIndex(e => e.Id)
+                    .HasName("IX_Image");
 
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.EmployeeId).HasColumnName("Employee_id");
+
+                entity.Property(e => e.ImageCode)
+                    .HasColumnName("image_code")
+                    .IsUnicode(false);
+            });
             modelBuilder.Entity<State>(entity =>
             {
                 entity.HasNoKey();

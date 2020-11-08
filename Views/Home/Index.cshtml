@@ -134,9 +134,18 @@
                         <div class=" mb-1 mt-1" style="max-width: 540px;">
                             <a style="color:black;text-decoration:none" asp-action="details" asp-route-id="@item.employee.Id">
                                 <div class="row no-gutters">
-                                    <div class="col-md-4" style="background-image:url('/images/s.png');width:92px;height:123px; background-repeat: no-repeat; background-size:cover">
+                                    @if (item.employeeImage != "data:image/png;base64,")
+                                    {
+                                        <div class="col-md-4" style="background-image:url(@item.employeeImage);width:92px;height:123px; background-repeat: no-repeat; background-size:cover">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-4" style="background-image:url('/images/s.png');width:92px;height:123px; background-repeat: no-repeat; background-size:cover">
+                                        </div>
 
-                                    </div>
+                                    }
+
                                     <div class="col-md-8 m-0 ">
                                         <div class="card-body p-0 ml-2">
                                             <span class="dot mt-1 mr-1"></span>

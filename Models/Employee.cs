@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace oddo.Models
 {
@@ -82,5 +83,7 @@ namespace oddo.Models
         public string TimesheetManagerId { get; set; }
         public string XSpouseCompleteName { get; set; }
         public string XSpouseBirthdate { get; set; }
+        [NotMapped]
+        public Jobs Job { get; set; }
     }
 }

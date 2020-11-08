@@ -28,7 +28,8 @@ namespace oddo.Controllers
                 var Tags = _hRContext.Tags.Where(x => x.EmpId == item.Id).Select(x => x.CategoryId).ToList<double?>();
                 var TagVAlues = _hRContext.TagValue.Where(x => Tags.Contains(x.Id)).ToList<TagValue>();
                 var Jobs = _hRContext.Jobs.FirstOrDefault(x => x.Id == item.JobId)??new Jobs();
-                _employees.Add(new IndexViewModel { employee = item, tags = TagVAlues,Job=Jobs});
+                var image =_hRContext.Image.FirstOrDefault(x => x.EmployeeId == item.Id) ?? new image();
+                _employees.Add(new IndexViewModel { employee = item, tags = TagVAlues,Job=Jobs,employeeImage= "data:image/png;base64,"+image.ImageCode });
             }
             _logger = logger;
         }
@@ -75,7 +76,12 @@ namespace oddo.Controllers
             if (BreadCrumbsIds.Split("-").Length > 1) { 
             foreach (var item in BreadCrumbsIds.Split("-"))
             {
-                    if (EmployeeBreadCrumbs.Where(x=>x.Id==Convert.ToDouble(item)).Count()>0) { continue; }
+                    if (EmployeeBreadCrumbs.Where(x=>x.Id==Convert.ToDouble(item)).Count()>0) {
+                        var index = EmployeeBreadCrumbs.IndexOf(EmployeeBreadCrumbs.Where(x => x.Id == Convert.ToDouble(item)).FirstOrDefault());
+                        EmployeeBreadCrumbs.RemoveRange(index+1,EmployeeBreadCrumbs.Count-index-1);
+                        continue;
+
+                    }
                     if(!(item is null)&&item!="") {
                 EmployeeBreadCrumbs.Add(_hRContext.Employee.Where(x => x.Id.ToString() == item).FirstOrDefault());
                     }
@@ -96,6 +102,7 @@ namespace oddo.Controllers
             var Jobs = _hRContext.Jobs.FirstOrDefault(x => x.Id == Employee.JobId) ?? new Jobs();
             var resourcesCalender = _hRContext.ResourceCalendar.FirstOrDefault(x => x.Id == Employee.ResourceCalendarId) ?? new ResourceCalendar();
             var resources= _hRContext.Resources.FirstOrDefault(x => x.Id == Employee.ResourceId) ?? new Resources();
+            var image = _hRContext.Image.FirstOrDefault(x => x.EmployeeId == Employee.Id) ?? new image();
 
             foreach (var item in dependant)
             {
@@ -126,9 +133,12 @@ namespace oddo.Controllers
             } 
             employeesTree.Reverse();
             employeesTree.Add(Employee);
-          
+            foreach (var item in employeesTree)
+            {
+                item.Job = _hRContext.Jobs.FirstOrDefault(x => x.Id == item.JobId) ?? new Jobs();
+            }
             EmployeeViewModel employeeViewModel = new EmployeeViewModel { Employee = Employee, Tags = TagVAlues, Department = department, Maneger = EmployeeManeger, Coach = EmployeeCoach, TimeOff = timeoff,RelatedUser=RelatedUser,CountryName=Country.Name,EmployeeTree=employeesTree,BreadCrumbsEmployees= EmployeeBreadCrumbs,EmployeeDependents=dependant,EmployeeWithSameManeger=EmployeeWithSameManeger,Job=Jobs,Timezone=resources,ResourceCalendar
-            =resourcesCalender};
+            =resourcesCalender,employeeImage="data:image/png;base64,"+image.ImageCode};
                  return View(employeeViewModel);
         }
 
@@ -140,7 +150,11 @@ namespace oddo.Controllers
             {
                 foreach (var item in crumbsid.Split("-"))
                 {
-                    EmployeeBreadCrumbs.Add(_hRContext.Employee.Where(x => x.Id.ToString() == item).FirstOrDefault());
+                    if (EmployeeBreadCrumbs.Where(x => x.Id == Convert.ToDouble(item)).Count() > 0) { continue; }
+                    if (!(item is null) && item != "")
+                    {
+                        EmployeeBreadCrumbs.Add(_hRContext.Employee.Where(x => x.Id.ToString() == item).FirstOrDefault());
+                    }
                 }
             }
            

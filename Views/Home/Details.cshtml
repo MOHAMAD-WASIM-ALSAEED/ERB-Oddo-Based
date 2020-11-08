@@ -17,7 +17,7 @@
                     <li class="breadcrumb-item"><a href="/home/details?id=@(item.Id)">@item.Name</a></li>
 
                 }
-                if (item != null&&item.Id == Model.Employee.Id)
+                if (item != null && item.Id == Model.Employee.Id)
                 {
                     <li class="breadcrumb-item"><a>@Model.Employee.Name</a></li>
                 }
@@ -59,14 +59,13 @@
 
                 </table>
                 <div class="card-body mt-0 pt-0">
-
-                    <img style="float:right;height: 250px;" src="~/images/s.png" />
+                    <div style="background-image:url(@Model.employeeImage);width:92px;height:123px; background-repeat: no-repeat; background-size:cover;float:right"></div>
                     <h1 class="card-title">@Model.Employee.Name</h1>
-                    <p class="card-text">@Model.Employee.JobTitle</p>
+                    <p class="card-text">@Model.Job.Name</p>
                     @{var i = 0; }
                     @foreach (var item in Model.Tags)
                     {
-                        <div class="alert @(i==0?"alert-success":"alert-secondary") " style="padding:0.25px;display:inline;padding:3px;border-radius:25px;font-size:13px;font-weight:bold;">
+                        <div class="alert @(i == 0 ? "alert-success" : "alert-secondary") " style="padding:0.25px;display:inline;padding:3px;border-radius:25px;font-size:13px;font-weight:bold;">
                             @item.Name
                         </div>
                         i++;
@@ -218,43 +217,45 @@
                                             @foreach (var item in Model.EmployeeTree)
                                             {
 
-                                                if (item.Id == Model.Employee.Id) { 
-                                            <li>
-                                                <div>
-                                                    <a style="font-size:smaller;font-weight:bold;" href="/home/details?id=@(item.Id)">
-                                                        @item.Name
-                                                    </a>
-                                                    <p>@item.JobTitle</p>
-                                                </div>
-                                            </li>
+                                                if (item.Id == Model.Employee.Id)
+                                                {
+                                                    <li id="w" >
+                                                        <div>
+                                                            <a style="font-size:smaller;font-weight:bold;">
+                                                                @item.Name
+                                                            </a>
+                                                            <p>@item.Job.Name</p>
+                                                        </div>
+                                                    </li>
                                                     foreach (var employee in Model.EmployeeWithSameManeger)
                                                     {
-                                        <li>
-                                            <div>
-                                                <a style="font-size:smaller;font-weight:bold" href="/home/details?id=@(employee.Id)">
-                                                    @employee.Name
-                                                </a>
-                                                <p>@employee.JobTitle</p>
-                                            </div>
-                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <a style="font-size:smaller;font-weight:bold" href="/home/details?id=@(employee.Id)">
+                                                                    @employee.Name
+                                                                </a>
+                                                                <p>@employee.Job.Name</p>
+                                                            </div>
+                                                        </li>
                                                     }
 
 
                                                 }
-                                                else {
+                                                else
+                                                {
 
-                                            <li>
-                                                <div>
-                                                    <a style="font-size:smaller;font-weight:bold" href="/home/details?id=@(item.Id)">
-                                                        @item.Name
-                                                    </a>
-                                                    <p>@item.JobTitle</p>
-                                                </div>
-                                            </li>
-                                                
-                                                
+                                                    <li>
+                                                        <div>
+                                                            <a style="font-size:smaller;font-weight:bold" href="/home/details?id=@(item.Id)">
+                                                                @item.Name
+                                                            </a>
+                                                            <p>@item.Job.Name</p>
+                                                        </div>
+                                                    </li>
+
+
                                                 }
-                                                
+
                                             }
                                         </ol>
                                     </div>
@@ -271,7 +272,7 @@
                                         <p class="card-text " style="font-weight: bold;color: gray;">Email</p>
                                         <p class="card-text " style="font-weight: bold;color: gray;">Phone</p>
                                         <p class="card-text" style="display: inline;font-weight: bold;">KM Home-Work</p>
-                                        <p class="card-text" style="display: inline;margin-left: 80px;">@(Model.Employee.KmHomeWork??0)</p>
+                                        <p class="card-text" style="display: inline;margin-left: 80px;">@(Model.Employee.KmHomeWork ?? 0)</p>
                                         <h5 class="mt-5">Marial Status</h5>
                                         <p class="card-text" style="display: inline;font-weight: bold;">Marial Status</p>
                                         <p class="card-text" style="display: inline;margin-left: 35px;">@Model.Employee.Marital</p>
@@ -280,7 +281,30 @@
                                         <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Employee.SpouseCompleteName</p>
                                         <br />
                                         <p class="card-text " style="font-weight: bold;display: inline;">Spouse Birthdate</p>
-                                        <p class="card-text" style="display: inline;margin-left: 80px;">@(Model.Employee.SpouseBirthdate == null? "--" : Model.Employee.Birthday.Value.ToString("MM/dd/yyyy"))</p>
+                                        <p class="card-text" style="display: inline;margin-left: 80px;">@(Model.Employee.SpouseBirthdate == null ? "--" : Model.Employee.SpouseBirthdate.Value.ToString("MM/dd/yyyy"))</p>
+                                        <br />
+                                        <p class="card-text " style="font-weight: bold;display: inline;">Second Spouse Complete Name</p>
+                                        <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Employee.XSpouseCompleteName</p>
+                                        <br />
+                                        <p class="card-text " style="font-weight: bold;display: inline;">Second Spouse Birthdate</p>
+                                        @{
+                                            DateTime? myDate = null;
+                                            if (Model.Employee.XSpouseBirthdate != "")
+                                            {
+                                                myDate = DateTime.ParseExact(Model.Employee.XSpouseBirthdate, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+
+                                            }
+                                        }
+                                        @if (myDate != null)
+                                        {
+                                            <p class="card-text" style="display: inline;margin-left: 80px;">@myDate</p>
+
+                                        }
+                                        else
+                                        {
+                                            <p class="card-text" style="display: inline;margin-left: 80px;">--</p>
+
+                                        }
                                         <h5 class="mt-5">Emergency </h5>
                                         <p class="card-text " style="font-weight: bold;color: gray;"> Emergency Contact</p>
                                         <p class="card-text " style="font-weight: bold;color: gray;">Emergency Phone</p>
@@ -326,7 +350,7 @@
                                                 {
                                                     <tr>
                                                         <td>@item.Name</td>
-                                                        <td>@(item.Bdate == null? "--" : Model.Employee.Birthday.Value.ToString("MM/dd/yyyy"))</td>
+                                                        <td>@(item.Bdate == null? "--" : item.Bdate.Value.ToString("MM/dd/yyyy"))</td>
                                                         <td>@item.Type</td>
                                                     </tr>
                                                 }
@@ -396,7 +420,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                </div>
 
         </div>
         <div class="col-4">

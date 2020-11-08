@@ -23,5 +23,6 @@ namespace oddo.ViewModel
         public List<Employee> EmployeeWithSameManeger { get; set; }
         public ResourceCalendar ResourceCalendar { get; set; }
         public Resources Timezone { get; set; }
+        public string employeeImage { get; set; }
     }
 }
