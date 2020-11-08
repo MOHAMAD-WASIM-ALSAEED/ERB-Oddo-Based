@@ -137,6 +137,11 @@ namespace oddo.Controllers
             {
                 item.Job = _hRContext.Jobs.FirstOrDefault(x => x.Id == item.JobId) ?? new Jobs();
             }
+
+            foreach (var item in EmployeeWithSameManeger)
+            {
+                item.Job = _hRContext.Jobs.FirstOrDefault(x => x.Id == item.JobId) ?? new Jobs();
+            }
             EmployeeViewModel employeeViewModel = new EmployeeViewModel { Employee = Employee, Tags = TagVAlues, Department = department, Maneger = EmployeeManeger, Coach = EmployeeCoach, TimeOff = timeoff,RelatedUser=RelatedUser,CountryName=Country.Name,EmployeeTree=employeesTree,BreadCrumbsEmployees= EmployeeBreadCrumbs,EmployeeDependents=dependant,EmployeeWithSameManeger=EmployeeWithSameManeger,Job=Jobs,Timezone=resources,ResourceCalendar
             =resourcesCalender,employeeImage="data:image/png;base64,"+image.ImageCode};
                  return View(employeeViewModel);

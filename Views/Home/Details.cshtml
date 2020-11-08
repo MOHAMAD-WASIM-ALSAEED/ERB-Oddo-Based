@@ -233,8 +233,9 @@
                                                             <div>
                                                                 <a style="font-size:smaller;font-weight:bold" href="/home/details?id=@(employee.Id)">
                                                                     @employee.Name
+                                                                    
                                                                 </a>
-                                                                <p>@employee.Job.Name</p>
+                                                                <p>@(employee.Job.Name??employee.JobTitle)</p>
                                                             </div>
                                                         </li>
                                                     }
