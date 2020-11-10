@@ -9,17 +9,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <link href="~/css/chosen.min.css" rel="stylesheet" />
 </head>
 <body class="sb-nav-fixed" style="background-color: #f9f9f9;margin-top: 58px;">
 
     <div class="container-fluid">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark " style="        background-color: #004085 !important">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark " style="background-color: #004085 !important">
             <a class="navbar-brand" asp-controller="Home" asp-action="index" asp-route-id="0">Employee</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <!-- Navbar-->
             <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown2">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">Settings</a>
@@ -31,9 +32,9 @@
             </ul>
         </nav>
         @if (ViewContext.RouteData.Values["action"].ToString() == "Index")
-                {
-                 var r = ViewContext.RouteData.Values["action"].ToString();
-                    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark " style=" background-color: #fff !important; top: 56px; border-bottom: 1px solid #eee;">
+        {
+            var r = ViewContext.RouteData.Values["action"].ToString();
+            <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark " style=" background-color: #fff !important; top: 56px; border-bottom: 1px solid #eee;">
                 <div class="container-fluid">
                     <h4>Employee</h4>
                 </div>
@@ -50,7 +51,7 @@
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script src="~/js/chosen.jquery.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
