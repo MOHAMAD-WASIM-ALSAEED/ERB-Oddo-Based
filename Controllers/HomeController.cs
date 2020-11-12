@@ -20,9 +20,9 @@ namespace oddo.Controllers
         private readonly odooHrContext _hRContext;
         private readonly List<IndexViewModel> _employees;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, odooHrContext odooHrContext)
         {
-            _hRContext = new odooHrContext();
+            _hRContext = odooHrContext;
             _employees = new List<IndexViewModel>();
             foreach (var item in _hRContext.Employee.ToList<Employee>())
             {
