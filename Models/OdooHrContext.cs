@@ -35,6 +35,8 @@ namespace oddo.Models
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=89.189.232.108\\projects;Database=OdooHr;User Id=tfssqladmin;Password=P@ssw0rd");
+                //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-2DH1V9A\SQLEXPRESS;Initial Catalog=OdooHR;Integrated Security=True");
+
             }
         }
 

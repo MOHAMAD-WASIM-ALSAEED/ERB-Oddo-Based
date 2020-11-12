@@ -274,5 +274,12 @@ namespace oddo.Controllers
             };
             return View(employeeViewModel);
         }
+
+        [HttpPost]
+        public IActionResult SaveChildren([FromBody] children [] Children)
+        {
+
+            return Json(true); 
+        }
     }
 }
