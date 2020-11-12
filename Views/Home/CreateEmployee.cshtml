@@ -1,0 +1,486 @@
+﻿@model oddo.ViewModel.EmployeeViewModel
+<link href="/css/detail.css" rel="stylesheet" />
+
+
+<div class="container-fluid" style=" margin-top: 56px;
+        background: #fff;
+        padding-top: 8px;
+        padding-bottom: 8px;
+">
+    <nav aria-label="breadcrumb" class="">
+        <ol class="breadcrumb bg-white">
+            <li class="breadcrumb-item"><a href="/home/index">Employee</a></li>
+            <li class="breadcrumb-item"><a>New</a></li>
+        </ol>
+    </nav>
+</div>
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-8 border-right">
+            <div class="card ">
+                <table class="table table-bordered float-right">
+                    <tr>
+                        <td style="width:750px;"></td>
+                        <td class="p-2" style="width: 120px;">
+                            <i class="fa fa-fw  fa-book" style="display:inline;"></i>
+                            <p style="display:inline;">1</p>
+                            <p style="display:inline;">Contracts</p>
+                        </td>
+                        <td style="width: 160px;">
+
+                            <i class="fa fa-fw o_button_icon fa-calendar"></i>
+                            <p style="display:inline;">22 Days</p>
+                            <p style="display:inline;">Time OFF</p>
+                        </td>
+                        <td style="width: 120px;">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                            <p style="display:inline;">2</p>
+                            <p style="display:inline;">Payslips</p>
+
+                        </td>
+                        <td style="width: 135px;">
+                            <i class="fa fa-fw  fa-file-text"></i>
+                            <p style="display:inline;">0</p>
+                            <p style="display:inline;">Documents</p>
+                        </td>
+                    </tr>
+
+                </table>
+                <div class="card-body mt-0 pt-0">
+                    <div style="background-image:url('/images/s.png');width:92px;height:123px; background-repeat: no-repeat; background-size:cover;float:right"></div>
+
+                    <label for="inp" class="inp">
+                        <input type="text" id="inp" placeholder="Employee's Name" required>
+                        <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                            <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                        </svg>
+                        <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                            <path d="M1 7 5.5 11 L13 1"></path>
+                        </svg>
+                    </label>
+                    <br />
+                    <label for="inp" class="inp">
+                        <input type="text" id="inp" placeholder="Job Postion" required>
+                        <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                            <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                        </svg>
+                        <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                            <path d="M1 7 5.5 11 L13 1"></path>
+                        </svg>
+                    </label>
+                    <br />
+
+                    <select class="chzn-select mt-5" multiple="true" name="faculty" style="width:200px;">
+                        <option value="AC">Asadsad</option>
+                        <option value="AD">Bsadsadsadsa</option>
+                        <option value="AM">Cdsadsadsadsa</option>
+                        <option value="AP">Ddsadsasadsad</option>
+                    </select>
+
+
+                    <div class="container-fluid m-0 p-0 mt-4" style="margin-top:19px">
+                        <div class="row">
+                            <div class="col-6">
+
+
+                                <p class="card-text b" style="display:inline">Work Mobile </p>
+                                <div style="display:inline">
+                                    <label for="inp" class="inp">
+                                        <input type="text" id="inp" required>
+                                        <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                                            <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                                        </svg>
+                                        <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                                            <path d="M1 7 5.5 11 L13 1"></path>
+                                        </svg>
+                                    </label>
+                                </div>
+                                <br />
+                                <p class="card-text b" style="display:inline">Work Phone </p>
+                                <div style="display:inline">
+                                    <label for="inp" class="inp">
+                                        <input type="text" id="inp" required>
+                                        <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                                            <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                                        </svg>
+                                        <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                                            <path d="M1 7 5.5 11 L13 1"></path>
+                                        </svg>
+                                    </label>
+                                </div>
+                                <br />
+                                <p class="card-text b" style="display:inline">Work Email </p>
+                                <div style="display:inline">
+                                    <label for="inp" class="inp">
+                                        <input type="text" id="inp" required>
+                                        <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                                            <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                                        </svg>
+                                        <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                                            <path d="M1 7 5.5 11 L13 1"></path>
+                                        </svg>
+                                    </label>
+                                </div>
+                                <br />
+                                <p class="card-text b" style="display:inline">Work Location </p>
+                                <div style="display:inline">
+                                    <label for="inp" class="inp">
+                                        <input type="text" id="inp" required>
+                                        <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                                            <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                                        </svg>
+                                        <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                                            <path d="M1 7 5.5 11 L13 1"></path>
+                                        </svg>
+                                    </label>
+                                </div>
+
+
+
+
+
+
+                            </div>
+                            <div class="col-6 p-4">
+                                <p class="card-text b mt-4" style="display:inline">Department </p>
+                                <div style="display:inline">
+                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;">
+                                        <option value="" selected="selected" disabled="disabled"></option>
+                                        <option value="1">Ocean Wall</option>
+                                        <option value="2">Skate Park</option>
+                                        <option value="3">Mountain View</option>
+                                        <option value="4">Cityscape</option>
+                                        <option value="5">Workshop</option>
+                                    </select>
+                                </div>
+                                <br />
+                                <p class="card-text b mt-4" style="display:inline">Job Posstion </p>
+                                <div style="display:inline">
+                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;">
+                                        <option value="" selected="selected" disabled="disabled"></option>
+                                        <option value="1">Ocean Wall</option>
+                                        <option value="2">Skate Park</option>
+                                        <option value="3">Mountain View</option>
+                                        <option value="4">Cityscape</option>
+                                        <option value="5">Workshop</option>
+                                    </select>
+                                </div>
+
+                                <br />
+                                <p class="card-text b mt-4" style="display:inline">Manager </p>
+                                <div style="display:inline">
+                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;">
+                                        <option value="" selected="selected" disabled="disabled"></option>
+
+                                        <option value="1">Ocean Wall</option>
+                                        <option value="2">Skate Park</option>
+                                        <option value="3">Mountain View</option>
+                                        <option value="4">Cityscape</option>
+                                        <option value="5">Workshop</option>
+                                    </select>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                            <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Resume</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Work Information</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Private Information</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" id="HR-tab" data-toggle="tab" href="#HR" role="tab" aria-controls="HR" aria-selected="false">HR Settings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="Personal-tab" data-toggle="tab" href="#Personal" role="tab" aria-controls="Personal" aria-selected="false">Personal Documents</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                </div>
+                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-8 border-right ">
+                                                <h5 class="mt-5">Location</h5>
+                                                <p class="card-text" style="display: inline;font-weight: bold;">Work Address</p>
+
+                                                <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Employee.WorkLocation</p>
+
+                                                <h5 class="mt-5">Responsibles</h5>
+                                                <p class="card-text" style="display: inline;font-weight: bold;">Coach</p>
+                                                <a href="/home/details?id=@(@Model.Coach.Id)">
+                                                    <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Coach.Name</p>
+                                                </a>
+                                                <br />
+
+                                                <p class="card-text" style="display: inline;font-weight: bold;">Time OFF</p>
+                                                <p class="card-text" style="display: inline;margin-left: 60px;">
+                                                    <a href="/home/secondarydetail?id=@(@Model.TimeOff.Id)">
+                                                        @Model.TimeOff.Name
+                                                    </a>
+
+                                                </p>
+
+                                                <br />
+                                                <p class="card-text disabled" style="display: inline;font-weight: bold; color: gray;">Expense</p>
+                                                <p class="card-text disabled" style="font-weight: bold; color: gray;">TimeSheet</p>
+                                                <h5 class="mt-5">Schedule</h5>
+                                                <p class="card-text" style="display: inline;font-weight: bold;">Working Hours</p>
+
+                                                <p class="card-text" style="display: inline;margin-left: 47px;">@Model.ResourceCalendar.Name</p>
+                                                <br />
+                                                <p class="card-text" style="display: inline;font-weight: bold;">Timezone</p>
+
+                                                <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Timezone.Tz</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <h5 class="m-4">Organization Chart</h5>
+                                                <ol class="timeline">
+                                                    @foreach (var item in Model.EmployeeTree)
+                                                    {
+
+                                                        if (item.Id == Model.Employee.Id)
+                                                        {
+                                                            <li id="w">
+                                                                <div>
+                                                                    <a style="font-size:smaller;font-weight:bold;">
+                                                                        @item.Name
+                                                                    </a>
+                                                                    <p>@item.Job.Name</p>
+                                                                </div>
+                                                            </li>
+                                                            foreach (var employee in Model.EmployeeWithSameManeger)
+                                                            {
+                                                                <li>
+                                                                    <div>
+                                                                        <a style="font-size:smaller;font-weight:bold" href="/home/details?id=@(employee.Id)">
+                                                                            @employee.Name
+
+                                                                        </a>
+                                                                        <p>@(employee.Job.Name??employee.JobTitle)</p>
+                                                                    </div>
+                                                                </li>
+                                                            }
+
+
+                                                        }
+                                                        else
+                                                        {
+
+                                                            <li>
+                                                                <div>
+                                                                    <a style="font-size:smaller;font-weight:bold" href="/home/details?id=@(item.Id)">
+                                                                        @item.Name
+                                                                    </a>
+                                                                    <p>@item.Job.Name</p>
+                                                                </div>
+                                                            </li>
+
+
+                                                        }
+
+                                                    }
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <h5 class="mt-5">Private Contact</h5>
+                                                <p class="card-text" style="font-weight: bold;color: gray;"> Address</p>
+                                                <p class="card-text " style="font-weight: bold;color: gray;">Email</p>
+                                                <p class="card-text " style="font-weight: bold;color: gray;">Phone</p>
+                                                <p class="card-text" style="display: inline;font-weight: bold;">KM Home-Work</p>
+                                                <p class="card-text" style="display: inline;margin-left: 80px;">@(Model.Employee.KmHomeWork ?? 0)</p>
+                                                <h5 class="mt-5">Marial Status</h5>
+                                                <p class="card-text" style="display: inline;font-weight: bold;">Marial Status</p>
+                                                <p class="card-text" style="display: inline;margin-left: 35px;">@Model.Employee.Marital</p>
+                                                <br />
+                                                <p class="card-text " style="font-weight: bold;display: inline;">Spouse Complete Name</p>
+                                                <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Employee.SpouseCompleteName</p>
+                                                <br />
+                                                <p class="card-text " style="font-weight: bold;display: inline;">Spouse Birthdate</p>
+                                                <p class="card-text" style="display: inline;margin-left: 80px;">@(Model.Employee.SpouseBirthdate == null ? "--" : Model.Employee.SpouseBirthdate.Value.ToString("MM/dd/yyyy"))</p>
+                                                <br />
+                                                <p class="card-text " style="font-weight: bold;display: inline;">Second Spouse Complete Name</p>
+                                                <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Employee.XSpouseCompleteName</p>
+                                                <br />
+                                                <p class="card-text " style="font-weight: bold;display: inline;">Second Spouse Birthdate</p>
+                                                @{
+                                                    DateTime? myDate = null;
+                                                    if (Model.Employee.XSpouseBirthdate != "")
+                                                    {
+                                                        myDate = DateTime.ParseExact(Model.Employee.XSpouseBirthdate, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+
+                                                    }
+                                                }
+                                                @if (myDate != null)
+                                                {
+                                                    <p class="card-text" style="display: inline;margin-left: 80px;">@myDate</p>
+
+                                                }
+                                                else
+                                                {
+                                                    <p class="card-text" style="display: inline;margin-left: 80px;">--</p>
+
+                                                }
+                                                <h5 class="mt-5">Emergency </h5>
+                                                <p class="card-text " style="font-weight: bold;color: gray;"> Emergency Contact</p>
+                                                <p class="card-text " style="font-weight: bold;color: gray;">Emergency Phone</p>
+
+                                                <h5 class="mt-5">Education </h5>
+                                                <p class="card-text" style="display: inline;font-weight: bold;">Certificate Level</p>
+                                                <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Employee.Certificate</p>
+                                                <p class="card-text " style="font-weight: bold;color: gray;">Field Of Study</p>
+                                                <p class="card-text " style="font-weight: bold;color: gray;">School</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <h5 class="mt-5">Citizenship</h5>
+                                                <p class="card-text" style="display: inline;font-weight: bold;">Nationality (Country)</p>
+                                                <p class="card-text" style="display: inline;margin-left: 80px;">@Model.CountryName</p>
+                                                <br />
+                                                <p class="card-text" style="display: inline;font-weight: bold;">Identification No</p>
+                                                <p class="card-text" style="display: inline;margin-left: 106px;">@Model.Employee.IdentificationId</p>
+                                                <br />
+                                                <p class="card-text" style="font-weight: bold;color: gray;">Passport No</p>
+
+                                                <p class="card-text" style="display: inline;font-weight: bold;">Gender</p>
+                                                <p class="card-text" style="display: inline;margin-left: 169px;">@Model.Employee.Gender</p>
+                                                <br />
+                                                <p class="card-text" style="display: inline;font-weight: bold;">Date of Birth</p>
+                                                <p class="card-text" style="display: inline;margin-left: 135px;">@(Model.Employee.Birthday == null? "--" : Model.Employee.Birthday.Value.ToString("MM/dd/yyyy"))</p>
+                                                <br />
+                                                <p class="card-text m-0" style="font-weight: bold;color: gray;">Place Of Birth</p>
+                                                <p class="card-text" style="font-weight: bold;color: gray;">Country Of Birth</p>
+                                                <h5 class="mt-5">Dependant</h5>
+                                                <p class="card-text" style="font-weight: bold; display:inline;">Number of Children</p>
+                                                <p class="card-text" style="display: inline;margin-left: 80px;">@Model.Employee.Children</p>
+                                                <table id="example" class="display  table-sm table-hover table-striped" style="width:100%;margin-top:18px!important">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Dependant Name</th>
+                                                            <th>Birth Date</th>
+                                                            <th>Dependant Type </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @foreach (var item in Model.EmployeeDependents)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.Name</td>
+                                                                <td>@(item.Bdate == null? "--" : item.Bdate.Value.ToString("MM/dd/yyyy"))</td>
+                                                                <td>@item.Type</td>
+                                                            </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                                <h5 class="mt-5">Work Permit</h5>
+                                                <p class="card-text m-0" style="font-weight: bold;color: gray;"> Visa No</p>
+                                                <p class="card-text m-0 " style="font-weight: bold;color: gray;">Work Permit No</p>
+                                                <p class="card-text m-0 " style="font-weight: bold;color: gray;">Visa Expire Date</p>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="tab-pane fade" id="HR" role="tabpanel" aria-labelledby="contact-tab">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <h5 class="mt-5">Status</h5>
+                                                <p class="card-text" style="display: inline;font-weight: bold;">Related User</p>
+
+                                                <p class="card-text" style="display: inline;margin-left: 80px;">
+                                                    <a href="/home/secondarydetail?id=@(@Model.RelatedUser.Id)">
+                                                        @Model.RelatedUser.Name
+                                                    </a>
+                                                </p>
+
+                                                <p class="card-text m-0 " style="font-weight: bold;color: gray;"> Registration Number <br />of the Employee</p>
+
+
+
+                                            </div>
+                                            <div class="col-sm">
+                                                <h5 class="mt-5">Attendence</h5>
+                                                <p class="card-text" style="display: inline;font-weight: bold;">PIN</p>
+                                                <p class="card-text" style="display: inline;margin-left: 138px;">@Model.Employee.Pin</p>
+                                                <br />
+                                                <p class="card-text" style="display: inline;font-weight: bold;">Badge ID</p>
+                                                <p class="card-text" style="display: inline;margin-left: 106px;">@Model.Employee.Barcode</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="Personal" role="tabpanel" aria-labelledby="contact-tab">
+                                    <div class="container">
+                                        <div class="row mt-4">
+                                            <div class="col-6">
+                                                <p class="card-text m-0 " style="font-weight: bold;color: gray;"> Identity Card</p>
+                                                <p class="card-text m-0 " style="font-weight: bold;color: gray;"> Medical Insurance</p>
+                                                <p class="card-text m-0 " style="font-weight: bold;color: gray;"> Documents</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="card-text m-0 " style="font-weight: bold;color: gray;"> Warnings and deductions</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        
+                    </div>
+
+                </div>
+                <div class="col-4">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+<script>
+    $(function () {
+        $(".chzn-select").chosen();
+    });
+
+</script>
+  
+
+}
+
+
+
+
+
+
+
+
+
+

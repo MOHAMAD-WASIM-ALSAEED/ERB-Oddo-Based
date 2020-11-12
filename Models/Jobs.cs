@@ -11,7 +11,7 @@ namespace oddo.Models
         public double? ExpectedEmployees { get; set; }
         public double? NoOfEmployee { get; set; }
         public double? NoOfRecruitment { get; set; }
-        public double? NoOfHiredEmployee { get; set; }
+        public string NoOfHiredEmployee { get; set; }
         public string Description { get; set; }
         public string Requirements { get; set; }
         public string DepartmentId { get; set; }

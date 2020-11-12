@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace oddo.Models
 {
@@ -9,7 +10,7 @@ namespace oddo.Models
         public string Name { get; set; }
         public double? UserId { get; set; }
         public string Active { get; set; }
-        public double? AddressHomeId { get; set; }
+        public string AddressHomeId { get; set; }
         public double? CountryId { get; set; }
         public string Gender { get; set; }
         public string Marital { get; set; }
@@ -17,7 +18,7 @@ namespace oddo.Models
         public DateTime? SpouseBirthdate { get; set; }
         public double? Children { get; set; }
         public string PlaceOfBirth { get; set; }
-        public string CountryOfBirth { get; set; }
+        public double? CountryOfBirth { get; set; }
         public DateTime? Birthday { get; set; }
         public string Ssnid { get; set; }
         public string Sinid { get; set; }
@@ -67,7 +68,7 @@ namespace oddo.Models
         public double? LastAttendanceId { get; set; }
         public DateTime? LastCheckIn { get; set; }
         public DateTime? LastCheckOut { get; set; }
-        public string ExpenseManagerId { get; set; }
+        public double? ExpenseManagerId { get; set; }
         public string EmailSent { get; set; }
         public string IpConnected { get; set; }
         public string ManuallySetPresent { get; set; }
@@ -77,5 +78,12 @@ namespace oddo.Models
         public string XStudioFieldXeed7Filename { get; set; }
         public string XStudioIdCardCopyFilename { get; set; }
         public string XStudioMedicalInsurance1Filename { get; set; }
+        public double? TimesheetCost { get; set; }
+        public string TimesheetValidated { get; set; }
+        public string TimesheetManagerId { get; set; }
+        public string XSpouseCompleteName { get; set; }
+        public string XSpouseBirthdate { get; set; }
+        [NotMapped]
+        public Jobs Job { get; set; }
     }
 }

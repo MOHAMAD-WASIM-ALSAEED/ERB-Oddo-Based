@@ -26,7 +26,7 @@ namespace oddo
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".AdventureWorks.Session";
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromSeconds(350);
                 options.Cookie.IsEssential = true;
             });
             services.AddControllersWithViews().AddRazorRuntimeCompilation(); 
