@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using oddo.Models;
 
 namespace oddo
 {
@@ -29,7 +31,10 @@ namespace oddo
                 options.IdleTimeout = TimeSpan.FromSeconds(350);
                 options.Cookie.IsEssential = true;
             });
-            services.AddControllersWithViews().AddRazorRuntimeCompilation(); 
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddDbContext<odooHrContext>(options =>
+       options.UseSqlServer(Configuration.GetConnectionString("HRDb")));
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
