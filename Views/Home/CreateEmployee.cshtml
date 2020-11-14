@@ -33,13 +33,13 @@
                             <p style="display:inline;">Time OFF</p>
                         </td>
                         <td style="width: 120px;">
-                            <i class="fa fa-money" aria-hidden="true"></i>
+                            <i class="fas fa-money-bill"></i>
                             <p style="display:inline;">2</p>
                             <p style="display:inline;">Payslips</p>
 
                         </td>
                         <td style="width: 135px;">
-                            <i class="fa fa-fw  fa-file-text"></i>
+                            <i class="fas fa-file-invoice"></i>
                             <p style="display:inline;">0</p>
                             <p style="display:inline;">Documents</p>
                         </td>
@@ -48,8 +48,11 @@
                 </table>
                 <div class="card-body mt-0 pt-0">
                     <form>
-                        <div style="background-image:url('/images/s.png');width:92px;height:123px; background-repeat: no-repeat; background-size:cover;float:right"></div>
-
+                        <div style="float:right">
+                            <img src="/images/s.png" id="blah" style="width:92px;height:123px; background-repeat: no-repeat; background-size:cover">
+                            <br />
+                            <input id="imgw" type="file" class=" btn-light"  value="upload"/>
+                        </div>
                         <label for="inp" class="inp">
                             <input type="text" id="inp1" placeholder="Employee's Name" required>
                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
@@ -781,6 +784,21 @@
         $(function () {
             $(".chzn-select").chosen();
             $('.datepicker').datepicker();
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#blah').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+                }
+            }
+
+            $("#imgw").change(function () {
+                readURL(this);
+            });
         });
         var count = 0;
         var dependentCount = 0;
