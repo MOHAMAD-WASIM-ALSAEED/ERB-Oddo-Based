@@ -5,7 +5,7 @@ namespace oddo.Models
 {
     public partial class ResPartner
     {
-        public double? Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string CompanyId { get; set; }
         public DateTime? CreateDate { get; set; }

@@ -71,7 +71,7 @@
                         </label>
                         <br />
                         <label for="inp" class="inp">
-                            <input type="text" id="inp2" placeholder="Job Postion" required asp-for="@Model.Job.Name">
+                            <input type="text" id="inp2" placeholder="Job Postion" required asp-for="@Model.Employee.JobTitle">
                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                             </svg>
@@ -167,7 +167,7 @@
                                     <br />
                                     <p class="card-text b mt-4" style="display:inline">Job Posstion </p>
                                     <div style="display:inline">
-                                        <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Job.Id" asp-items="@(new SelectList(Model.Jobs,"Id","Name"))">
+                                        <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Job.Id" asp-items="@(new SelectList(Model.Jobss,"Id","Name"))">
                                             <option value="" selected="selected" disabled="disabled"></option>
                                         </select>
                                     </div>
@@ -302,9 +302,9 @@
                                                 <h5 class="mt-5">Private Contact</h5>
                                                 <p class="card-text b mt-4" style="display:inline">Address </p>
                                                 <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Employee.AddressHomeId"  asp-items="@(new SelectList(Model.Addresses,"Id","Name"))">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Employee.AddressHomeId" asp-items="@(new SelectList(Model.Addresses,"Id","Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
-                                                     
+
                                                     </select>
                                                 </div>
                                                 <br />
@@ -373,7 +373,7 @@
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Second Spouse Complete Name</label>
                                                     <div class="col-sm-9" style="width: 100%">
                                                         <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="text" id="inp12" asp-for="@Model.Employee.XSpouseCompleteName" >
+                                                            <input type="text" id="inp12" asp-for="@Model.Employee.XSpouseCompleteName">
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                                             </svg>
@@ -398,12 +398,27 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <br />
+
+                                                <h5 class="mt-5">Emergency </h5>
+                                                <div class="form-row">
+                                                    <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Emergency Contact</label>
+                                                    <div class="col-sm-9" style="width: 100%">
+                                                        <label for="inp" class="inp" style="height: 48px;">
+                                                            <input type="text" id="inp13" asp-for="@Model.Employee.EmergencyContact">
+                                                            <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                                                                <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                                                            </svg>
+                                                            <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                                                                <path d="M1 7 5.5 11 L13 1"></path>
+                                                            </svg>
+                                                        </label>
+                                                    </div>
+                                                </div>
                                                 <div class="form-row">
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Emergency Phone</label>
                                                     <div class="col-sm-9" style="width: 100%">
                                                         <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="text" id="inp13" asp-for="@Model.Employee.EmergencyPhone">
+                                                            <input type="text" id="inp19" asp-for="@Model.Employee.EmergencyPhone">
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                                             </svg>
@@ -443,7 +458,7 @@
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">School</label>
                                                     <div class="col-sm-9" style="width: 100%">
                                                         <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="text" id="inp14" asp-for="@Model.Employee.StudySchool">
+                                                            <input type="text" id="inp199" asp-for="@Model.Employee.StudySchool">
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                                             </svg>
@@ -468,7 +483,7 @@
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Identification No</label>
                                                     <div class="col-sm-9" style="width: 100%">
                                                         <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="text" id="inp15" asp-for="@Model.Employee.IdentificationId">
+                                                            <input type="text" id="inp155" asp-for="@Model.Employee.IdentificationId">
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                                             </svg>
@@ -483,7 +498,7 @@
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Passport No</label>
                                                     <div class="col-sm-9" style="width: 100%">
                                                         <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="text" id="inp15" asp-for="@Model.Employee.PassportId">
+                                                            <input type="text" id="inp185" asp-for="@Model.Employee.PassportId">
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                                             </svg>
@@ -508,7 +523,7 @@
                                                     <div class="col-sm-9" style="width: 100%">
                                                         <label for="inp" class="inp" style="height: 48px;">
                                                         
-                                                            <input type="date" id="inp15" asp-for="@Model.Employee.Birthday">
+                                                            <input type="date" id="inp1566" asp-for="@Model.Employee.Birthday">
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                                             </svg>
@@ -522,7 +537,7 @@
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Place Of Birth</label>
                                                     <div class="col-sm-9" style="width: 100%">
                                                         <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="text" id="inp15" asp-for="@Model.Employee.PlaceOfBirth">
+                                                            <input type="text" id="inp1335" asp-for="@Model.Employee.PlaceOfBirth">
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                                             </svg>
@@ -561,7 +576,7 @@
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Visa No</label>
                                                     <div class="col-sm-9" style="width: 100%">
                                                         <label for="inp" class="inp" style="height: 48px;" >
-                                                            <input type="text" id="inp15" asp-for="@Model.Employee.VisaNo">
+                                                            <input type="text" id="inp1215" asp-for="@Model.Employee.VisaNo">
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                                             </svg>
@@ -576,7 +591,7 @@
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Work Permit No</label>
                                                     <div class="col-sm-9" style="width: 100%">
                                                         <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="text" id="inp15" asp-for="@Model.Employee.PermitNo">
+                                                            <input type="text" id="inp1995" asp-for="@Model.Employee.PermitNo">
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                                             </svg>
@@ -591,7 +606,7 @@
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Visa Expire Date</label>
                                                     <div class="col-sm-9" style="width: 100%">
                                                         <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="date" id="inp15" asp-for="@Model.Employee.VisaExpire">
+                                                            <input type="date" id="inp1585" asp-for="@Model.Employee.VisaExpire">
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                                             </svg>
@@ -741,6 +756,7 @@
                 readURL(this);
             });
         });
+
         var count = 0;
         var dependentCount = 0;
         var arr = new Array();
@@ -771,9 +787,9 @@
             for (let index = 0; index < arr.length; index++) {
                 obj.push({
                     Name: $('#name_' + arr[index]).val(),
-                    BirthDate: $('#birth_' + arr[index]).val(),
+                    Bdate: $('#birth_' + arr[index]).val(),
                 });
-
+            }
             $('#dependant').val(JSON.stringify(obj));
             $('#DataForm').submit();
 

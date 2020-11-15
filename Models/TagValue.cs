@@ -5,7 +5,7 @@ namespace oddo.Models
 {
     public partial class TagValue
     {
-        public double? Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Column1 { get; set; }
         public string _1 { get; set; }

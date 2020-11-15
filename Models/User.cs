@@ -5,7 +5,7 @@ namespace oddo.Models
 {
     public partial class User
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Active { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }

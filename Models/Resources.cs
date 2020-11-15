@@ -7,7 +7,7 @@ namespace oddo.Models
 {
     public class Resources
     {
-        public double? Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Active { get; set; }
         public double? CompanyId { get; set; }

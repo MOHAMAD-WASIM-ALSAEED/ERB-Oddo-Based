@@ -6,7 +6,7 @@ namespace oddo.Models
 {
     public partial class Department
     {
-        public double? Id { get; set; }
+        public int Id { get; set; }
         public string MessageMainAttachmentId { get; set; }
         public string Name { get; set; }
         public string CompleteName { get; set; }

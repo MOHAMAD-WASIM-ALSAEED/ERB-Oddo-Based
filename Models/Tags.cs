@@ -7,5 +7,6 @@ namespace oddo.Models
     {
         public double? EmpId { get; set; }
         public double? CategoryId { get; set; }
+        public int Id { get; set; }
     }
 }

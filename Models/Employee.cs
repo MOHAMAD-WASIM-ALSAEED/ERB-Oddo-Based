@@ -6,7 +6,7 @@ namespace oddo.Models
 {
     public partial class Employee
     {
-        public double? Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public double? UserId { get; set; }
         public string Active { get; set; }

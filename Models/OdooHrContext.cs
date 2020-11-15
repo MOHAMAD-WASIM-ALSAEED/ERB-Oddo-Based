@@ -38,116 +38,164 @@ namespace oddo.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Country>(entity =>
+            {
+                entity.ToTable("Country");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.AddressFormat)
+                    .HasMaxLength(255)
+                    .HasColumnName("address_format");
+
+                entity.Property(e => e.AddressViewId)
+                    .HasMaxLength(255)
+                    .HasColumnName("address_view_id");
+
+                entity.Property(e => e.Code)
+                    .HasMaxLength(255)
+                    .HasColumnName("code");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("create_date");
+
+                entity.Property(e => e.CreateUid).HasColumnName("create_uid");
+
+                entity.Property(e => e.CurrencyId).HasColumnName("currency_id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.NamePosition)
+                    .HasMaxLength(255)
+                    .HasColumnName("name_position");
+
+                entity.Property(e => e.PhoneCode).HasColumnName("phone_code");
+
+                entity.Property(e => e.VatLabel)
+                    .HasMaxLength(255)
+                    .HasColumnName("vat_label");
+
+                entity.Property(e => e.WriteDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("write_date");
+
+                entity.Property(e => e.WriteUid).HasColumnName("write_uid");
+            });
+
             modelBuilder.Entity<Department>(entity =>
             {
-                entity.HasNoKey();
+                entity.ToTable("Department");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Active)
-                    .HasColumnName("active")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("active");
 
                 entity.Property(e => e.Color)
-                    .HasColumnName("color")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("color");
 
                 entity.Property(e => e.CompanyId).HasColumnName("company_id");
 
                 entity.Property(e => e.CompleteName)
-                    .HasColumnName("complete_name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("complete_name");
 
                 entity.Property(e => e.CreateDate)
-                    .HasColumnName("create_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("create_date");
 
                 entity.Property(e => e.CreateUid).HasColumnName("create_uid");
-
-                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.ManagerId).HasColumnName("manager_id");
 
                 entity.Property(e => e.MessageMainAttachmentId)
-                    .HasColumnName("message_main_attachment_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("message_main_attachment_id");
 
                 entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
 
                 entity.Property(e => e.Note)
-                    .HasColumnName("note")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("note");
 
                 entity.Property(e => e.ParentId).HasColumnName("parent_id");
 
                 entity.Property(e => e.WriteDate)
-                    .HasColumnName("write_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("write_date");
 
                 entity.Property(e => e.WriteUid).HasColumnName("write_uid");
             });
+
             modelBuilder.Entity<Dependent>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("dependent");
 
+                entity.Property(e => e.Id).HasColumnName("id");
+
                 entity.Property(e => e.Bdate)
-                    .HasColumnName("bdate")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("bdate");
 
                 entity.Property(e => e.CreateDate)
-                    .HasColumnName("create_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("create_date");
 
                 entity.Property(e => e.CreateUid).HasColumnName("create_uid");
 
                 entity.Property(e => e.EmployeeDependantId).HasColumnName("employee_dependant_id");
 
-                entity.Property(e => e.Id).HasColumnName("id");
-
                 entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
 
                 entity.Property(e => e.WriteDate)
-                    .HasColumnName("write_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("write_date");
 
                 entity.Property(e => e.WriteUid).HasColumnName("write_uid");
             });
 
             modelBuilder.Entity<Employee>(entity =>
             {
-                entity.HasNoKey();
+                entity.ToTable("Employee");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Active)
-                    .HasColumnName("active")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("active");
 
                 entity.Property(e => e.AdditionalNote)
-                    .HasColumnName("additional_note")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("additional_note");
 
                 entity.Property(e => e.AddressHomeId)
-                    .HasColumnName("address_home_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("address_home_id");
 
                 entity.Property(e => e.AddressId).HasColumnName("address_id");
 
                 entity.Property(e => e.BankAccountId)
-                    .HasColumnName("bank_account_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("bank_account_id");
 
                 entity.Property(e => e.Barcode).HasColumnName("barcode");
 
                 entity.Property(e => e.Birthday)
-                    .HasColumnName("birthday")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("birthday");
 
                 entity.Property(e => e.Certificate)
-                    .HasColumnName("certificate")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("certificate");
 
                 entity.Property(e => e.Children).HasColumnName("children");
 
@@ -160,376 +208,345 @@ namespace oddo.Models
                 entity.Property(e => e.ContractId).HasColumnName("contract_id");
 
                 entity.Property(e => e.ContractWarning)
-                    .HasColumnName("contract_warning")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("contract_warning");
 
                 entity.Property(e => e.CountryId).HasColumnName("country_id");
 
                 entity.Property(e => e.CountryOfBirth).HasColumnName("country_of_birth");
 
                 entity.Property(e => e.CreateDate)
-                    .HasColumnName("create_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("create_date");
 
                 entity.Property(e => e.CreateUid).HasColumnName("create_uid");
 
                 entity.Property(e => e.DepartmentId).HasColumnName("department_id");
 
                 entity.Property(e => e.DepartureDescription)
-                    .HasColumnName("departure_description")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("departure_description");
 
                 entity.Property(e => e.DepartureReason)
-                    .HasColumnName("departure_reason")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("departure_reason");
 
                 entity.Property(e => e.EmailSent)
-                    .HasColumnName("email_sent")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("email_sent");
 
                 entity.Property(e => e.EmergencyContact)
-                    .HasColumnName("emergency_contact")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("emergency_contact");
 
                 entity.Property(e => e.EmergencyPhone)
-                    .HasColumnName("emergency_phone")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("emergency_phone");
 
                 entity.Property(e => e.ExpenseManagerId).HasColumnName("expense_manager_id");
 
                 entity.Property(e => e.Gender)
-                    .HasColumnName("gender")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("gender");
 
                 entity.Property(e => e.HrPresenceStateDisplay)
-                    .HasColumnName("hr_presence_state_display")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.Id).HasColumnName("id");
+                    .HasMaxLength(255)
+                    .HasColumnName("hr_presence_state_display");
 
                 entity.Property(e => e.IdentificationId).HasColumnName("identification_id");
 
                 entity.Property(e => e.IpConnected)
-                    .HasColumnName("ip_connected")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("ip_connected");
 
                 entity.Property(e => e.JobId).HasColumnName("job_id");
 
                 entity.Property(e => e.JobTitle)
-                    .HasColumnName("job_title")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("job_title");
 
                 entity.Property(e => e.KmHomeWork).HasColumnName("km_home_work");
 
                 entity.Property(e => e.LastAttendanceId).HasColumnName("last_attendance_id");
 
                 entity.Property(e => e.LastCheckIn)
-                    .HasColumnName("last_check_in")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("last_check_in");
 
                 entity.Property(e => e.LastCheckOut)
-                    .HasColumnName("last_check_out")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("last_check_out");
 
                 entity.Property(e => e.LeaveManagerId).HasColumnName("leave_manager_id");
 
                 entity.Property(e => e.ManuallySetPresent)
-                    .HasColumnName("manually_set_present")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("manually_set_present");
 
                 entity.Property(e => e.Marital)
-                    .HasColumnName("marital")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("marital");
 
                 entity.Property(e => e.MedicExam)
-                    .HasColumnName("medic_exam")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("medic_exam");
 
                 entity.Property(e => e.MessageMainAttachmentId)
-                    .HasColumnName("message_main_attachment_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("message_main_attachment_id");
 
                 entity.Property(e => e.MobilePhone).HasColumnName("mobile_phone");
 
                 entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
 
                 entity.Property(e => e.Notes)
-                    .HasColumnName("notes")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("notes");
 
                 entity.Property(e => e.ParentId).HasColumnName("parent_id");
 
                 entity.Property(e => e.PassportId)
-                    .HasColumnName("passport_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("passport_id");
 
                 entity.Property(e => e.PermitNo)
-                    .HasColumnName("permit_no")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("permit_no");
 
                 entity.Property(e => e.Pin).HasColumnName("pin");
 
                 entity.Property(e => e.PlaceOfBirth)
-                    .HasColumnName("place_of_birth")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("place_of_birth");
 
                 entity.Property(e => e.RegistrationNumber)
-                    .HasColumnName("registration_number")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("registration_number");
 
                 entity.Property(e => e.ResourceCalendarId).HasColumnName("resource_calendar_id");
 
                 entity.Property(e => e.ResourceId).HasColumnName("resource_id");
 
                 entity.Property(e => e.Sinid)
-                    .HasColumnName("sinid")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("sinid");
 
                 entity.Property(e => e.SpouseBirthdate)
-                    .HasColumnName("spouse_birthdate")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("spouse_birthdate");
 
                 entity.Property(e => e.SpouseCompleteName)
-                    .HasColumnName("spouse_complete_name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("spouse_complete_name");
 
                 entity.Property(e => e.Ssnid)
-                    .HasColumnName("ssnid")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("ssnid");
 
                 entity.Property(e => e.StudyField)
-                    .HasColumnName("study_field")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("study_field");
 
                 entity.Property(e => e.StudySchool)
-                    .HasColumnName("study_school")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("study_school");
 
                 entity.Property(e => e.TimesheetCost).HasColumnName("timesheet_cost");
 
                 entity.Property(e => e.TimesheetManagerId)
-                    .HasColumnName("timesheet_manager_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("timesheet_manager_id");
 
                 entity.Property(e => e.TimesheetValidated)
-                    .HasColumnName("timesheet_validated")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("timesheet_validated");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.Property(e => e.Vehicle)
-                    .HasColumnName("vehicle")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("vehicle");
 
                 entity.Property(e => e.VisaExpire)
-                    .HasColumnName("visa_expire")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("visa_expire");
 
                 entity.Property(e => e.VisaNo)
-                    .HasColumnName("visa_no")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("visa_no");
 
                 entity.Property(e => e.WorkEmail)
-                    .HasColumnName("work_email")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("work_email");
 
                 entity.Property(e => e.WorkLocation)
-                    .HasColumnName("work_location")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("work_location");
 
                 entity.Property(e => e.WorkPhone)
-                    .HasColumnName("work_phone")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("work_phone");
 
                 entity.Property(e => e.WriteDate)
-                    .HasColumnName("write_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("write_date");
 
                 entity.Property(e => e.WriteUid).HasColumnName("write_uid");
 
                 entity.Property(e => e.XSpouseBirthdate)
-                    .HasColumnName("x_spouse_birthdate")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("x_spouse_birthdate");
 
                 entity.Property(e => e.XSpouseCompleteName)
-                    .HasColumnName("x_spouse_complete_name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("x_spouse_complete_name");
 
                 entity.Property(e => e.XStudioFieldXeed7Filename)
-                    .HasColumnName("x_studio_field_XEED7_filename")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("x_studio_field_XEED7_filename");
 
                 entity.Property(e => e.XStudioIdCardCopyFilename)
-                    .HasColumnName("x_studio_id_card_copy_filename")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("x_studio_id_card_copy_filename");
 
                 entity.Property(e => e.XStudioIdentityCardFilename)
-                    .HasColumnName("x_studio_identity_card_filename")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("x_studio_identity_card_filename");
 
                 entity.Property(e => e.XStudioMedicalInsurance1Filename)
-                    .HasColumnName("x_studio_medical_insurance_1_filename")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("x_studio_medical_insurance_1_filename");
 
                 entity.Property(e => e.XStudioUploadFileFilename)
-                    .HasColumnName("x_studio_upload_file_filename")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("x_studio_upload_file_filename");
             });
-            modelBuilder.Entity<Resources>(entity =>
+
+            modelBuilder.Entity<image>(entity =>
             {
-                entity.HasNoKey();
-
-                entity.Property(e => e.Active)
-                    .HasColumnName("active")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.CalendarId).HasColumnName("calendar_id");
-
-                entity.Property(e => e.CompanyId).HasColumnName("company_id");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnName("create_date")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.CreateUid).HasColumnName("create_uid");
+                entity.ToTable("Image");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasMaxLength(255);
+                entity.Property(e => e.EmployeeId).HasColumnName("Employee_id");
 
-                entity.Property(e => e.ResourceType)
-                    .HasColumnName("resource_type")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.TimeEfficiency).HasColumnName("time_efficiency");
-
-                entity.Property(e => e.Tz)
-                    .HasColumnName("tz")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.UserId).HasColumnName("user_id");
-
-                entity.Property(e => e.WriteDate)
-                    .HasColumnName("write_date")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.WriteUid).HasColumnName("write_uid");
+                entity.Property(e => e.ImageCode)
+                    .IsUnicode(false)
+                    .HasColumnName("image_code");
             });
 
             modelBuilder.Entity<Jobs>(entity =>
             {
-                entity.HasNoKey();
-
-                entity.ToTable("jobs");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.CompanyId).HasColumnName("company_id");
 
                 entity.Property(e => e.CreateDate)
-                    .HasColumnName("create_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("create_date");
 
                 entity.Property(e => e.CreateUid).HasColumnName("create_uid");
 
                 entity.Property(e => e.DepartmentId)
-                    .HasColumnName("department_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("department_id");
 
                 entity.Property(e => e.Description)
-                    .HasColumnName("description")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("description");
 
                 entity.Property(e => e.ExpectedEmployees).HasColumnName("expected_employees");
 
-                entity.Property(e => e.Id).HasColumnName("id");
-
                 entity.Property(e => e.MessageMainAttachmentId)
-                    .HasColumnName("message_main_attachment_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("message_main_attachment_id");
 
                 entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
 
                 entity.Property(e => e.NoOfEmployee).HasColumnName("no_of_employee");
 
-                entity.Property(e => e.NoOfHiredEmployee).HasColumnName("no_of_hired_employee");
+                entity.Property(e => e.NoOfHiredEmployee)
+                    .HasMaxLength(255)
+                    .HasColumnName("no_of_hired_employee");
 
                 entity.Property(e => e.NoOfRecruitment).HasColumnName("no_of_recruitment");
 
                 entity.Property(e => e.Requirements)
-                    .HasColumnName("requirements")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("requirements");
 
                 entity.Property(e => e.State)
-                    .HasColumnName("state")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("state");
 
                 entity.Property(e => e.WriteDate)
-                    .HasColumnName("write_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("write_date");
 
                 entity.Property(e => e.WriteUid).HasColumnName("write_uid");
             });
 
             modelBuilder.Entity<ResPartner>(entity =>
             {
-                entity.HasNoKey();
+                entity.ToTable("ResPartner");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Active)
-                    .HasColumnName("active")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("active");
 
                 entity.Property(e => e.AdditionalInfo)
-                    .HasColumnName("additional_info")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("additional_info");
 
                 entity.Property(e => e.Barcode)
-                    .HasColumnName("barcode")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("barcode");
 
                 entity.Property(e => e.CalendarLastNotifAck)
-                    .HasColumnName("calendar_last_notif_ack")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("calendar_last_notif_ack");
 
                 entity.Property(e => e.City)
-                    .HasColumnName("city")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("city");
 
                 entity.Property(e => e.Color).HasColumnName("color");
 
                 entity.Property(e => e.Comment)
-                    .HasColumnName("comment")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("comment");
 
                 entity.Property(e => e.CommercialCompanyName)
-                    .HasColumnName("commercial_company_name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("commercial_company_name");
 
                 entity.Property(e => e.CommercialPartnerId).HasColumnName("commercial_partner_id");
 
                 entity.Property(e => e.CompanyId)
-                    .HasColumnName("company_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("company_id");
 
                 entity.Property(e => e.CompanyName)
-                    .HasColumnName("company_name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("company_name");
 
                 entity.Property(e => e.ContactAddressComplete)
-                    .HasColumnName("contact_address_complete")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("contact_address_complete");
 
                 entity.Property(e => e.CountryId)
-                    .HasColumnName("country_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("country_id");
 
                 entity.Property(e => e.CreateDate)
-                    .HasColumnName("create_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("create_date");
 
                 entity.Property(e => e.CreateUid).HasColumnName("create_uid");
 
@@ -538,82 +555,80 @@ namespace oddo.Models
                 entity.Property(e => e.CustomerRank).HasColumnName("customer_rank");
 
                 entity.Property(e => e.Date)
-                    .HasColumnName("date")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("date");
 
                 entity.Property(e => e.DebitLimit).HasColumnName("debit_limit");
 
                 entity.Property(e => e.DisplayName)
-                    .HasColumnName("display_name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("display_name");
 
                 entity.Property(e => e.DuplicateHave)
-                    .HasColumnName("duplicate_have")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("duplicate_have");
 
                 entity.Property(e => e.Email)
-                    .HasColumnName("email")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("email");
 
                 entity.Property(e => e.EmailNormalized)
-                    .HasColumnName("email_normalized")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("email_normalized");
 
                 entity.Property(e => e.Employee)
-                    .HasColumnName("employee")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("employee");
 
                 entity.Property(e => e.Function)
-                    .HasColumnName("function")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.Id).HasColumnName("id");
+                    .HasMaxLength(255)
+                    .HasColumnName("function");
 
                 entity.Property(e => e.IndustryId)
-                    .HasColumnName("industry_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("industry_id");
 
                 entity.Property(e => e.InvoiceWarn)
-                    .HasColumnName("invoice_warn")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("invoice_warn");
 
                 entity.Property(e => e.InvoiceWarnMsg)
-                    .HasColumnName("invoice_warn_msg")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("invoice_warn_msg");
 
                 entity.Property(e => e.IsCompany)
-                    .HasColumnName("is_company")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("is_company");
 
                 entity.Property(e => e.Lang)
-                    .HasColumnName("lang")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("lang");
 
                 entity.Property(e => e.LastTimeEntriesChecked)
-                    .HasColumnName("last_time_entries_checked")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("last_time_entries_checked");
 
                 entity.Property(e => e.MessageBounce).HasColumnName("message_bounce");
 
                 entity.Property(e => e.MessageMainAttachmentId)
-                    .HasColumnName("message_main_attachment_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("message_main_attachment_id");
 
                 entity.Property(e => e.Mobile)
-                    .HasColumnName("mobile")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("mobile");
 
                 entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
 
                 entity.Property(e => e.OnlinePartnerBankAccount)
-                    .HasColumnName("online_partner_bank_account")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("online_partner_bank_account");
 
                 entity.Property(e => e.OnlinePartnerVendorName)
-                    .HasColumnName("online_partner_vendor_name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("online_partner_vendor_name");
 
                 entity.Property(e => e.ParentId).HasColumnName("parent_id");
 
@@ -624,127 +639,170 @@ namespace oddo.Models
                 entity.Property(e => e.PartnerLongitude).HasColumnName("partner_longitude");
 
                 entity.Property(e => e.PartnerShare)
-                    .HasColumnName("partner_share")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("partner_share");
 
                 entity.Property(e => e.Phone)
-                    .HasColumnName("phone")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("phone");
 
                 entity.Property(e => e.PhoneSanitized)
-                    .HasColumnName("phone_sanitized")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("phone_sanitized");
 
                 entity.Property(e => e.PickingWarn)
-                    .HasColumnName("picking_warn")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("picking_warn");
 
                 entity.Property(e => e.PickingWarnMsg)
-                    .HasColumnName("picking_warn_msg")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("picking_warn_msg");
 
                 entity.Property(e => e.PurchaseWarn)
-                    .HasColumnName("purchase_warn")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("purchase_warn");
 
                 entity.Property(e => e.PurchaseWarnMsg)
-                    .HasColumnName("purchase_warn_msg")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("purchase_warn_msg");
 
                 entity.Property(e => e.Ref)
-                    .HasColumnName("ref")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("ref");
 
                 entity.Property(e => e.SaleWarn)
-                    .HasColumnName("sale_warn")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("sale_warn");
 
                 entity.Property(e => e.SaleWarnMsg)
-                    .HasColumnName("sale_warn_msg")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("sale_warn_msg");
 
                 entity.Property(e => e.SignupExpiration)
-                    .HasColumnName("signup_expiration")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("signup_expiration");
 
                 entity.Property(e => e.SignupToken)
-                    .HasColumnName("signup_token")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("signup_token");
 
                 entity.Property(e => e.SignupType)
-                    .HasColumnName("signup_type")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("signup_type");
 
                 entity.Property(e => e.StateId)
-                    .HasColumnName("state_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("state_id");
 
                 entity.Property(e => e.Street)
-                    .HasColumnName("street")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("street");
 
                 entity.Property(e => e.Street2)
-                    .HasColumnName("street2")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("street2");
 
                 entity.Property(e => e.SupplierRank).HasColumnName("supplier_rank");
 
                 entity.Property(e => e.TeamId)
-                    .HasColumnName("team_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("team_id");
 
                 entity.Property(e => e.Title)
-                    .HasColumnName("title")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("title");
 
                 entity.Property(e => e.Type)
-                    .HasColumnName("type")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("type");
 
                 entity.Property(e => e.Tz)
-                    .HasColumnName("tz")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("tz");
 
                 entity.Property(e => e.UserId)
-                    .HasColumnName("user_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("user_id");
 
                 entity.Property(e => e.Vat)
-                    .HasColumnName("vat")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("vat");
 
                 entity.Property(e => e.Website)
-                    .HasColumnName("website")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("website");
 
                 entity.Property(e => e.WriteDate)
-                    .HasColumnName("write_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("write_date");
 
                 entity.Property(e => e.WriteUid).HasColumnName("write_uid");
 
                 entity.Property(e => e.XArabicName)
-                    .HasColumnName("x_arabic_name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("x_arabic_name");
 
                 entity.Property(e => e.XCode)
-                    .HasColumnName("x_code")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("x_code");
 
                 entity.Property(e => e.Zip)
-                    .HasColumnName("zip")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("zip");
             });
 
-            modelBuilder.Entity<ResourceCalendar>(entity =>
+            modelBuilder.Entity<Resources>(entity =>
             {
-                entity.HasNoKey();
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Active)
+                    .HasMaxLength(255)
+                    .HasColumnName("active");
+
+                entity.Property(e => e.CalendarId).HasColumnName("calendar_id");
 
                 entity.Property(e => e.CompanyId).HasColumnName("company_id");
 
                 entity.Property(e => e.CreateDate)
-                    .HasColumnName("create_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("create_date");
+
+                entity.Property(e => e.CreateUid).HasColumnName("create_uid");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.ResourceType)
+                    .HasMaxLength(255)
+                    .HasColumnName("resource_type");
+
+                entity.Property(e => e.TimeEfficiency).HasColumnName("time_efficiency");
+
+                entity.Property(e => e.Tz)
+                    .HasMaxLength(255)
+                    .HasColumnName("tz");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.Property(e => e.WriteDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("write_date");
+
+                entity.Property(e => e.WriteUid).HasColumnName("write_uid");
+            });
+
+            modelBuilder.Entity<ResourceCalendar>(entity =>
+            {
+                entity.ToTable("ResourceCalendar");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CompanyId).HasColumnName("company_id");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("create_date");
 
                 entity.Property(e => e.CreateUid).HasColumnName("create_uid");
 
@@ -754,38 +812,74 @@ namespace oddo.Models
 
                 entity.Property(e => e.HoursPerWeek).HasColumnName("hours_per_week");
 
-                entity.Property(e => e.Id).HasColumnName("id");
-
                 entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
 
                 entity.Property(e => e.TwoWeeksCalendar)
-                    .HasColumnName("two_weeks_calendar")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("two_weeks_calendar");
 
                 entity.Property(e => e.Tz)
-                    .HasColumnName("tz")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("tz");
 
                 entity.Property(e => e.WriteDate)
-                    .HasColumnName("write_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("write_date");
 
                 entity.Property(e => e.WriteUid).HasColumnName("write_uid");
             });
 
-            modelBuilder.Entity<TagValue>(entity =>
+            modelBuilder.Entity<State>(entity =>
             {
-                entity.HasNoKey();
-
-                entity.Property(e => e.Column1).HasMaxLength(255);
+                entity.ToTable("State");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.Code)
+                    .HasMaxLength(255)
+                    .HasColumnName("code");
+
+                entity.Property(e => e.CountryId).HasColumnName("country_id");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("create_date");
+
+                entity.Property(e => e.CreateUid).HasColumnName("create_uid");
+
                 entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.WriteDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("write_date");
+
+                entity.Property(e => e.WriteUid).HasColumnName("write_uid");
+            });
+
+            modelBuilder.Entity<Tags>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CategoryId).HasColumnName("category_id");
+
+                entity.Property(e => e.EmpId).HasColumnName("emp_id");
+            });
+
+            modelBuilder.Entity<TagValue>(entity =>
+            {
+                entity.ToTable("TagValue");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Column1).HasMaxLength(255);
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
 
                 entity.Property(e => e._1).HasMaxLength(255);
 
@@ -796,185 +890,91 @@ namespace oddo.Models
                 entity.Property(e => e._4).HasMaxLength(255);
             });
 
-            modelBuilder.Entity<Tags>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
-                entity.HasNoKey();
+                entity.ToTable("User");
 
-                entity.Property(e => e.CategoryId).HasColumnName("category_id");
-
-                entity.Property(e => e.EmpId).HasColumnName("emp_id");
-            });
- modelBuilder.Entity<User>(entity =>
-            {
-                entity.HasNoKey();
+                entity.Property(e => e.Id)
+                    .HasMaxLength(255)
+                    .HasColumnName("id");
 
                 entity.Property(e => e.ActionId)
-                    .HasColumnName("action_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("action_id");
 
                 entity.Property(e => e.Active)
-                    .HasColumnName("active")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("active");
 
                 entity.Property(e => e.AliasId)
-                    .HasColumnName("alias_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("alias_id");
 
                 entity.Property(e => e.CompanyId).HasColumnName("company_id");
 
                 entity.Property(e => e.CreateDate)
-                    .HasColumnName("create_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("create_date");
 
                 entity.Property(e => e.CreateUid).HasColumnName("create_uid");
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasMaxLength(255);
 
                 entity.Property(e => e.Login)
-                    .HasColumnName("login")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("login");
 
                 entity.Property(e => e.NotificationType)
-                    .HasColumnName("notification_type")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("notification_type");
 
                 entity.Property(e => e.OdoobotState)
-                    .HasColumnName("odoobot_state")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("odoobot_state");
 
                 entity.Property(e => e.OutOfOfficeMessage)
-                    .HasColumnName("out_of_office_message")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("out_of_office_message");
 
                 entity.Property(e => e.PartnerId)
-                    .HasColumnName("partner_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("partner_id");
 
                 entity.Property(e => e.Password)
-                    .HasColumnName("password")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("password");
 
                 entity.Property(e => e.SaleTeamId)
-                    .HasColumnName("sale_team_id")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("sale_team_id");
 
                 entity.Property(e => e.Share)
-                    .HasColumnName("share")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("share");
 
                 entity.Property(e => e.Signature)
-                    .HasColumnName("signature")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("signature");
 
                 entity.Property(e => e.TargetSalesDone)
-                    .HasColumnName("target_sales_done")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("target_sales_done");
 
                 entity.Property(e => e.TargetSalesInvoiced)
-                    .HasColumnName("target_sales_invoiced")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("target_sales_invoiced");
 
                 entity.Property(e => e.TargetSalesWon)
-                    .HasColumnName("target_sales_won")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("target_sales_won");
 
                 entity.Property(e => e.WriteDate)
-                    .HasColumnName("write_date")
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("write_date");
 
                 entity.Property(e => e.WriteUid)
-                    .HasColumnName("write_uid")
-                    .HasMaxLength(255);
+                    .HasMaxLength(255)
+                    .HasColumnName("write_uid");
             });
-            modelBuilder.Entity<Country>(entity =>
-            {
-                entity.HasNoKey();
 
-                entity.Property(e => e.AddressFormat)
-                    .HasColumnName("address_format")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.AddressViewId)
-                    .HasColumnName("address_view_id")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.Code)
-                    .HasColumnName("code")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnName("create_date")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.CreateUid).HasColumnName("create_uid");
-
-                entity.Property(e => e.CurrencyId).HasColumnName("currency_id");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.NamePosition)
-                    .HasColumnName("name_position")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.PhoneCode).HasColumnName("phone_code");
-
-                entity.Property(e => e.VatLabel)
-                    .HasColumnName("vat_label")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.WriteDate)
-                    .HasColumnName("write_date")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.WriteUid).HasColumnName("write_uid");
-            });
-            modelBuilder.Entity<image>(entity =>
-            {
-                entity.HasIndex(e => e.Id)
-                    .HasName("IX_Image");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.EmployeeId).HasColumnName("Employee_id");
-
-                entity.Property(e => e.ImageCode)
-                    .HasColumnName("image_code")
-                    .IsUnicode(false);
-            });
-            modelBuilder.Entity<State>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.Property(e => e.Code)
-                    .HasColumnName("code")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.CountryId).HasColumnName("country_id");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnName("create_date")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.CreateUid).HasColumnName("create_uid");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.WriteDate)
-                    .HasColumnName("write_date")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.WriteUid).HasColumnName("write_uid");
-            });
             OnModelCreatingPartial(modelBuilder);
         }
 

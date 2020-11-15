@@ -7,7 +7,7 @@ namespace oddo.Models
 {
     public class State
     {
-        public double? Id { get; set; }
+        public int Id { get; set; }
         public double? CountryId { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }

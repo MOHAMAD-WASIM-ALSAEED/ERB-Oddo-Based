@@ -11,6 +11,7 @@ using oddo.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.VisualBasic;
 using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json;
 
 namespace oddo.Controllers
 {
@@ -98,9 +99,9 @@ namespace oddo.Controllers
             var department = _hRContext.Department.Where(x => x.Id == Employee.DepartmentId).FirstOrDefault();
             var EmployeeManeger = _hRContext.Employee.FirstOrDefault(m => m.Id == Employee.ParentId) ?? new Employee();
             var EmployeeCoach = _hRContext.Employee.FirstOrDefault(m => m.Id == Employee.CoachId) ?? new Employee();
-            var EmployeepartnerId = _hRContext.User.FirstOrDefault(m => m.Id == Employee.LeaveManagerId.ToString()) ?? new User();
+            var EmployeepartnerId = _hRContext.User.FirstOrDefault(m => m.Id == Employee.LeaveManagerId) ?? new User();
             var timeoff = _hRContext.ResPartner.FirstOrDefault(m => m.Id.ToString() == EmployeepartnerId.PartnerId) ?? new ResPartner();
-            var EmployeepartnerRelatedId = _hRContext.User.FirstOrDefault(m => m.Id == Employee.UserId.ToString()) ?? new User();
+            var EmployeepartnerRelatedId = _hRContext.User.FirstOrDefault(m => m.Id == Employee.UserId) ?? new User();
             var RelatedUser = _hRContext.ResPartner.FirstOrDefault(m => m.Id.ToString() == EmployeepartnerRelatedId.PartnerId) ?? new ResPartner();
             var Country = _hRContext.Country.FirstOrDefault(m => m.Id == Employee.CountryId);
             var employeeLoop = _hRContext.Employee.FirstOrDefault(s => s.Id == id);
@@ -227,9 +228,9 @@ namespace oddo.Controllers
                 var department = _hRContext.Department.Where(x => x.Id == Employee.DepartmentId).FirstOrDefault();
                 var EmployeeManeger = _hRContext.Employee.FirstOrDefault(m => m.Id == Employee.ParentId) ?? new Employee();
                 var EmployeeCoach = _hRContext.Employee.FirstOrDefault(m => m.Id == Employee.CoachId) ?? new Employee();
-                var EmployeepartnerId = _hRContext.User.FirstOrDefault(m => m.Id == Employee.LeaveManagerId.ToString()) ?? new User();
+                var EmployeepartnerId = _hRContext.User.FirstOrDefault(m => m.Id == Employee.LeaveManagerId) ?? new User();
                 var timeoff = _hRContext.ResPartner.FirstOrDefault(m => m.Id.ToString() == EmployeepartnerId.PartnerId) ?? new ResPartner();
-                var EmployeepartnerRelatedId = _hRContext.User.FirstOrDefault(m => m.Id == Employee.UserId.ToString()) ?? new User();
+                var EmployeepartnerRelatedId = _hRContext.User.FirstOrDefault(m => m.Id == Employee.UserId) ?? new User();
                 var RelatedUser = _hRContext.ResPartner.FirstOrDefault(m => m.Id.ToString() == EmployeepartnerRelatedId.PartnerId) ?? new ResPartner();
                 var Country = _hRContext.Country.FirstOrDefault(m => m.Id == Employee.CountryId);
                 var employeeLoop = _hRContext.Employee.FirstOrDefault(s => s.Id == id);
@@ -309,7 +310,7 @@ namespace oddo.Controllers
 
                     Tags = _hRContext.TagValue.ToList<TagValue>(),
                     Departments = _hRContext.Department.ToList<Department>(),
-                    Jobs = _hRContext.Jobs.ToList<Jobs>(),
+                    Jobss = _hRContext.Jobs.ToList<Jobs>(),
                     Manegers = Employees,
                     Addresses = resPartners,
                     Coachs = Employees,
@@ -340,7 +341,7 @@ namespace oddo.Controllers
         {
             var employee = new Employee {
                 Name = FormData.Employee.Name,
-                UserId =Convert.ToDouble( _hRContext.User.Where(x => x.Id == FormData.RelatedUser.Id.Value.ToString()).Select(x => x.Id).FirstOrDefault()),
+               UserId =Convert.ToDouble( _hRContext.User.Where(x => x.Id == FormData.RelatedUser.Id).Select(x => x.Id).FirstOrDefault()),
                 AddressHomeId=FormData.Employee.AddressHomeId,
                 CountryId= FormData.Employee.CountryId,
                 Gender= FormData.Employee.Gender,
@@ -364,8 +365,7 @@ namespace oddo.Controllers
                 Barcode= FormData.Employee.Barcode,
                 Pin= FormData.Employee.Pin,
                 DepartmentId= FormData.Department.Id,
-                JobId= FormData.Employee.Job.Id,
-                JobTitle= FormData.Employee.JobTitle,
+                JobId= FormData.Job.Id,
                 CompanyId=1,
                 AddressId= FormData.Address.Id,
                 WorkPhone= FormData.Employee.WorkPhone,
@@ -383,10 +383,21 @@ namespace oddo.Controllers
             };
             _hRContext.Employee.Add(employee);
             _hRContext.SaveChanges();
-            var image = new image { ImageCode = FormData.ImageEncoded,EmployeeId=Convert.ToInt32(employee.Id.Value) };
-            
+            var dependents = JsonSerializer.Deserialize<List<Dependent>>(FormData.Dependants);
+            foreach (var item in dependents)
+            {
+                item.EmployeeDependantId = employee.Id;
+                _hRContext.Dependent.Add(item);
+            }
 
-            return View();
+            foreach (var item in FormData.TagIds)
+            {
+                _hRContext.Tags.Add(new Tags { EmpId = employee.Id, CategoryId = item });
+            }
+            var image = new image { ImageCode = FormData.ImageEncoded.Split(",")[1], EmployeeId=Convert.ToInt32(employee.Id) };
+            _hRContext.Image.Add(image);
+            _hRContext.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

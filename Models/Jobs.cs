@@ -5,7 +5,7 @@ namespace oddo.Models
 {
     public partial class Jobs
     {
-        public double? Id { get; set; }
+        public int Id { get; set; }
         public string MessageMainAttachmentId { get; set; }
         public string Name { get; set; }
         public double? ExpectedEmployees { get; set; }

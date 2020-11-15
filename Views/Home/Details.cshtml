@@ -290,7 +290,7 @@
                                         <p class="card-text " style="font-weight: bold;display: inline;">Second Spouse Birthdate</p>
                                         @{
                                             DateTime? myDate = null;
-                                            if (Model.Employee.XSpouseBirthdate != "")
+                                            if (Model.Employee.XSpouseBirthdate != "" && Model.Employee.XSpouseBirthdate != null)
                                             {
                                                 myDate = DateTime.ParseExact(Model.Employee.XSpouseBirthdate, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture);
 

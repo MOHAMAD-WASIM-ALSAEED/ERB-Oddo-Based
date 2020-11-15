@@ -5,7 +5,7 @@ namespace oddo.Models
 {
     public partial class ResourceCalendar
     {
-        public double? Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public double? CompanyId { get; set; }
         public double? HoursPerDay { get; set; }
