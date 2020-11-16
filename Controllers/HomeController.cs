@@ -247,6 +247,8 @@ namespace oddo.Controllers
                     item.Job = _hRContext.Jobs.FirstOrDefault(x => x.Id == item.JobId) ?? new Jobs();
                 }
                 var EmployeepartnerId = _hRContext.User.FirstOrDefault(m => m.Id == Employee.LeaveManagerId) ?? new User();
+                var Tags = _hRContext.Tags.Where(x => x.EmpId == id).Select(x => x.CategoryId).ToList<double?>();
+                var TagVAlues = _hRContext.TagValue.Where(x => Tags.Contains(x.Id)).ToList<TagValue>();
                 EmployeeViewModel employeeViewModel = new EmployeeViewModel
                 {
                     Employee = Employee,
@@ -255,10 +257,10 @@ namespace oddo.Controllers
                     Coach = _hRContext.Employee.FirstOrDefault(m => m.Id == Employee.CoachId) ?? new Employee(),
                     TimeOff = _hRContext.ResPartner.FirstOrDefault(m => m.Id.ToString() == EmployeepartnerId.PartnerId) ?? new ResPartner(),
                     RelatedUser = _hRContext.ResPartner.FirstOrDefault(m => m.Id == Employee.UserId) ?? new ResPartner(),
-                    ResourceCalendar= _hRContext.ResourceCalendar.FirstOrDefault(x => x.Id == Employee.ResourceCalendarId) ?? new ResourceCalendar(),
+                    ResourceCalendar = _hRContext.ResourceCalendar.FirstOrDefault(x => x.Id == Employee.ResourceCalendarId) ?? new ResourceCalendar(),
                     Timezone = _hRContext.Resources.FirstOrDefault(x => x.Id == Employee.ResourceId) ?? new Resources(),
-                    Address= _hRContext.ResPartner.FirstOrDefault(m => m.Id == Employee.UserId) ?? new ResPartner(),
-                    Expense= _hRContext.ResPartner.FirstOrDefault(m => m.Id == Employee.UserId) ?? new ResPartner(),
+                    Address = _hRContext.ResPartner.FirstOrDefault(m => m.Id == Employee.UserId) ?? new ResPartner(),
+                    Expense = _hRContext.ResPartner.FirstOrDefault(m => m.Id == Employee.UserId) ?? new ResPartner(),
                     EmployeeTree = employeesTree,
                     EmployeeDependents = dependant,
                     EmployeeWithSameManeger = EmployeeWithSameManeger,
@@ -275,7 +277,7 @@ namespace oddo.Controllers
                     Countries = _hRContext.Country.ToList<Country>(),
                     RelatedUsers = resPartners,
                     ImageEncoded = "data:image/png;base64," + image.ImageCode,
-                    
+                    TagIds = TagVAlues.Select(x => x.Id).ToList<int>().ToArray(),
 
                 };
                 return View(employeeViewModel);
@@ -437,6 +439,15 @@ namespace oddo.Controllers
                 _hRContext.Image.Remove(OldImage);
                 var image = new image { ImageCode = FormData.ImageEncoded.Split(",")[1], EmployeeId = Convert.ToInt32(Updatedemployee.Id) };
                 _hRContext.Image.Add(image);
+                var Tags = _hRContext.Tags.Where(x => x.EmpId == FormData.Employee.Id).ToList<Tags>();
+                foreach (var item in Tags)
+                {
+                    _hRContext.Tags.Remove(item);
+                }
+                foreach (var item in FormData.TagIds)
+                {
+                    _hRContext.Tags.Add(new Tags { EmpId = Updatedemployee.Id, CategoryId = item });
+                }
                 _hRContext.SaveChanges();
             }
             return RedirectToAction(nameof(Index));
