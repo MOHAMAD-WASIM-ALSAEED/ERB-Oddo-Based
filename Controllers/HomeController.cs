@@ -436,7 +436,11 @@ namespace oddo.Controllers
                     _hRContext.Dependent.Add(item);
                 }
                 var OldImage = _hRContext.Image.FirstOrDefault(x => x.EmployeeId == FormData.Employee.Id)??new image();
-                _hRContext.Image.Remove(OldImage);
+                if (OldImage.Id !=0)
+                {
+                    _hRContext.Image.Remove(OldImage);
+                }
+               
                 var image = new image { ImageCode = FormData.ImageEncoded.Split(",")[1], EmployeeId = Convert.ToInt32(Updatedemployee.Id) };
                 _hRContext.Image.Add(image);
                 var Tags = _hRContext.Tags.Where(x => x.EmpId == FormData.Employee.Id).ToList<Tags>();
