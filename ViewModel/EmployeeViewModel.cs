@@ -14,7 +14,7 @@ namespace oddo.ViewModel
         public List<Jobs> Jobss { get; set; }
         public List<TagValue> Tags { get; set; }
         public int[] TagIds { get; set; }
-        public Department Department { get; set; }
+        public Department Departmente { get; set; }
         public List<Department> Departments { get; set; }
         public Employee Maneger { get; set; }
         public List<Employee> Manegers { get; set; }

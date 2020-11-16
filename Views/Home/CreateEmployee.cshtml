@@ -160,7 +160,7 @@
                                 <div class="col-6 p-4">
                                     <p class="card-text b mt-4" style="display:inline">Department </p>
                                     <div style="display:inline">
-                                        <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Department.Id" asp-items="@(new SelectList(Model.Departments,"Id","Name"))">
+                                        <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Departmente.Id" asp-items="@(new SelectList(Model.Departments,"Id","Name"))">
                                             <option value="" selected="selected" disabled="disabled"></option>
                                         </select>
                                     </div>
@@ -302,7 +302,7 @@
                                                 <h5 class="mt-5">Private Contact</h5>
                                                 <p class="card-text b mt-4" style="display:inline">Address </p>
                                                 <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Employee.AddressHomeId" asp-items="@(new SelectList(Model.Addresses,"Id","Name"))">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Address.Id" asp-items="@(new SelectList(Model.Addresses,"Id","Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
 
                                                     </select>
