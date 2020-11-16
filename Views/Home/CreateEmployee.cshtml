@@ -53,11 +53,13 @@
                 </table>
                 <div class="card-body mt-0 pt-0">
                     <form id="DataForm" method="post" asp-controller="Home" asp-action="CreateEmployee" enctype="multipart/form-data">
+                        
                         <input type="hidden" id="dependant" asp-for="@Model.Dependants" />
+                        <input type="hidden"  asp-for="@Model.Employee.Id" value="@Model.Employee.Id" />
                         <div style="float:right">
-                            <img src="/images/s.png" id="blah" style="width:92px;height:123px; background-repeat: no-repeat; background-size:cover">
+                            <img src="@Model.ImageEncoded" id="blah" style="width:92px;height:123px; background-repeat: no-repeat; background-size:cover">
                             <br />
-                            <input id="imgw" type="file" class=" btn-light"  value="upload" asp-for="@Model.ImageUrl"/>
+                            <input id="imgw" type="file" class=" btn-light"  value="upload" asp-for="@Model.ImageUrl" />
                             <input id="encode" type="text" asp-for="@Model.ImageEncoded" hidden />
                         </div>
                         <label for="inp" class="inp">
@@ -81,8 +83,7 @@
                         </label>
                         <br />
 
-                        <select class="chzn-select mt-5" multiple="true" asp-for="@Model.TagIds" style="width:200px;" asp-items="@(new SelectList(Model.Tags, "Id", "Name"));" >
-                           
+                        <select class="chzn-select mt-5" multiple="true" asp-for="@Model.TagIds" style="width:200px;" asp-items="@(new SelectList(Model.Tags, "Id", "Name"));">
                         </select>
 
 
@@ -160,14 +161,14 @@
                                 <div class="col-6 p-4">
                                     <p class="card-text b mt-4" style="display:inline">Department </p>
                                     <div style="display:inline">
-                                        <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Departmente.Id" asp-items="@(new SelectList(Model.Departments,"Id","Name"))">
+                                        <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Departmente.Id" asp-items="@(new SelectList(Model.Departments, "Id", "Name"))">
                                             <option value="" selected="selected" disabled="disabled"></option>
                                         </select>
                                     </div>
                                     <br />
                                     <p class="card-text b mt-4" style="display:inline">Job Posstion </p>
                                     <div style="display:inline">
-                                        <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Job.Id" asp-items="@(new SelectList(Model.Jobss,"Id","Name"))">
+                                        <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Job.Id" asp-items="@(new SelectList(Model.Jobss, "Id", "Name"))">
                                             <option value="" selected="selected" disabled="disabled"></option>
                                         </select>
                                     </div>
@@ -175,7 +176,7 @@
                                     <br />
                                     <p class="card-text b mt-4 mr-4" style="display:inline">Manager </p>
                                     <div style="display:inline">
-                                        <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Employee.ParentId" asp-items="@(new SelectList(Model.Manegers,"Id","Name"))">
+                                        <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Employee.ParentId" asp-items="@(new SelectList(Model.Manegers, "Id", "Name"))">
                                             <option value="" selected="selected" disabled="disabled"></option>
                                         </select>
                                     </div>
@@ -228,37 +229,37 @@
                                                 <h5 class="mt-5">Location</h5>
                                                 <p class="card-text b mt-4" style="display:inline">Work Adresse </p>
                                                 <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width:400px;"asp-for="@Model.Address.Id"  asp-items="@(new SelectList(Model.Addresses,"Id","Name"))" >
-                                                        <option value="" selected="selected" disabled="disabled" ></option>
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width:400px;" asp-for="@Model.Address.Id" asp-items="@(new SelectList(Model.Addresses, "Id", "Name"))">
+                                                        <option value="" selected="selected" disabled="disabled"></option>
                                                     </select>
                                                 </div>
 
                                                 <h5 class="mt-5">Responsibles</h5>
                                                 <p class="card-text b mt-4 mr-3" style="display:inline">Coash </p>
                                                 <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Employee.CoachId" asp-items="@(new SelectList(Model.Coachs,"Id","Name"))">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Employee.CoachId" asp-items="@(new SelectList(Model.Coachs, "Id", "Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
-                                                      
+
                                                     </select>
                                                 </div>
                                                 <br />
-                                                <p class="card-text b mt-5" style="display:inline" >Time off </p>
-                                                <div style="display:inline" >
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.TimeOff.Id" asp-items="@(new SelectList(Model.TimeOffs,"Id","Name"))">
+                                                <p class="card-text b mt-5" style="display:inline">Time off </p>
+                                                <div style="display:inline">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.TimeOff.Id" asp-items="@(new SelectList(Model.TimeOffs, "Id", "Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
-                                                       
+
                                                     </select>
                                                 </div>
                                                 <br />
                                                 <p class="card-text b mt-4 mr-2" style="display:inline">Expense </p>
                                                 <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Expense.Id" asp-items="@(new SelectList(Model.Expenses,"Id","Name"))">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Expense.Id" asp-items="@(new SelectList(Model.Expenses, "Id", "Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
-                                                      
+
                                                     </select>
                                                 </div>
                                                 <br />
-                                                <p class="card-text b" style="display:inline" >Time Sheet </p>
+                                                <p class="card-text b" style="display:inline">Time Sheet </p>
                                                 <div style="display:inline">
                                                     <select disabled id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;">
                                                         <option value="" selected="selected" disabled="disabled"></option>
@@ -273,17 +274,17 @@
                                                 <h5 class="mt-5">Schedule</h5>
                                                 <p class="card-text b mt-4" style="display:inline">Working Hours </p>
                                                 <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.ResourceCalendar.Id" asp-items="@(new SelectList(Model.ResourceCalendars,"Id","Name"))">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.ResourceCalendar.Id" asp-items="@(new SelectList(Model.ResourceCalendars, "Id", "Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
-                                                       
+
                                                     </select>
                                                 </div>
                                                 <br />
                                                 <p class="card-text b mt-4 mr-4" style="display:inline">Time zone </p>
                                                 <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px; " asp-for="@Model.Timezone.Id" asp-items="@(new SelectList(Model.Timezones,"Id","Name"))">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px; " asp-for="@Model.Timezone.Id" asp-items="@(new SelectList(Model.Timezones, "Id", "Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
-                                                       
+
                                                     </select>
                                                 </div>
 
@@ -302,7 +303,7 @@
                                                 <h5 class="mt-5">Private Contact</h5>
                                                 <p class="card-text b mt-4" style="display:inline">Address </p>
                                                 <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Address.Id" asp-items="@(new SelectList(Model.Addresses,"Id","Name"))">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Address.Id" asp-items="@(new SelectList(Model.Addresses, "Id", "Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
 
                                                     </select>
@@ -357,7 +358,7 @@
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Spouse Birthdate</label>
                                                     <div class="col-sm-9" style="width: 100%">
                                                         <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="date" id="inp11" data-date-format="mm/dd/yyyy" asp-for="@Model.Employee.SpouseBirthdate">
+                                                            <input type="date" id="inp11" asp-for="@Model.Employee.SpouseBirthdate" data-date-format="mm/dd/yyyy" value="@(Model.Employee.SpouseBirthdate.HasValue ? Model.Employee.SpouseBirthdate.Value.ToString("yyyy-MM-dd") : "")" >
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                                             </svg>
@@ -388,7 +389,7 @@
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Second Spouse Birthdate</label>
                                                     <div class="col-sm-9" style="width: 100%">
                                                         <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="date" id="inp13" data-date-format="mm/dd/yyyy" asp-for="@Model.Employee.XSpouseBirthdate">
+                                                            <input type="date" id="inp13" data-date-format="mm/dd/yyyy" value="@Model.Employee.XSpouseBirthdate" asp-for="@Model.Employee.XSpouseBirthdate">
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                                             </svg>
@@ -475,7 +476,7 @@
                                                 <div style="display:inline">
                                                     <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Employee.CountryId" asp-items="@(new SelectList(Model.Countries,"Id","Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
-                                                        
+
                                                     </select>
                                                 </div>
 
@@ -522,8 +523,8 @@
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Date of Birth</label>
                                                     <div class="col-sm-9" style="width: 100%">
                                                         <label for="inp" class="inp" style="height: 48px;">
-                                                        
-                                                            <input type="date" id="inp1566" asp-for="@Model.Employee.Birthday">
+
+                                                            <input type="date" id="inp1566" asp-for="@Model.Employee.Birthday" value="@(Model.Employee.SpouseBirthdate.HasValue ? Model.Employee.Birthday.Value.ToString("yyyy-MM-dd") : "")">
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                                             </svg>
@@ -551,7 +552,7 @@
                                                 <div style="display:inline">
                                                     <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Employee.CountryOfBirth" asp-items="@(new SelectList(Model.Countries,"Id","Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
-                                                      
+
                                                     </select>
                                                 </div>
                                                 <h5 class="mt-5">Dependant</h5>
@@ -565,9 +566,23 @@
                                                             <th>Name</th>
                                                             <th>Birth Date</th>
                                                             <th>Delete</th>
+                                                            <th hidden></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="mcontent">
+                                                        @{var y = 1; }
+                                                        @foreach (var item in Model.EmployeeDependents)
+                                                        {
+                                                            var myDate = item.Bdate.Value.ToString("yyyy-MM-dd");
+
+                                                        <tr id="@y">
+                                                            <td><input id="name_@y" type="text" value="@item.Name"></td>
+                                                            <td><input id="birth_@y" type="date" value="@myDate"></td>
+                                                            <td><a href="javascript:;" onclick="Delete(@y)"><i class="fa fa-trash"></i></a></td>
+                                                            <td hidden><input id="id_@y" type="hidden" value="@item.Id"></td>
+                                                        </tr>
+                                                            y++;
+                                                        }
                                                     </tbody>
                                                 </table>
                                                 <h5 class="mt-5">Work Permit</h5>
@@ -575,7 +590,7 @@
                                                 <div class="form-row">
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Visa No</label>
                                                     <div class="col-sm-9" style="width: 100%">
-                                                        <label for="inp" class="inp" style="height: 48px;" >
+                                                        <label for="inp" class="inp" style="height: 48px;">
                                                             <input type="text" id="inp1215" asp-for="@Model.Employee.VisaNo">
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
@@ -735,6 +750,26 @@
 </div>
 
 @section Scripts{
+    @if (Model.EmployeeDependents.Count > 0)
+    {
+        <script>
+            var count = parseInt('@Model.EmployeeDependents.Count');
+            var arr = new Array();
+            var cnt = 1;
+            for (var i = 0; i < count; i++) {
+                arr.push(cnt);
+                cnt++;
+            }
+        </script>
+
+    }
+    else
+    {
+        <script>
+            var count = 0;
+            var arr = new Array();
+        </script>
+    }
     <script>
         $(function () {
             $(".chzn-select").chosen();
@@ -757,9 +792,10 @@
             });
         });
 
-        var count = 0;
+        
+
         var dependentCount = 0;
-        var arr = new Array();
+       
         function Delete(id) {
             $('#' + id).remove();
             arr = arr.filter(item => item !== id);
@@ -773,6 +809,7 @@
                 '<td><input id="name_' + count + '" type="text" placeholder="name"/></td>' +
                 '<td><input id="birth_' + count + '" type="date" /></td>' +
                 '<td><a href="javascript:;" onclick="Delete(' + count + ')" ><i class="fa fa-trash"></i></a></td>' +
+                '<td><input hidden  type="date" /></td>' +
                 '</tr>');
             arr.push(count);
             dependentCount++;
@@ -780,16 +817,18 @@
         }
         var obj = new Array();
 
-      
+
         function SubmitForm() {
 
+        
             obj = [];
             for (let index = 0; index < arr.length; index++) {
                 obj.push({
                     Name: $('#name_' + arr[index]).val(),
-                    Bdate: $('#birth_' + arr[index]).val(),
+                    Bdate: $('#birth_' + arr[index]).val()
                 });
             }
+           
             $('#dependant').val(JSON.stringify(obj));
             $('#DataForm').submit();
 

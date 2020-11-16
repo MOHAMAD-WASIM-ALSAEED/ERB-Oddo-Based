@@ -103,7 +103,7 @@ namespace oddo.Controllers
             var timeoff = _hRContext.ResPartner.FirstOrDefault(m => m.Id.ToString() == EmployeepartnerId.PartnerId) ?? new ResPartner();
             var EmployeepartnerRelatedId = _hRContext.User.FirstOrDefault(m => m.Id == Employee.UserId) ?? new User();
             var RelatedUser = _hRContext.ResPartner.FirstOrDefault(m => m.Id.ToString() == EmployeepartnerRelatedId.PartnerId) ?? new ResPartner();
-            var Country = _hRContext.Country.FirstOrDefault(m => m.Id == Employee.CountryId);
+            var Country = _hRContext.Country.FirstOrDefault(m => m.Id == Employee.CountryId)?? new Country();
             var employeeLoop = _hRContext.Employee.FirstOrDefault(s => s.Id == id);
             var dependant = _hRContext.Dependent.Where(x => x.EmployeeDependantId == id).ToList<Dependent>();
             var Jobs = _hRContext.Jobs.FirstOrDefault(x => x.Id == Employee.JobId) ?? new Jobs();
@@ -274,7 +274,8 @@ namespace oddo.Controllers
                     Timezones = _hRContext.Resources.ToList<Resources>(),
                     Countries = _hRContext.Country.ToList<Country>(),
                     RelatedUsers = resPartners,
-                    employeeImage = "data:image/png;base64," + image.ImageCode
+                    ImageEncoded = "data:image/png;base64," + image.ImageCode,
+                    
 
                 };
                 return View(employeeViewModel);
@@ -285,7 +286,7 @@ namespace oddo.Controllers
                 var resPartners = _hRContext.ResPartner.ToList<ResPartner>();
                 EmployeeViewModel employeeViewModel = new EmployeeViewModel
                 {
-
+                    Employee = new Employee(),
                     Tags = _hRContext.TagValue.ToList<TagValue>(),
                     Departments = _hRContext.Department.ToList<Department>(),
                     Jobss = _hRContext.Jobs.ToList<Jobs>(),
@@ -298,7 +299,7 @@ namespace oddo.Controllers
                     Timezones = _hRContext.Resources.ToList<Resources>(),
                     Countries = _hRContext.Country.ToList<Country>(),
                     RelatedUsers = resPartners,
-
+                    EmployeeDependents=new List<Dependent>(),
 
 
                 };
@@ -311,64 +312,133 @@ namespace oddo.Controllers
         [HttpPost]
         public IActionResult CreateEmployee(EmployeeViewModel FormData)
         {
-            var employee = new Employee {
-                Name = FormData.Employee.Name,
-               UserId =Convert.ToDouble( _hRContext.User.Where(x => x.Id == FormData.RelatedUser.Id).Select(x => x.Id).FirstOrDefault()),
-                CountryId= FormData.Employee.CountryId,
-                Gender= FormData.Employee.Gender,
-                Marital= FormData.Employee.Marital,
-                SpouseCompleteName= FormData.Employee.SpouseCompleteName,
-                SpouseBirthdate= FormData.Employee.SpouseBirthdate,
-                PlaceOfBirth= FormData.Employee.PlaceOfBirth,
-                CountryOfBirth= FormData.Employee.CountryOfBirth,
-                Birthday= FormData.Employee.Birthday,
-                IdentificationId= FormData.Employee.IdentificationId,
-                PassportId= FormData.Employee.PassportId,
-                PermitNo= FormData.Employee.PermitNo,
-                VisaNo= FormData.Employee.VisaNo,
-                VisaExpire= FormData.Employee.VisaExpire,
-                Certificate= FormData.Employee.Certificate,
-                StudyField= FormData.Employee.StudyField,
-                StudySchool= FormData.Employee.StudySchool,
-                EmergencyContact= FormData.Employee.EmergencyContact,
-                EmergencyPhone= FormData.Employee.EmergencyPhone,
-                KmHomeWork= FormData.Employee.KmHomeWork,
-                Barcode= FormData.Employee.Barcode,
-                Pin= FormData.Employee.Pin,
-                DepartmentId= FormData.Departmente.Id,
-                JobId= FormData.Job.Id,
-                CompanyId=1,
-                AddressId= FormData.Address.Id,
-                WorkPhone= FormData.Employee.WorkPhone,
-                WorkLocation= FormData.Employee.WorkLocation,
-                ResourceId= FormData.Timezone.Id,
-                ResourceCalendarId= FormData.ResourceCalendar.Id,
-                ParentId= FormData.Employee.ParentId,
-                CoachId= FormData.Employee.CoachId,
-                CreateDate=DateTime.Now,
-                WriteDate=DateTime.Now,
-                LeaveManagerId= FormData.TimeOff.Id,
-                ExpenseManagerId= FormData.Expense.Id,
-                XSpouseBirthdate= FormData.Employee.XSpouseBirthdate,
-                XSpouseCompleteName= FormData.Employee.XSpouseCompleteName
-            };
-            _hRContext.Employee.Add(employee);
-            _hRContext.SaveChanges();
-                                             
-            var dependents = JsonSerializer.Deserialize<List<Dependent>>(FormData.Dependants);
-            foreach (var item in dependents)
-            {
-                item.EmployeeDependantId = employee.Id;
-                _hRContext.Dependent.Add(item);
-            }
+            if (FormData.Employee.Id==0) {
+                var employee = new Employee {
+                    Name = FormData.Employee.Name,
+                    UserId = Convert.ToDouble(_hRContext.User.Where(x => x.Id == FormData.RelatedUser.Id).Select(x => x.Id).FirstOrDefault()),
+                    CountryId = FormData.Employee.CountryId,
+                    Gender = FormData.Employee.Gender,
+                    Marital = FormData.Employee.Marital,
+                    SpouseCompleteName = FormData.Employee.SpouseCompleteName,
+                    SpouseBirthdate = FormData.Employee.SpouseBirthdate,
+                    PlaceOfBirth = FormData.Employee.PlaceOfBirth,
+                    CountryOfBirth = FormData.Employee.CountryOfBirth,
+                    Birthday = FormData.Employee.Birthday,
+                    IdentificationId = FormData.Employee.IdentificationId,
+                    PassportId = FormData.Employee.PassportId,
+                    PermitNo = FormData.Employee.PermitNo,
+                    VisaNo = FormData.Employee.VisaNo,
+                    VisaExpire = FormData.Employee.VisaExpire,
+                    Certificate = FormData.Employee.Certificate,
+                    StudyField = FormData.Employee.StudyField,
+                    StudySchool = FormData.Employee.StudySchool,
+                    EmergencyContact = FormData.Employee.EmergencyContact,
+                    EmergencyPhone = FormData.Employee.EmergencyPhone,
+                    KmHomeWork = FormData.Employee.KmHomeWork,
+                    Barcode = FormData.Employee.Barcode,
+                    Pin = FormData.Employee.Pin,
+                    DepartmentId = FormData.Departmente.Id,
+                    JobId = FormData.Job.Id,
+                    CompanyId = 1,
+                    AddressId = FormData.Address.Id,
+                    WorkPhone = FormData.Employee.WorkPhone,
+                    WorkLocation = FormData.Employee.WorkLocation,
+                    ResourceId = FormData.Timezone.Id,
+                    ResourceCalendarId = FormData.ResourceCalendar.Id,
+                    ParentId = FormData.Employee.ParentId,
+                    CoachId = FormData.Employee.CoachId,
+                    CreateDate = DateTime.Now,
+                    WriteDate = DateTime.Now,
+                    LeaveManagerId = FormData.TimeOff.Id,
+                    ExpenseManagerId = FormData.Expense.Id,
+                    XSpouseBirthdate = FormData.Employee.XSpouseBirthdate,
+                    XSpouseCompleteName = FormData.Employee.XSpouseCompleteName
+                };
+                _hRContext.Employee.Add(employee);
+                _hRContext.SaveChanges();
 
-            foreach (var item in FormData.TagIds)
-            {
-                _hRContext.Tags.Add(new Tags { EmpId = employee.Id, CategoryId = item });
+                var dependents = JsonSerializer.Deserialize<List<Dependent>>(FormData.Dependants);
+                foreach (var item in dependents)
+                {
+                    item.EmployeeDependantId = employee.Id;
+                    _hRContext.Dependent.Add(item);
+                }
+
+                foreach (var item in FormData.TagIds)
+                {
+                    _hRContext.Tags.Add(new Tags { EmpId = employee.Id, CategoryId = item });
+                }
+                var image = new image { ImageCode = FormData.ImageEncoded.Split(",")[1], EmployeeId = Convert.ToInt32(employee.Id) };
+                _hRContext.Image.Add(image);
+                _hRContext.SaveChanges();
             }
-            var image = new image { ImageCode = FormData.ImageEncoded.Split(",")[1], EmployeeId=Convert.ToInt32(employee.Id) };
-            _hRContext.Image.Add(image);
-            _hRContext.SaveChanges();
+            else
+            {
+
+                var Updatedemployee = new Employee
+                {
+                    
+                    Name = FormData.Employee.Name,
+                    UserId = Convert.ToDouble(_hRContext.User.Where(x => x.Id == FormData.RelatedUser.Id).Select(x => x.Id).FirstOrDefault()),
+                    CountryId = FormData.Employee.CountryId,
+                    Gender = FormData.Employee.Gender,
+                    Marital = FormData.Employee.Marital,
+                    SpouseCompleteName = FormData.Employee.SpouseCompleteName,
+                    SpouseBirthdate = FormData.Employee.SpouseBirthdate,
+                    PlaceOfBirth = FormData.Employee.PlaceOfBirth,
+                    CountryOfBirth = FormData.Employee.CountryOfBirth,
+                    Birthday = FormData.Employee.Birthday,
+                    IdentificationId = FormData.Employee.IdentificationId,
+                    PassportId = FormData.Employee.PassportId,
+                    PermitNo = FormData.Employee.PermitNo,
+                    VisaNo = FormData.Employee.VisaNo,
+                    VisaExpire = FormData.Employee.VisaExpire,
+                    Certificate = FormData.Employee.Certificate,
+                    StudyField = FormData.Employee.StudyField,
+                    StudySchool = FormData.Employee.StudySchool,
+                    EmergencyContact = FormData.Employee.EmergencyContact,
+                    EmergencyPhone = FormData.Employee.EmergencyPhone,
+                    KmHomeWork = FormData.Employee.KmHomeWork,
+                    Barcode = FormData.Employee.Barcode,
+                    Pin = FormData.Employee.Pin,
+                    DepartmentId = FormData.Departmente.Id,
+                    JobId = FormData.Job.Id,
+                    CompanyId = 1,
+                    AddressId = FormData.Address.Id,
+                    WorkPhone = FormData.Employee.WorkPhone,
+                    WorkLocation = FormData.Employee.WorkLocation,
+                    ResourceId = FormData.Timezone.Id,
+                    ResourceCalendarId = FormData.ResourceCalendar.Id,
+                    ParentId = FormData.Employee.ParentId,
+                    CoachId = FormData.Employee.CoachId,
+                    CreateDate = DateTime.Now,
+                    WriteDate = DateTime.Now,
+                    LeaveManagerId = FormData.TimeOff.Id,
+                    ExpenseManagerId = FormData.Expense.Id,
+                    XSpouseBirthdate = FormData.Employee.XSpouseBirthdate,
+                    XSpouseCompleteName = FormData.Employee.XSpouseCompleteName
+                };
+                var oldemployee = _hRContext.Employee.FirstOrDefault(x => x.Id == FormData.Employee.Id);
+                _hRContext.Employee.Remove(oldemployee);
+                _hRContext.Employee.Add(Updatedemployee);
+                _hRContext.SaveChanges();
+                var dependents = JsonSerializer.Deserialize<List<Dependent>>(FormData.Dependants);
+                var employeeOldDependant = _hRContext.Dependent.Where(x => x.EmployeeDependantId == FormData.Employee.Id).ToList<Dependent>();
+                foreach (var child in employeeOldDependant)
+                {
+                    _hRContext.Dependent.Remove(child);
+                }
+                foreach (var item in dependents)
+                {
+                    item.EmployeeDependantId = Updatedemployee.Id;
+                    _hRContext.Dependent.Add(item);
+                }
+                var OldImage = _hRContext.Image.FirstOrDefault(x => x.EmployeeId == FormData.Employee.Id)??new image();
+                _hRContext.Image.Remove(OldImage);
+                var image = new image { ImageCode = FormData.ImageEncoded.Split(",")[1], EmployeeId = Convert.ToInt32(Updatedemployee.Id) };
+                _hRContext.Image.Add(image);
+                _hRContext.SaveChanges();
+            }
             return RedirectToAction(nameof(Index));
         }
     }
