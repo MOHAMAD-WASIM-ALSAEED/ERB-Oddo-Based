@@ -444,9 +444,11 @@ namespace oddo.Controllers
                 {
                     _hRContext.Tags.Remove(item);
                 }
+                if (FormData.TagIds != null) { 
                 foreach (var item in FormData.TagIds)
                 {
                     _hRContext.Tags.Add(new Tags { EmpId = Updatedemployee.Id, CategoryId = item });
+                }
                 }
                 _hRContext.SaveChanges();
             }
