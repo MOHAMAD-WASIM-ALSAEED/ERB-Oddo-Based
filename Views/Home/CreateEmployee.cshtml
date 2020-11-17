@@ -53,39 +53,50 @@
                 </table>
                 <div class="card-body mt-0 pt-0">
                     <form id="DataForm" method="post" asp-controller="Home" asp-action="CreateEmployee" enctype="multipart/form-data">
-                        
-                        <input type="hidden" id="dependant" asp-for="@Model.Dependants" />
-                        <input type="hidden"  asp-for="@Model.Employee.Id" value="@Model.Employee.Id" />
-                        <div style="float:right">
-                            <img src="@Model.ImageEncoded" id="blah" style="width:92px;height:123px; background-repeat: no-repeat; background-size:cover">
-                            <br />
-                            <input id="imgw" type="file" class=" btn-light"  value="upload" asp-for="@Model.ImageUrl" />
-                            <input id="encode" type="text" asp-for="@Model.ImageEncoded" hidden />
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-8">
+                                    <input type="hidden" id="dependant" asp-for="@Model.Dependants" />
+                                    <input type="hidden" asp-for="@Model.Employee.Id" value="@Model.Employee.Id" />
+
+                                    <label for="inp" class="inp">
+                                        <input type="text" id="inp1" placeholder="Employee's Name" required asp-for="@Model.Employee.Name">
+                                        <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                                            <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                                        </svg>
+                                        <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                                            <path d="M1 7 5.5 11 L13 1"></path>
+                                        </svg>
+                                    </label>
+                                    <br />
+                                    <label for="inp" class="inp">
+                                        <input type="text" id="inp2" placeholder="Job Postion" required asp-for="@Model.Employee.JobTitle">
+                                        <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                                            <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                                        </svg>
+                                        <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                                            <path d="M1 7 5.5 11 L13 1"></path>
+                                        </svg>
+                                    </label>
+                                    <br />
+
+                                    <select class="chzn-select mt-5" multiple="true" asp-for="@Model.TagIds" style="width:200px;" asp-items="@(new SelectList(Model.Tags, "Id", "Name"));">
+                                    </select>
+
+                                </div>
+                                <div class="col-4">
+                                    <div style="float:right">
+                                        <img src="@Model.ImageEncoded" id="blah" style="width:92px;height:123px; background-repeat: no-repeat; background-size:cover">
+                                        <br />
+                                        <input id="imgw" type="file" class=" btn-light" value="upload" asp-for="@Model.ImageUrl" />
+                                        <br />
+                                        <a href="javascript:;" class="btn btn-danger p-0 mt-1" onclick="DeleteImage()">Delete image <i class="fa fa-trash"></i></a>
+                                        <input id="encode" type="text" asp-for="@Model.ImageEncoded" hidden />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <label for="inp" class="inp">
-                            <input type="text" id="inp1" placeholder="Employee's Name" required asp-for="@Model.Employee.Name">
-                            <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
-                                <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
-                            </svg>
-                            <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
-                                <path d="M1 7 5.5 11 L13 1"></path>
-                            </svg>
-                        </label>
-                        <br />
-                        <label for="inp" class="inp">
-                            <input type="text" id="inp2" placeholder="Job Postion" required asp-for="@Model.Employee.JobTitle">
-                            <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
-                                <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
-                            </svg>
-                            <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
-                                <path d="M1 7 5.5 11 L13 1"></path>
-                            </svg>
-                        </label>
-                        <br />
-
-                        <select class="chzn-select mt-5" multiple="true" asp-for="@Model.TagIds" style="width:200px;" asp-items="@(new SelectList(Model.Tags, "Id", "Name"));">
-                        </select>
-
+                       
 
                         <div class="container-fluid m-0 p-0 mt-4" style="margin-top:19px">
                             <div class="row">
@@ -229,7 +240,7 @@
                                                 <h5 class="mt-5">Location</h5>
                                                 <p class="card-text b mt-4" style="display:inline">Work Adresse </p>
                                                 <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width:400px;" asp-for="@Model.Address.Id" asp-items="@(new SelectList(Model.Addresses, "Id", "Name"))">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width:350px;" asp-for="@Model.Address.Id" asp-items="@(new SelectList(Model.Addresses, "Id", "Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
                                                     </select>
                                                 </div>
@@ -244,7 +255,7 @@
                                                 </div>
                                                 <br />
                                                 <p class="card-text b mt-5" style="display:inline">Time off </p>
-                                                <div style="display:inline">
+                                                <div style="display:inline;margin-left:3px">
                                                     <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.TimeOff.Id" asp-items="@(new SelectList(Model.TimeOffs, "Id", "Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
 
@@ -261,7 +272,7 @@
                                                 <br />
                                                 <p class="card-text b" style="display:inline">Time Sheet </p>
                                                 <div style="display:inline">
-                                                    <select disabled id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;">
+                                                    <select disabled id="selectbox" style="border-bottom: 2px solid #cacaca;width: 390px;">
                                                         <option value="" selected="selected" disabled="disabled"></option>
                                                         <option value="1">Ocean Wall</option>
                                                         <option value="2">Skate Park</option>
@@ -280,7 +291,7 @@
                                                     </select>
                                                 </div>
                                                 <br />
-                                                <p class="card-text b mt-4 mr-4" style="display:inline">Time zone </p>
+                                                <p class="card-text b mt-4 mr-4" style="display:inline;margin-left:3px">Time zone </p>
                                                 <div style="display:inline">
                                                     <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px; " asp-for="@Model.Timezone.Id" asp-items="@(new SelectList(Model.Timezones, "Id", "Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
@@ -302,8 +313,8 @@
                                             <div class="col-6">
                                                 <h5 class="mt-5">Private Contact</h5>
                                                 <p class="card-text b mt-4" style="display:inline">Address </p>
-                                                <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Address.Id" asp-items="@(new SelectList(Model.Addresses, "Id", "Name"))">
+                                                <div style="display:inline;margin-left:90px">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.Address.Id" asp-items="@(new SelectList(Model.Addresses, "Id", "Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
 
                                                     </select>
@@ -328,8 +339,8 @@
                                                 </div>
                                                 <h5 class="mt-5">Marial Status</h5>
                                                 <p class="card-text" style="display: inline;font-weight: bold;">Marial Status</p>
-                                                <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Employee.Marital">
+                                                <div style="display:inline;margin-left: 70px">
+                                                    <select onchange="selectchange()" id="mar" style="border-bottom: 2px solid #cacaca;width: 260px;" asp-for="@Model.Employee.Marital">
                                                         <option value="" selected="selected" disabled="disabled"></option>
                                                         <option value="single">Single</option>
                                                         <option value="married">married</option>
@@ -338,7 +349,7 @@
                                                         <option value="divorced">Divorced</option>
                                                     </select>
                                                 </div>
-
+                                                <div id="hide" hidden>
                                                 <div class="form-row">
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Spouse Complete Name</label>
                                                     <div class="col-sm-9" style="width: 100%">
@@ -358,7 +369,7 @@
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Spouse Birthdate</label>
                                                     <div class="col-sm-9" style="width: 100%">
                                                         <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="date" id="inp11" asp-for="@Model.Employee.SpouseBirthdate" data-date-format="mm/dd/yyyy" value="@(Model.Employee.SpouseBirthdate.HasValue ? Model.Employee.SpouseBirthdate.Value.ToString("yyyy-MM-dd") : "")" >
+                                                            <input type="date" id="inp11" asp-for="@Model.Employee.SpouseBirthdate" data-date-format="mm/dd/yyyy" value="@(Model.Employee.SpouseBirthdate.HasValue ? Model.Employee.SpouseBirthdate.Value.ToString("yyyy-MM-dd") : "")">
                                                             <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                                                 <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                                             </svg>
@@ -399,7 +410,7 @@
                                                         </label>
                                                     </div>
                                                 </div>
-
+                                                    </div>
                                                 <h5 class="mt-5">Emergency </h5>
                                                 <div class="form-row">
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Emergency Contact</label>
@@ -431,8 +442,8 @@
                                                 </div>
                                                 <h5 class="mt-5">Education </h5>
                                                 <p class="card-text b mt-4" style="display:inline">Certificate Level </p>
-                                                <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Employee.Certificate">
+                                                <div style="display:inline;margin-left:40px">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.Employee.Certificate">
                                                         <option value="" selected="selected" disabled="disabled"></option>
                                                         <option value="Bachelor">Bachelor</option>
                                                         <option value="Master">Master</option>
@@ -473,8 +484,8 @@
                                             <div class="col-6">
                                                 <h5 class="mt-5">Citizenship</h5>
                                                 <p class="card-text b mt-4" style="display:inline">Nationality (Country)</p>
-                                                <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Employee.CountryId" asp-items="@(new SelectList(Model.Countries,"Id","Name"))">
+                                                <div style="display:inline;margin-left:9px">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.Employee.CountryId" asp-items="@(new SelectList(Model.Countries,"Id","Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
 
                                                     </select>
@@ -511,8 +522,8 @@
                                                 </div>
 
                                                 <p class="card-text b mt-4" style="display:inline">Gender</p>
-                                                <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Employee.Gender">
+                                                <div style="display:inline ;margin-left: 90px">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.Employee.Gender">
                                                         <option value="" selected="selected" disabled="disabled"></option>
                                                         <option value="male">Male</option>
                                                         <option value="female">Female</option>
@@ -549,8 +560,8 @@
                                                     </div>
                                                 </div>
                                                 <p class="card-text b mt-4" style="display:inline">Country Of Birth</p>
-                                                <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Employee.CountryOfBirth" asp-items="@(new SelectList(Model.Countries,"Id","Name"))">
+                                                <div style="display:inline;margin-left:42px">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.Employee.CountryOfBirth" asp-items="@(new SelectList(Model.Countries,"Id","Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
 
                                                     </select>
@@ -575,12 +586,12 @@
                                                         {
                                                             var myDate = item.Bdate.Value.ToString("yyyy-MM-dd");
 
-                                                        <tr id="@y">
-                                                            <td><input id="name_@y" type="text" value="@item.Name"></td>
-                                                            <td><input id="birth_@y" type="date" value="@myDate"></td>
-                                                            <td><a href="javascript:;" onclick="Delete(@y)"><i class="fa fa-trash"></i></a></td>
-                                                            <td hidden><input id="id_@y" type="hidden" value="@item.Id"></td>
-                                                        </tr>
+                                                            <tr id="@y">
+                                                                <td><input id="name_@y" type="text" value="@item.Name"></td>
+                                                                <td><input id="birth_@y" type="date" value="@myDate"></td>
+                                                                <td><a href="javascript:;" onclick="Delete(@y)"><i class="fa fa-trash"></i></a></td>
+                                                                <td hidden><input id="id_@y" type="hidden" value="@item.Id"></td>
+                                                            </tr>
                                                             y++;
                                                         }
                                                     </tbody>
@@ -645,8 +656,8 @@
                                             <div class="col-sm">
                                                 <h5 class="mt-5">Status</h5>
                                                 <p class="card-text b mt-4" style="display:inline">Related User</p>
-                                                <div style="display:inline">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.RelatedUser.Id" asp-items="@(new SelectList(Model.RelatedUsers,"Id","Name"))">
+                                                <div style="display:inline;margin-left:50px">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.RelatedUser.Id" asp-items="@(new SelectList(Model.RelatedUsers,"Id","Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
                                                     </select>
                                                 </div>
@@ -709,10 +720,12 @@
                                     <div class="container">
                                         <div class="row mt-4">
                                             <div class="col-6">
-                                                <br />
-                                                <p class="card-text m-0  " style="font-weight: bold;display:inline"> Identity Card</p>
-                                                <button type="button" class="btn btn-success ml-3 p-1 " style="display:inline;font-size:smaller;font-weight:bold">Upload Your File</button>
-
+                                                <div class="form-row">
+                                                    <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px;">Identity Card</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="file" id="choose-file" value="Upload Your File">
+                                                    </div>
+                                                </div>
                                                 <br />
                                                 <p class="card-text m-0 mt-4 " style="font-weight: bold;display:inline"> Medical Insurance</p>
                                                 <button type="button" class="btn btn-success ml-3 p-1 " style="display:inline;font-size:smaller;font-weight:bold">Upload Your File</button>
@@ -750,6 +763,7 @@
 </div>
 
 @section Scripts{
+
     @if (Model.EmployeeDependents.Count > 0)
     {
         <script>
@@ -771,6 +785,7 @@
         </script>
     }
     <script>
+
         $(function () {
             $(".chzn-select").chosen();
             $('.datepicker').datepicker();
@@ -786,16 +801,32 @@
                     reader.readAsDataURL(input.files[0]); // convert to base64 string
                 }
             }
-
+           
             $("#imgw").change(function () {
                 readURL(this);
             });
         });
+        function selectchange() {
+            var selected = $('#mar option:selected').text();
+            if (selected == "married") {
+                $("#hide").attr("hidden", false)
+            }
+            else { $("#hide").attr("hidden", true) }
+        }
+        function DeleteImage() {
 
-        
+            $('#encode').val("");
+            $('#imgw').val("");
+            $('#blah').attr("src", "");
 
+        }
+
+        $('#choose-file').inputFileText({
+            text: 'Select File'
+        });
+        $('input[value="Select File"]').addClass('btn btn-success p-0');
         var dependentCount = 0;
-       
+
         function Delete(id) {
             $('#' + id).remove();
             arr = arr.filter(item => item !== id);
@@ -820,15 +851,16 @@
 
         function SubmitForm() {
 
-        
+
             obj = [];
             for (let index = 0; index < arr.length; index++) {
                 obj.push({
                     Name: $('#name_' + arr[index]).val(),
-                    Bdate: $('#birth_' + arr[index]).val()
+                    Bdate: $('#birth_' + arr[index]).val(),
+                    Id: parseInt($('#id_' + arr[index]).val())
                 });
             }
-           
+            console.log(obj);
             $('#dependant').val(JSON.stringify(obj));
             $('#DataForm').submit();
 

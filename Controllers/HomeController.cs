@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.VisualBasic;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace oddo.Controllers
 {
@@ -314,10 +315,16 @@ namespace oddo.Controllers
         [HttpPost]
         public IActionResult CreateEmployee(EmployeeViewModel FormData)
         {
+            double? userid = null;
+            if (FormData.RelatedUser != null)
+            {
+                userid = Convert.ToDouble(_hRContext.User.Where(x => x.Id == FormData.RelatedUser.Id).Select(x => x.Id).FirstOrDefault());
+            }
             if (FormData.Employee.Id==0) {
+               
                 var employee = new Employee {
                     Name = FormData.Employee.Name,
-                    UserId = Convert.ToDouble(_hRContext.User.Where(x => x.Id == FormData.RelatedUser.Id).Select(x => x.Id).FirstOrDefault()),
+                    UserId = userid,
                     CountryId = FormData.Employee.CountryId,
                     Gender = FormData.Employee.Gender,
                     Marital = FormData.Employee.Marital,
@@ -339,39 +346,45 @@ namespace oddo.Controllers
                     KmHomeWork = FormData.Employee.KmHomeWork,
                     Barcode = FormData.Employee.Barcode,
                     Pin = FormData.Employee.Pin,
-                    DepartmentId = FormData.Departmente.Id,
-                    JobId = FormData.Job.Id,
+                    DepartmentId = FormData.Departmente?.Id,
+                    JobId = FormData.Job?.Id,
                     CompanyId = 1,
-                    AddressId = FormData.Address.Id,
+                    AddressId = FormData.Address?.Id,
                     WorkPhone = FormData.Employee.WorkPhone,
                     WorkLocation = FormData.Employee.WorkLocation,
-                    ResourceId = FormData.Timezone.Id,
-                    ResourceCalendarId = FormData.ResourceCalendar.Id,
+                    ResourceId = FormData.Timezone?.Id,
+                    ResourceCalendarId = FormData.ResourceCalendar?.Id,
                     ParentId = FormData.Employee.ParentId,
                     CoachId = FormData.Employee.CoachId,
                     CreateDate = DateTime.Now,
                     WriteDate = DateTime.Now,
-                    LeaveManagerId = FormData.TimeOff.Id,
-                    ExpenseManagerId = FormData.Expense.Id,
+                    LeaveManagerId = FormData.TimeOff?.Id,
+                    ExpenseManagerId = FormData.Expense?.Id,
                     XSpouseBirthdate = FormData.Employee.XSpouseBirthdate,
                     XSpouseCompleteName = FormData.Employee.XSpouseCompleteName
                 };
+
+                var emp = employee;
+
                 _hRContext.Employee.Add(employee);
                 _hRContext.SaveChanges();
 
                 var dependents = JsonSerializer.Deserialize<List<Dependent>>(FormData.Dependants);
-                foreach (var item in dependents)
+                foreach (var item in dependents?? new List<Dependent>())
                 {
                     item.EmployeeDependantId = employee.Id;
                     _hRContext.Dependent.Add(item);
                 }
 
-                foreach (var item in FormData.TagIds)
+                foreach (var item in FormData.TagIds?? new int[0])
                 {
                     _hRContext.Tags.Add(new Tags { EmpId = employee.Id, CategoryId = item });
                 }
-                var image = new image { ImageCode = FormData.ImageEncoded.Split(",")[1], EmployeeId = Convert.ToInt32(employee.Id) };
-                _hRContext.Image.Add(image);
+                if (FormData.ImageEncoded!=null) {
+                    var image = new image { ImageCode = FormData.ImageEncoded.Split(",")[1], EmployeeId = Convert.ToInt32(employee.Id) };
+                    _hRContext.Image.Add(image);
+                }
+               
                 _hRContext.SaveChanges();
             }
             else
@@ -379,9 +392,9 @@ namespace oddo.Controllers
 
                 var Updatedemployee = new Employee
                 {
-                    
+                    Id=FormData.Employee.Id,
                     Name = FormData.Employee.Name,
-                    UserId = Convert.ToDouble(_hRContext.User.Where(x => x.Id == FormData.RelatedUser.Id).Select(x => x.Id).FirstOrDefault()),
+                    UserId = userid,
                     CountryId = FormData.Employee.CountryId,
                     Gender = FormData.Employee.Gender,
                     Marital = FormData.Employee.Marital,
@@ -403,60 +416,81 @@ namespace oddo.Controllers
                     KmHomeWork = FormData.Employee.KmHomeWork,
                     Barcode = FormData.Employee.Barcode,
                     Pin = FormData.Employee.Pin,
-                    DepartmentId = FormData.Departmente.Id,
-                    JobId = FormData.Job.Id,
+                    DepartmentId = FormData.Departmente?.Id,
+                    JobId = FormData.Job?.Id,
                     CompanyId = 1,
-                    AddressId = FormData.Address.Id,
+                    AddressId = FormData.Address?.Id,
                     WorkPhone = FormData.Employee.WorkPhone,
                     WorkLocation = FormData.Employee.WorkLocation,
-                    ResourceId = FormData.Timezone.Id,
-                    ResourceCalendarId = FormData.ResourceCalendar.Id,
+                    ResourceId = FormData.Timezone?.Id,
+                    ResourceCalendarId = FormData.ResourceCalendar?.Id,
                     ParentId = FormData.Employee.ParentId,
                     CoachId = FormData.Employee.CoachId,
                     CreateDate = DateTime.Now,
                     WriteDate = DateTime.Now,
-                    LeaveManagerId = FormData.TimeOff.Id,
-                    ExpenseManagerId = FormData.Expense.Id,
+                    LeaveManagerId = FormData.TimeOff?.Id,
+                    ExpenseManagerId = FormData.Expense?.Id,
                     XSpouseBirthdate = FormData.Employee.XSpouseBirthdate,
                     XSpouseCompleteName = FormData.Employee.XSpouseCompleteName
                 };
-                var oldemployee = _hRContext.Employee.FirstOrDefault(x => x.Id == FormData.Employee.Id);
-                _hRContext.Employee.Remove(oldemployee);
-                _hRContext.Employee.Add(Updatedemployee);
-                _hRContext.SaveChanges();
+                var old = _hRContext.Employee.FirstOrDefault(x => x.Id == FormData.Employee.Id);
+                _hRContext.Entry(old).State = EntityState.Detached;
+                _hRContext.Attach(Updatedemployee);
+                _hRContext.Entry(Updatedemployee).State=EntityState.Modified;
+
                 var dependents = JsonSerializer.Deserialize<List<Dependent>>(FormData.Dependants);
-                var employeeOldDependant = _hRContext.Dependent.Where(x => x.EmployeeDependantId == FormData.Employee.Id).ToList<Dependent>();
-                foreach (var child in employeeOldDependant)
-                {
-                    _hRContext.Dependent.Remove(child);
-                }
                 foreach (var item in dependents)
                 {
-                    item.EmployeeDependantId = Updatedemployee.Id;
-                    _hRContext.Dependent.Add(item);
+                    if (item.Id == 0)
+                    {
+                        item.EmployeeDependantId = Updatedemployee.Id;
+                        _hRContext.Dependent.Add(item);
+                    }
+                    else
+                    {
+                        var child = _hRContext.Dependent.FirstOrDefault(x => x.Id == item.Id);
+                        child.Name = item.Name;
+                        child.Bdate = item.Bdate;
+                        _hRContext.Dependent.Update(child);
+                    }
                 }
-                var OldImage = _hRContext.Image.FirstOrDefault(x => x.EmployeeId == FormData.Employee.Id)??new image();
+                var OldImage = _hRContext.Image.FirstOrDefault(x => x.EmployeeId == Updatedemployee.Id)??new image();
                 if (OldImage.Id !=0)
                 {
-                    _hRContext.Image.Remove(OldImage);
+                    if (FormData.ImageEncoded != null)
+                    {
+                        OldImage.ImageCode = FormData.ImageEncoded.Split(",")[1];
+                        _hRContext.Image.Update(OldImage);
+                    }
+                    else
+                    {
+                        _hRContext.Image.Remove(OldImage);
+
+                    }
+                }
+                else
+                {
+                    if (FormData.ImageEncoded != null)
+                    {
+                        var image = new image { ImageCode = FormData.ImageEncoded.Split(",")[1], EmployeeId = Convert.ToInt32(Updatedemployee.Id) };
+                        _hRContext.Image.Add(image);
+                    }
                 }
                
-                var image = new image { ImageCode = FormData.ImageEncoded.Split(",")[1], EmployeeId = Convert.ToInt32(Updatedemployee.Id) };
-                _hRContext.Image.Add(image);
                 var Tags = _hRContext.Tags.Where(x => x.EmpId == FormData.Employee.Id).ToList<Tags>();
-                foreach (var item in Tags)
+                foreach (var item in Tags?? new List<Tags>())
                 {
                     _hRContext.Tags.Remove(item);
                 }
-                if (FormData.TagIds != null) { 
-                foreach (var item in FormData.TagIds)
+               
+                foreach (var item in FormData.TagIds?? new int[0])
                 {
                     _hRContext.Tags.Add(new Tags { EmpId = Updatedemployee.Id, CategoryId = item });
                 }
-                }
+                
                 _hRContext.SaveChanges();
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details),new {id=FormData.Employee.Id });
         }
     }
 }
