@@ -17,7 +17,9 @@
 
     <div class="container-fluid">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark " style="background-color: #004085 !important">
-            <a class="navbar-brand" asp-controller="Home" asp-action="index" asp-route-id="0">Employee</a>
+            <a class="navbar-brand" asp-controller="Home" asp-action="index" asp-route-id="0"><h4 style="
+    margin-bottom: 27px;
+">Employee</h4></a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <!-- Navbar-->
@@ -36,19 +38,15 @@
         @if (ViewContext.RouteData.Values["action"].ToString() == "Index")
         {
             var r = ViewContext.RouteData.Values["action"].ToString();
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark " style=" background-color: #fff !important; top: 56px; border-bottom: 1px solid #eee;">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-8"> <h4>Employee</h4></div>
-                <div class="col-sm-4">
-                    <a class="btn btn-success p-1" style="float:left" asp-action="CreateEmployee" asp-controller="Home">Create</a>
-
-
-                </div>
-
-            </div>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark " style=" background-color: #fff !important; top: 59px; border-bottom: 1px solid #eee;">
+        <div>
+            <h5 style="margin-top: -25px;">Employee</h5>
+        </div>
+        <div style="margin-top: 33px;margin-left: -87px;">
+            <button class="btn btn-success float-left " style="padding:1px;" onclick="Go()" >Create</button>
 
         </div>
+       
     </nav>
         }
     </div>
@@ -71,6 +69,10 @@
     <script src="~/js/chosen.jquery.js"></script>
     <script src="~/js/jquery-input-file-text.js"></script>
     @RenderSection("Scripts", required: false)
-
+    <script>
+        function Go() {
+            location.href="/home/createemployee"
+        }
+    </script>
 </body>
 </html>

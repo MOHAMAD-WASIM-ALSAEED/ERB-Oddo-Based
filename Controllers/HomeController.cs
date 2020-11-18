@@ -130,7 +130,7 @@ namespace oddo.Controllers
                 }
             }
 
-            while (employeeLoop.ParentId != null)
+            while (employeeLoop?.ParentId != null)
             {
                 var parentid = employeeLoop.ParentId;
                 employeeLoop = _hRContext.Employee.FirstOrDefault(s => s.Id == parentid);
@@ -316,13 +316,14 @@ namespace oddo.Controllers
         public IActionResult CreateEmployee(EmployeeViewModel FormData)
         {
             double? userid = null;
+            int idforroute;
             if (FormData.RelatedUser != null)
             {
                 userid = Convert.ToDouble(_hRContext.User.Where(x => x.Id == FormData.RelatedUser.Id).Select(x => x.Id).FirstOrDefault());
             }
             if (FormData.Employee.Id==0) {
                
-                var employee = new Employee {
+               var  employee = new Employee {
                     Name = FormData.Employee.Name,
                     UserId = userid,
                     CountryId = FormData.Employee.CountryId,
@@ -368,7 +369,7 @@ namespace oddo.Controllers
 
                 _hRContext.Employee.Add(employee);
                 _hRContext.SaveChanges();
-
+                idforroute = employee.Id;
                 var dependents = JsonSerializer.Deserialize<List<Dependent>>(FormData.Dependants);
                 foreach (var item in dependents?? new List<Dependent>())
                 {
@@ -437,7 +438,7 @@ namespace oddo.Controllers
                 _hRContext.Entry(old).State = EntityState.Detached;
                 _hRContext.Attach(Updatedemployee);
                 _hRContext.Entry(Updatedemployee).State=EntityState.Modified;
-
+                idforroute = Updatedemployee.Id;
                 var dependents = JsonSerializer.Deserialize<List<Dependent>>(FormData.Dependants);
                 foreach (var item in dependents)
                 {
@@ -490,7 +491,8 @@ namespace oddo.Controllers
                 
                 _hRContext.SaveChanges();
             }
-            return RedirectToAction(nameof(Details),new {id=FormData.Employee.Id });
+            
+            return RedirectToAction(nameof(Details),new {id=idforroute });
         }
     }
 }
