@@ -13,6 +13,8 @@ using Microsoft.VisualBasic;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace oddo.Controllers
 {
@@ -20,13 +22,13 @@ namespace oddo.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly odooHrContext _hRContext;
-        private readonly odooHrContext _hRContextTemp;
         private readonly List<IndexViewModel> _employees;
+        private readonly IWebHostEnvironment _env;
 
-        public HomeController(ILogger<HomeController> logger, odooHrContext odooHrContext, odooHrContext odooHrContextTemp)
+        public HomeController(ILogger<HomeController> logger, odooHrContext odooHrContext, IWebHostEnvironment env)
         {
             _hRContext = odooHrContext;
-            _hRContextTemp = odooHrContextTemp;
+            _env = env;
             _employees = new List<IndexViewModel>();
             foreach (var item in _hRContext.Employee.ToList<Employee>())
             {
@@ -104,7 +106,7 @@ namespace oddo.Controllers
             var timeoff = _hRContext.ResPartner.FirstOrDefault(m => m.Id.ToString() == EmployeepartnerId.PartnerId) ?? new ResPartner();
             var EmployeepartnerRelatedId = _hRContext.User.FirstOrDefault(m => m.Id == Employee.UserId) ?? new User();
             var RelatedUser = _hRContext.ResPartner.FirstOrDefault(m => m.Id.ToString() == EmployeepartnerRelatedId.PartnerId) ?? new ResPartner();
-            var Country = _hRContext.Country.FirstOrDefault(m => m.Id == Employee.CountryId)?? new Country();
+            var Country = _hRContext.Country.FirstOrDefault(m => m.Id == Employee.CountryId) ?? new Country();
             var employeeLoop = _hRContext.Employee.FirstOrDefault(s => s.Id == id);
             var dependant = _hRContext.Dependent.Where(x => x.EmployeeDependantId == id).ToList<Dependent>();
             var Jobs = _hRContext.Jobs.FirstOrDefault(x => x.Id == Employee.JobId) ?? new Jobs();
@@ -302,7 +304,7 @@ namespace oddo.Controllers
                     Timezones = _hRContext.Resources.ToList<Resources>(),
                     Countries = _hRContext.Country.ToList<Country>(),
                     RelatedUsers = resPartners,
-                    EmployeeDependents=new List<Dependent>(),
+                    EmployeeDependents = new List<Dependent>(),
 
 
                 };
@@ -321,9 +323,14 @@ namespace oddo.Controllers
             {
                 userid = Convert.ToDouble(_hRContext.User.Where(x => x.Id == FormData.RelatedUser.Id).Select(x => x.Id).FirstOrDefault());
             }
-            if (FormData.Employee.Id==0) {
-               
-               var  employee = new Employee {
+            if (FormData.Employee.Id == 0)
+            {
+                var employee = new Employee
+                {
+                    XStudioIdentityCardFilename = AddFiles(FormData.IdentityCard),
+                    XStudioMedicalInsurance1Filename = AddFiles(FormData.MedicalInsurance),
+                    XStudioUploadFileFilename = AddFiles(FormData.Documents),
+                    XStudioFieldXeed7Filename = AddFiles(FormData.Warningsdeductions),
                     Name = FormData.Employee.Name,
                     UserId = userid,
                     CountryId = FormData.Employee.CountryId,
@@ -371,29 +378,37 @@ namespace oddo.Controllers
                 _hRContext.SaveChanges();
                 idforroute = employee.Id;
                 var dependents = JsonSerializer.Deserialize<List<Dependent>>(FormData.Dependants);
-                foreach (var item in dependents?? new List<Dependent>())
+                foreach (var item in dependents ?? new List<Dependent>())
                 {
                     item.EmployeeDependantId = employee.Id;
                     _hRContext.Dependent.Add(item);
                 }
 
-                foreach (var item in FormData.TagIds?? new int[0])
+                foreach (var item in FormData.TagIds ?? new int[0])
                 {
                     _hRContext.Tags.Add(new Tags { EmpId = employee.Id, CategoryId = item });
                 }
-                if (FormData.ImageEncoded!=null) {
+                if (FormData.ImageEncoded != null)
+                {
                     var image = new image { ImageCode = FormData.ImageEncoded.Split(",")[1], EmployeeId = Convert.ToInt32(employee.Id) };
                     _hRContext.Image.Add(image);
                 }
-               
+
                 _hRContext.SaveChanges();
             }
             else
             {
-
+                DeleteFiles(FormData.IdentityCard?.FileName);
+                DeleteFiles(FormData.MedicalInsurance?.FileName);
+                DeleteFiles(FormData.Documents?.FileName);
+                DeleteFiles(FormData.Warningsdeductions?.FileName);
                 var Updatedemployee = new Employee
                 {
-                    Id=FormData.Employee.Id,
+                    Id = FormData.Employee.Id,
+                    XStudioIdentityCardFilename = AddFiles(FormData.IdentityCard),
+                    XStudioMedicalInsurance1Filename = AddFiles(FormData.MedicalInsurance),
+                    XStudioUploadFileFilename = AddFiles(FormData.Documents),
+                    XStudioFieldXeed7Filename = AddFiles(FormData.Warningsdeductions),
                     Name = FormData.Employee.Name,
                     UserId = userid,
                     CountryId = FormData.Employee.CountryId,
@@ -437,7 +452,7 @@ namespace oddo.Controllers
                 var old = _hRContext.Employee.FirstOrDefault(x => x.Id == FormData.Employee.Id);
                 _hRContext.Entry(old).State = EntityState.Detached;
                 _hRContext.Attach(Updatedemployee);
-                _hRContext.Entry(Updatedemployee).State=EntityState.Modified;
+                _hRContext.Entry(Updatedemployee).State = EntityState.Modified;
                 idforroute = Updatedemployee.Id;
                 var dependents = JsonSerializer.Deserialize<List<Dependent>>(FormData.Dependants);
                 foreach (var item in dependents)
@@ -455,8 +470,8 @@ namespace oddo.Controllers
                         _hRContext.Dependent.Update(child);
                     }
                 }
-                var OldImage = _hRContext.Image.FirstOrDefault(x => x.EmployeeId == Updatedemployee.Id)??new image();
-                if (OldImage.Id !=0)
+                var OldImage = _hRContext.Image.FirstOrDefault(x => x.EmployeeId == Updatedemployee.Id) ?? new image();
+                if (OldImage.Id != 0)
                 {
                     if (FormData.ImageEncoded != null)
                     {
@@ -477,22 +492,67 @@ namespace oddo.Controllers
                         _hRContext.Image.Add(image);
                     }
                 }
-               
+
                 var Tags = _hRContext.Tags.Where(x => x.EmpId == FormData.Employee.Id).ToList<Tags>();
-                foreach (var item in Tags?? new List<Tags>())
+                foreach (var item in Tags ?? new List<Tags>())
                 {
                     _hRContext.Tags.Remove(item);
                 }
-               
-                foreach (var item in FormData.TagIds?? new int[0])
+
+                foreach (var item in FormData.TagIds ?? new int[0])
                 {
                     _hRContext.Tags.Add(new Tags { EmpId = Updatedemployee.Id, CategoryId = item });
                 }
-                
+
                 _hRContext.SaveChanges();
             }
-            
-            return RedirectToAction(nameof(Details),new {id=idforroute });
+
+            return RedirectToAction(nameof(Details), new { id = idforroute });
+        }
+
+        public string AddFiles(IFormFile file)
+        {
+            int count = 1;
+            if (file != null)
+            {
+
+                //Set Key Name
+                string FileName = file.FileName.Split(".")[0];
+                string FileExtension = file.FileName.Split(".")[1];
+
+                //Get url To Save
+                string SavePath = Path.Combine(_env.WebRootPath + "/Files", FileName + "." + FileExtension);
+                string NewFileName = FileName + "." + FileExtension;
+                while (System.IO.File.Exists(SavePath))
+                {
+                    NewFileName = string.Format("{0}({1})", FileName, count++);
+                    SavePath = Path.Combine(_env.WebRootPath, "/Files", NewFileName + "." + FileExtension);
+                }
+
+                using (var stream = new FileStream(SavePath, FileMode.Create))
+                {
+
+                    file.CopyTo(stream);
+                }
+                return NewFileName;
+            }
+            return null;
+        }
+        public void DeleteFiles(string file)
+        {
+            if (file != null)
+            {
+                try
+                {
+                    var SavePath = Path.Combine(_env.WebRootPath, "/Files", file);
+                    System.IO.File.Delete(SavePath);
+                }
+                catch (Exception)
+                {
+
+                }
+
+            }
         }
     }
 }

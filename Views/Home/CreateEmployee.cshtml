@@ -485,7 +485,7 @@
                                                 <h5 class="mt-5">Citizenship</h5>
                                                 <p class="card-text b mt-4" style="display:inline">Nationality (Country)</p>
                                                 <div style="display:inline;margin-left:9px">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.Employee.CountryId" asp-items="@(new SelectList(Model.Countries,"Id","Name"))">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.Employee.CountryId" asp-items="@(new SelectList(Model.Countries, "Id", "Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
 
                                                     </select>
@@ -561,7 +561,7 @@
                                                 </div>
                                                 <p class="card-text b mt-4" style="display:inline">Country Of Birth</p>
                                                 <div style="display:inline;margin-left:42px">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.Employee.CountryOfBirth" asp-items="@(new SelectList(Model.Countries,"Id","Name"))">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.Employee.CountryOfBirth" asp-items="@(new SelectList(Model.Countries, "Id", "Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
 
                                                     </select>
@@ -657,7 +657,7 @@
                                                 <h5 class="mt-5">Status</h5>
                                                 <p class="card-text b mt-4" style="display:inline">Related User</p>
                                                 <div style="display:inline;margin-left:50px">
-                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.RelatedUser.Id" asp-items="@(new SelectList(Model.RelatedUsers,"Id","Name"))">
+                                                    <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.RelatedUser.Id" asp-items="@(new SelectList(Model.RelatedUsers, "Id", "Name"))">
                                                         <option value="" selected="selected" disabled="disabled"></option>
                                                     </select>
                                                 </div>
@@ -718,29 +718,70 @@
                                 </div>
                                 <div class="tab-pane fade" id="Personal" role="tabpanel" aria-labelledby="contact-tab">
                                     <div class="container">
-                                        <div class="row mt-4">
-                                            <div class="col-6">
-                                                <div class="form-row">
-                                                    <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px;">Identity Card</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="file" id="choose-file" value="Upload Your File">
+                                        <div class="row align-items-end mt-4">
+
+                                            <div class="col-6 ">
+                                                <div class="row ">
+                                                    <div class="col-3">
+                                                        <p class="card-text m-0 mt-4 " style="font-weight: bold;display:inline"> Identity Card</p>
+
+
                                                     </div>
+                                                    <div class="col-6">
+                                                        @{ if (Model.IdentityCard == null) {
+                                                        <input type="file" id="choose-file1" value="Upload Your File" asp-for="@Model.IdentityCard" />
+                                                            }
+                                                        else {
+
+                                                             }
+                                                            }
+                                                    </div>
+
                                                 </div>
-                                                <br />
-                                                <p class="card-text m-0 mt-4 " style="font-weight: bold;display:inline"> Medical Insurance</p>
-                                                <button type="button" class="btn btn-success ml-3 p-1 " style="display:inline;font-size:smaller;font-weight:bold">Upload Your File</button>
-
-                                                <br />
-                                                <p class="card-text m-0 mt-4  " style="font-weight: bold;display:inline"> Documents</p>
-                                                <button type="button" class="btn btn-success ml-3 p-1 " style="display:inline;font-size:smaller;font-weight:bold">Upload Your File</button>
-
                                             </div>
                                             <div class="col-6">
-                                                <p class="card-text m-0 " style="font-weight: bold;display:inline"> Warnings and deductions</p>
-                                                <button type="button" class="btn btn-success ml-3 p-1 " style="display:inline;font-size:smaller;font-weight:bold">Upload Your File</button>
+                                               
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <p class="card-text m-0 mt-4 " style="font-weight: bold;display:inline"> Warnings and deductions</p>
+
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input type="file" id="choose-file2" value="Upload Your File" asp-for="@Model.Warningsdeductions" />
+                                                    </div>
+
+                                                </div>
 
                                             </div>
 
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <p class="card-text m-0 mt-4 " style="font-weight: bold;display:inline"> Medical Insurance</p>
+
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input type="file" id="choose-file3" value="Upload Your File" asp-for="@Model.MedicalInsurance" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <p class="card-text m-0 mt-4 " style="font-weight: bold;display:inline"> Documents</p>
+
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input type="file" id="choose-file4" value="Upload Your File" asp-for="@Model.Documents" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -821,10 +862,19 @@
 
         }
 
-        $('#choose-file').inputFileText({
-            text: 'Select File'
+        $('#choose-file1').inputFileText({
+            text: 'Upload Your File'
         });
-        $('input[value="Select File"]').addClass('btn btn-success p-0');
+        $('#choose-file2').inputFileText({
+            text: 'Upload Your File'
+        });
+        $('#choose-file3').inputFileText({
+            text: 'Upload Your File'
+        });
+        $('#choose-file4').inputFileText({
+            text: 'Upload Your File'
+        });
+        $('input[value="Upload Your File"]').addClass('btn btn-success p-0');
         var dependentCount = 0;
 
         function Delete(id) {

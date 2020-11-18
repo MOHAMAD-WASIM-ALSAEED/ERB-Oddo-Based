@@ -43,5 +43,11 @@ namespace oddo.ViewModel
         public ResPartner Expense { get; set; }
         public List<ResPartner> TimeOffs { get; set; }
         public string Dependants { get; set; }
+
+        public IFormFile IdentityCard { get; set; }
+        public IFormFile MedicalInsurance { get; set; }
+        public IFormFile Documents { get; set; }
+        public IFormFile Warningsdeductions { get; set; }
+
     }
 }
