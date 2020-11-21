@@ -721,20 +721,21 @@
                                         <div class="row align-items-end mt-4">
 
                                             <div class="col-6 ">
-                                                <div class="row ">
+                                                <div class="row">
                                                     <div class="col-3">
                                                         <p class="card-text m-0 mt-4 " style="font-weight: bold;display:inline"> Identity Card</p>
-
-
                                                     </div>
-                                                    <div class="col-6">
-                                                        @{ if (Model.IdentityCard == null) {
-                                                        <input type="file" id="choose-file1" value="Upload Your File" asp-for="@Model.IdentityCard" />
-                                                            }
-                                                        else {
+                                                    <div class="col-9"  >
+                                                        <div @(Model.Employee.XStudioIdentityCardFilename == null ? " " : "hidden") id="choosefileDiv1">
+                                                            <input asp-for="@Model.IdentityCard" type="file"  id="choose-file1" onchange="ChangeFile(event)"/>
+                                                        </div>
+                                                        <div id="choose-file1div" @(Model.Employee.XStudioIdentityCardFilename != null ? " " : "hidden")>
+                                                            <input type="text" readonly class="form-control-plaintext w-75" id="choose-file1-label" value="@Model.Employee.XStudioIdentityCardFilename" style="display:inline" asp-for="@Model.Employee.XStudioIdentityCardFilename">
+                                                            <div style="display:inline">
+                                                            <a id="choose-file1-a" onclick="EditFile(this)"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;<a id="choose-file1-a1" onclick="removeFile(this)"><i class="fa fa-trash"></i></a>
+                                                             </div>
+                                                        </div>  
 
-                                                             }
-                                                            }
                                                     </div>
 
                                                 </div>
@@ -746,8 +747,16 @@
                                                         <p class="card-text m-0 mt-4 " style="font-weight: bold;display:inline"> Warnings and deductions</p>
 
                                                     </div>
-                                                    <div class="col-6">
-                                                        <input type="file" id="choose-file2" value="Upload Your File" asp-for="@Model.Warningsdeductions" />
+                                                    <div class="col-8"  >
+                                                        <div @(Model.Employee.XStudioFieldXeed7Filename == null ? "" : "hidden") id="choosefileDiv2">
+                                                            <input type="file" id="choose-file2" asp-for="@Model.Warningsdeductions" onchange="ChangeFile(event)" />
+                                                        </div>
+                                                        <div id="choose-file2div" @(Model.Employee.XStudioFieldXeed7Filename != null ? " " : "hidden")>
+                                                            <input type="text" readonly class="form-control-plaintext w-75" id="choose-file2-label" value="@Model.Employee.XStudioFieldXeed7Filename" style="display:inline" asp-for="@Model.Employee.XStudioFieldXeed7Filename">
+                                                            <div style="display:inline">
+                                                                <a id="choose-file2-a" onclick="EditFile(this)"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;<a id="choose-file2-a1" onclick="removeFile(this)"><i class="fa fa-trash"></i></a>
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                 </div>
@@ -762,8 +771,16 @@
                                                         <p class="card-text m-0 mt-4 " style="font-weight: bold;display:inline"> Medical Insurance</p>
 
                                                     </div>
-                                                    <div class="col-6">
-                                                        <input type="file" id="choose-file3" value="Upload Your File" asp-for="@Model.MedicalInsurance" />
+                                                    <div class="col-9" >
+                                                        <div @(Model.Employee.XStudioMedicalInsurance1Filename == null ? "" : "hidden") id="choosefileDiv3">
+                                                            <input  type="file" id="choose-file3" asp-for="@Model.MedicalInsurance"  onchange="ChangeFile(event)"/>
+                                                        </div>
+                                                        <div id="choose-file3div" @(Model.Employee.XStudioMedicalInsurance1Filename != null ? " " : "hidden")>
+                                                            <input type="text" readonly class="form-control-plaintext w-75" id="choose-file3-label" value="@Model.Employee.XStudioMedicalInsurance1Filename" style="display:inline" asp-for="@Model.Employee.XStudioMedicalInsurance1Filename">
+                                                            <div style="display:inline">
+                                                                <a id="choose-file3-a" onclick="EditFile(this)"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;<a id="choose-file3-a1" onclick="removeFile(this)"><i class="fa fa-trash"></i></a>
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                 </div>
@@ -776,8 +793,16 @@
                                                         <p class="card-text m-0 mt-4 " style="font-weight: bold;display:inline"> Documents</p>
 
                                                     </div>
-                                                    <div class="col-6">
-                                                        <input type="file" id="choose-file4" value="Upload Your File" asp-for="@Model.Documents" />
+                                                    <div class="col-9" >
+                                                        <div  @(Model.Employee.XStudioUploadFileFilename == null ? "" : "hidden") id="choosefileDiv4">
+                                                            <input type="file" id="choose-file4" asp-for="@Model.Documents" onchange="ChangeFile(event)" />
+                                                        </div>
+                                                        <div id="choose-file4div" @(Model.Employee.XStudioUploadFileFilename != null ? " " : "hidden")>
+                                                            <input type="text" readonly class="form-control-plaintext w-75" id="choose-file4-label" value="@Model.Employee.XStudioUploadFileFilename" style="display:inline" asp-for="@Model.Employee.XStudioUploadFileFilename">
+                                                            <div style="display:inline">
+                                                                <a id="choose-file4-a" onclick="EditFile(this)"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;<a id="choose-file4-a1" onclick="removeFile(this)"><i class="fa fa-trash"></i></a>
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                 </div>
@@ -847,6 +872,77 @@
                 readURL(this);
             });
         });
+
+        function EditFile(event) {
+            switch (event.id) {
+            case 'choose-file1-a': 
+                $('#choose-file1').trigger('click');
+                    break;
+                case 'choose-file2-a':
+                    $('#choose-file2').trigger('click');
+                    break;
+                case 'choose-file3-a':
+                    $('#choose-file3').trigger('click');
+                    break;
+                case 'choose-file4-a':
+                    $('#choose-file4').trigger('click');
+                    break;
+            }
+           
+
+        }
+
+        function ChangeFile(event) {
+
+            switch (event.target.id) {
+                case 'choose-file1':
+                    $('#choose-file1-label').val($('#choose-file1').val());
+                    break;
+                case 'choose-file2':
+                    $('#choose-file2-label').val($('#choose-file2').val());
+                    break;
+                case 'choose-file3':
+                    $('#choose-file3-label').val($('#choose-file3').val());
+                    break;
+                case 'choose-file4':
+                    $('#choose-file4-label').val($('#choose-file4').val());
+                    break;
+            }
+        }
+
+        function removeFile(event) {
+            switch (event.id) {
+                case 'choose-file1-a1':
+
+                    $('#choose-file1-label').val(null);
+                    $('#choose-file1').val(null);
+                    $('#choose-file1div').hide();
+                    $('#choosefileDiv1').attr("hidden", false);
+                    break;
+                case 'choose-file2-a1':
+
+                    $('#choose-file2-label').val(null);
+                    $('#choose-file2').val(null);
+                    $('#choose-file2div').hide();
+                    $('#choosefileDiv2').attr("hidden", false);
+                    break;
+                case 'choose-file3-a1':
+
+                    $('#choose-file3-label').val(null);
+                    $('#choose-file3').val(null);
+                    $('#choose-file3div').hide();
+                    $('#choosefileDiv3').attr("hidden", false);
+                    break;
+                case 'choose-file4-a1':
+
+                    $('#choose-file4-label').val(null);
+                    $('#choose-file4').val(null);
+                    $('#choose-file4div').hide();
+                    $('#choosefileDiv4').attr("hidden", false);
+                    break;
+            }
+
+        }
         function selectchange() {
             var selected = $('#mar option:selected').text();
             if (selected == "married") {
@@ -862,19 +958,6 @@
 
         }
 
-        $('#choose-file1').inputFileText({
-            text: 'Upload Your File'
-        });
-        $('#choose-file2').inputFileText({
-            text: 'Upload Your File'
-        });
-        $('#choose-file3').inputFileText({
-            text: 'Upload Your File'
-        });
-        $('#choose-file4').inputFileText({
-            text: 'Upload Your File'
-        });
-        $('input[value="Upload Your File"]').addClass('btn btn-success p-0');
         var dependentCount = 0;
 
         function Delete(id) {

@@ -153,6 +153,7 @@ namespace oddo.Controllers
             {
                 item.Job = _hRContext.Jobs.FirstOrDefault(x => x.Id == item.JobId) ?? new Jobs();
             }
+
             EmployeeViewModel employeeViewModel = new EmployeeViewModel
             {
                 Employee = Employee,
@@ -252,6 +253,7 @@ namespace oddo.Controllers
                 var EmployeepartnerId = _hRContext.User.FirstOrDefault(m => m.Id == Employee.LeaveManagerId) ?? new User();
                 var Tags = _hRContext.Tags.Where(x => x.EmpId == id).Select(x => x.CategoryId).ToList<double?>();
                 var TagVAlues = _hRContext.TagValue.Where(x => Tags.Contains(x.Id)).ToList<TagValue>();
+
                 EmployeeViewModel employeeViewModel = new EmployeeViewModel
                 {
                     Employee = Employee,
@@ -291,6 +293,7 @@ namespace oddo.Controllers
                 var resPartners = _hRContext.ResPartner.ToList<ResPartner>();
                 EmployeeViewModel employeeViewModel = new EmployeeViewModel
                 {
+
                     Employee = new Employee(),
                     Tags = _hRContext.TagValue.ToList<TagValue>(),
                     Departments = _hRContext.Department.ToList<Department>(),
@@ -398,17 +401,88 @@ namespace oddo.Controllers
             }
             else
             {
-                DeleteFiles(FormData.IdentityCard?.FileName);
-                DeleteFiles(FormData.MedicalInsurance?.FileName);
-                DeleteFiles(FormData.Documents?.FileName);
-                DeleteFiles(FormData.Warningsdeductions?.FileName);
+                var employeeidentityOldFileName = _hRContext.Employee.Where(x => x.Id == FormData.Employee.Id).Select(x => x.XStudioIdentityCardFilename).FirstOrDefault();
+                var employeeMediacalOldFileName = _hRContext.Employee.Where(x => x.Id == FormData.Employee.Id).Select(x => x.XStudioMedicalInsurance1Filename).FirstOrDefault();
+                var employeeWarningOldFileName = _hRContext.Employee.Where(x => x.Id == FormData.Employee.Id).Select(x => x.XStudioFieldXeed7Filename).FirstOrDefault();
+                var employeedocumentOldFileName = _hRContext.Employee.Where(x => x.Id == FormData.Employee.Id).Select(x => x.XStudioUploadFileFilename).FirstOrDefault();
+
+                string identitycard, warning, document, medical;
+                if (FormData.IdentityCard != null)
+                {
+                    DeleteFiles(employeeidentityOldFileName);
+                    identitycard = AddFiles(FormData.IdentityCard);
+                    
+                }
+                else
+                {
+                    if (String.IsNullOrEmpty(FormData.Employee.XStudioIdentityCardFilename))
+                    {
+                        identitycard = null;
+                    }
+                    else
+                    {
+                        identitycard = employeeidentityOldFileName;
+                    }
+
+                }
+                if (FormData.Warningsdeductions != null)
+                {
+                    DeleteFiles(employeeWarningOldFileName);
+                    warning = AddFiles(FormData.Warningsdeductions);
+
+                }
+                else
+                {
+                    if (String.IsNullOrEmpty(FormData.Employee.XStudioFieldXeed7Filename))
+                    {
+                        warning = null;
+                    }
+                    else
+                    {
+                        warning = employeeWarningOldFileName;
+                    }
+
+                }
+                if (FormData.Documents != null)
+                {
+                    DeleteFiles(employeedocumentOldFileName);
+                    document = AddFiles(FormData.Documents);
+
+                }
+                else
+                {
+                    if (String.IsNullOrEmpty(FormData.Employee.XStudioUploadFileFilename))
+                    {
+                        document = null;
+                    }
+                    else
+                    {
+                        document = employeedocumentOldFileName;
+                    }
+
+                }
+                if (FormData.MedicalInsurance != null)
+                {
+                    DeleteFiles(employeeMediacalOldFileName);
+                    medical = AddFiles(FormData.MedicalInsurance);
+
+                }
+                else
+                {
+                    if (String.IsNullOrEmpty(FormData.Employee.XStudioMedicalInsurance1Filename))
+                    {
+                        medical = null;
+                    }
+                    else
+                    {
+                        medical = employeeMediacalOldFileName;
+                    }
+
+                }
+
                 var Updatedemployee = new Employee
                 {
                     Id = FormData.Employee.Id,
-                    XStudioIdentityCardFilename = AddFiles(FormData.IdentityCard),
-                    XStudioMedicalInsurance1Filename = AddFiles(FormData.MedicalInsurance),
-                    XStudioUploadFileFilename = AddFiles(FormData.Documents),
-                    XStudioFieldXeed7Filename = AddFiles(FormData.Warningsdeductions),
                     Name = FormData.Employee.Name,
                     UserId = userid,
                     CountryId = FormData.Employee.CountryId,
@@ -447,7 +521,11 @@ namespace oddo.Controllers
                     LeaveManagerId = FormData.TimeOff?.Id,
                     ExpenseManagerId = FormData.Expense?.Id,
                     XSpouseBirthdate = FormData.Employee.XSpouseBirthdate,
-                    XSpouseCompleteName = FormData.Employee.XSpouseCompleteName
+                    XSpouseCompleteName = FormData.Employee.XSpouseCompleteName,
+                    XStudioMedicalInsurance1Filename=medical,
+                   XStudioIdentityCardFilename=identitycard,
+                   XStudioFieldXeed7Filename=warning,
+                   XStudioUploadFileFilename=document
                 };
                 var old = _hRContext.Employee.FirstOrDefault(x => x.Id == FormData.Employee.Id);
                 _hRContext.Entry(old).State = EntityState.Detached;
@@ -526,7 +604,8 @@ namespace oddo.Controllers
                 while (System.IO.File.Exists(SavePath))
                 {
                     NewFileName = string.Format("{0}({1})", FileName, count++);
-                    SavePath = Path.Combine(_env.WebRootPath, "/Files", NewFileName + "." + FileExtension);
+                    SavePath = Path.Combine(_env.WebRootPath + "/Files", NewFileName + "." + FileExtension);
+                    NewFileName += "." + FileExtension;
                 }
 
                 using (var stream = new FileStream(SavePath, FileMode.Create))
