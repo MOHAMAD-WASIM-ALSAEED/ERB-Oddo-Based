@@ -28,6 +28,12 @@
     <div class="row ml-3">
         <br />
         <a href="/home/CreateEmployee/@Model.Employee.Id" class="btn btn-info ml-2">Edit</a>
+        <a href="/home/CreateEmployee" class="btn btn-success ml-2">Create</a>
+        <button type="button" class="btn btn-danger ml-2" data-toggle="modal" data-target="#exampleModal">
+            Delete
+        </button>
+
+
     </div>
 </div>
 <div class="container-fluid mt-3">
@@ -49,7 +55,7 @@
                             <p style="display:inline;">Time OFF</p>
                         </td>
                         <td style="width: 120px;">
-                           <i class="fas fa-money-bill"></i>
+                            <i class="fas fa-money-bill"></i>
                             <p style="display:inline;">2</p>
                             <p style="display:inline;">Payslips</p>
 
@@ -223,7 +229,7 @@
 
                                                 if (item.Id == Model.Employee.Id)
                                                 {
-                                                    <li id="w" >
+                                                    <li id="w">
                                                         <div>
                                                             <a style="font-size:smaller;font-weight:bold;">
                                                                 @item.Name
@@ -237,7 +243,7 @@
                                                             <div>
                                                                 <a style="font-size:smaller;font-weight:bold" href="/home/details?id=@(employee.Id)">
                                                                     @employee.Name
-                                                                    
+
                                                                 </a>
                                                                 <p>@(employee.Job.Name??employee.JobTitle)</p>
                                                             </div>
@@ -425,13 +431,32 @@
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
 
         </div>
         <div class="col-4">
 
         </div>
 
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are You Sure To Delete Employee : &nbsp; @Model.Employee.Name
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="/home/DeleteEmployee/@Model.Employee.Id" class="btn btn-danger ml-2">Delete</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -401,15 +401,13 @@ namespace oddo.Controllers
             }
             else
             {
-                var employeeidentityOldFileName = _hRContext.Employee.Where(x => x.Id == FormData.Employee.Id).Select(x => x.XStudioIdentityCardFilename).FirstOrDefault();
-                var employeeMediacalOldFileName = _hRContext.Employee.Where(x => x.Id == FormData.Employee.Id).Select(x => x.XStudioMedicalInsurance1Filename).FirstOrDefault();
-                var employeeWarningOldFileName = _hRContext.Employee.Where(x => x.Id == FormData.Employee.Id).Select(x => x.XStudioFieldXeed7Filename).FirstOrDefault();
-                var employeedocumentOldFileName = _hRContext.Employee.Where(x => x.Id == FormData.Employee.Id).Select(x => x.XStudioUploadFileFilename).FirstOrDefault();
+                var OldInformationEmployee = _hRContext.Employee.Where(x => x.Id == FormData.Employee.Id).FirstOrDefault();
+
 
                 string identitycard, warning, document, medical;
                 if (FormData.IdentityCard != null)
                 {
-                    DeleteFiles(employeeidentityOldFileName);
+                    DeleteFiles(OldInformationEmployee.XStudioIdentityCardFilename);
                     identitycard = AddFiles(FormData.IdentityCard);
                     
                 }
@@ -421,13 +419,13 @@ namespace oddo.Controllers
                     }
                     else
                     {
-                        identitycard = employeeidentityOldFileName;
+                        identitycard = OldInformationEmployee.XStudioIdentityCardFilename;
                     }
 
                 }
                 if (FormData.Warningsdeductions != null)
                 {
-                    DeleteFiles(employeeWarningOldFileName);
+                    DeleteFiles(OldInformationEmployee.XStudioFieldXeed7Filename);
                     warning = AddFiles(FormData.Warningsdeductions);
 
                 }
@@ -439,13 +437,13 @@ namespace oddo.Controllers
                     }
                     else
                     {
-                        warning = employeeWarningOldFileName;
+                        warning = OldInformationEmployee.XStudioFieldXeed7Filename;
                     }
 
                 }
                 if (FormData.Documents != null)
                 {
-                    DeleteFiles(employeedocumentOldFileName);
+                    DeleteFiles(OldInformationEmployee.XStudioUploadFileFilename);
                     document = AddFiles(FormData.Documents);
 
                 }
@@ -457,13 +455,13 @@ namespace oddo.Controllers
                     }
                     else
                     {
-                        document = employeedocumentOldFileName;
+                        document = OldInformationEmployee.XStudioUploadFileFilename;
                     }
 
                 }
                 if (FormData.MedicalInsurance != null)
                 {
-                    DeleteFiles(employeeMediacalOldFileName);
+                    DeleteFiles(OldInformationEmployee.XStudioMedicalInsurance1Filename);
                     medical = AddFiles(FormData.MedicalInsurance);
 
                 }
@@ -475,7 +473,7 @@ namespace oddo.Controllers
                     }
                     else
                     {
-                        medical = employeeMediacalOldFileName;
+                        medical = OldInformationEmployee.XStudioMedicalInsurance1Filename;
                     }
 
                 }
@@ -632,6 +630,29 @@ namespace oddo.Controllers
                 }
 
             }
+        }
+        public IActionResult DeleteEmployee(int id)
+        {
+            var deletedEmployee = _hRContext.Employee.Where(x => x.Id == id).FirstOrDefault() ?? new Employee() ;
+
+            DeleteFiles(deletedEmployee.XStudioFieldXeed7Filename);
+            DeleteFiles(deletedEmployee.XStudioIdentityCardFilename);
+            DeleteFiles(deletedEmployee.XStudioMedicalInsurance1Filename);
+            DeleteFiles(deletedEmployee.XStudioUploadFileFilename);
+            var oldimage = _hRContext.Image.FirstOrDefault(x => x.EmployeeId == id);
+            if (oldimage != null)
+            {
+            _hRContext.Image.Remove(oldimage);
+            }
+
+            var olddependant = _hRContext.Dependent.Where(x => x.EmployeeDependantId == id).ToList();
+            foreach (var item in olddependant?? new List<Dependent>())
+            {
+                _hRContext.Remove(item);
+            }
+            _hRContext.Employee.Remove(deletedEmployee);
+            _hRContext.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

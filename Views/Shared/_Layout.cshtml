@@ -16,9 +16,9 @@
 <body class="sb-nav-fixed" style="background-color: #f9f9f9;margin-top: 58px;">
 
     <div class="container-fluid">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark " style="background-color: #004085 !important">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark " style="background-color: #004085 !important;height:50px">
             <a class="navbar-brand" asp-controller="Home" asp-action="index" asp-route-id="0"><h4 style="
-    margin-bottom: 27px;
+    margin-bottom: 13px;
 ">Employee</h4></a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -27,10 +27,7 @@
                 <li class="nav-item dropdown2">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Activity Log</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.html">Logout</a>
+                        
                     </div>
                 </li>
             </ul>
@@ -38,13 +35,13 @@
         @if (ViewContext.RouteData.Values["action"].ToString() == "Index")
         {
             var r = ViewContext.RouteData.Values["action"].ToString();
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark " style=" background-color: #fff !important; top: 59px; border-bottom: 1px solid #eee;">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark " style=" background-color: #fff !important; top: 52px; border-bottom: 1px solid #eee;">
         <div>
-            <h5 style="margin-top: -25px;">Employee</h5>
+            <h4 style="margin-top: -41px;color:grey" >Employee</h4>
         </div>
         <div style="margin-top: 33px;margin-left: -87px;">
-            <button class="btn btn-success float-left " style="padding:1px;" onclick="Go()" >Create</button>
-
+            <button class="btn btn-success p-1 font-weight-bold float-left " style="margin-left: -17px;" onclick="Go()">Create</button>
+            <button style="margin-top: -1px;margin-left: 7px;color:grey;" class="btn btn-light p-1">Import</button>
         </div>
        
     </nav>
