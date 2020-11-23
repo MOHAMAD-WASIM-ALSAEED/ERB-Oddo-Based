@@ -70,7 +70,7 @@
                                     </label>
                                     <br />
                                     <label for="inp" class="inp">
-                                        <input type="text" id="inp2" placeholder="Job Postion" required asp-for="@Model.Employee.JobTitle">
+                                        <input type="text" id="job" placeholder="Job Postion" required asp-for="@Model.Employee.JobTitle">
                                         <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
                                             <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
                                         </svg>
@@ -182,7 +182,7 @@
                                     <br />
                                     <p class="card-text b mt-4" style="display:inline">Job Posstion </p>
                                     <div style="display:inline">
-                                        <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Job.Id" asp-items="@(new SelectList(Model.Jobss, "Id", "Name"))">
+                                        <select onchange="selectchangejob()" id="jobselect"  style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Job.Id" asp-items="@(new SelectList(Model.Jobss, "Id", "Name"))">
                                             <option value="" selected="selected" disabled="disabled"></option>
                                         </select>
                                     </div>
@@ -955,6 +955,11 @@
                 $("#hide").attr("hidden", false)
             }
             else { $("#hide").attr("hidden", true) }
+        }
+
+        function selectchangejob() {
+            $("#job").val($('#jobselect option:selected').text())
+            
         }
         function DeleteImage() {
 
