@@ -22,14 +22,18 @@ namespace oddo.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly odooHrContext _hRContext;
-        private readonly List<IndexViewModel> _employees;
         private readonly IWebHostEnvironment _env;
 
         public HomeController(ILogger<HomeController> logger, odooHrContext odooHrContext, IWebHostEnvironment env)
         {
             _hRContext = odooHrContext;
             _env = env;
-            _employees = new List<IndexViewModel>();
+            _logger = logger;
+        }
+        [ResponseCache(NoStore = true)]
+        public IActionResult Index(int id)
+        {
+           var _employees = new List<IndexViewModel>();
             foreach (var item in _hRContext.Employee.ToList<Employee>())
             {
                 var Tags = _hRContext.Tags.Where(x => x.EmpId == item.Id).Select(x => x.CategoryId).ToList<double?>();
@@ -38,11 +42,6 @@ namespace oddo.Controllers
                 var image = _hRContext.Image.FirstOrDefault(x => x.EmployeeId == item.Id) ?? new image();
                 _employees.Add(new IndexViewModel { employee = item, tags = TagVAlues, Job = Jobs, employeeImage = "data:image/png;base64," + image.ImageCode });
             }
-            _logger = logger;
-        }
-        [ResponseCache(NoStore = true)]
-        public IActionResult Index(int id)
-        {
             HttpContext.Session.SetString("Employee", "");
             var department = _hRContext.Department.ToList<Department>();
             foreach (var item in department)
