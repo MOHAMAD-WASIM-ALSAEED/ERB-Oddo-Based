@@ -282,7 +282,10 @@ namespace oddo.Controllers
                     RelatedUsers = resPartners,
                     ImageEncoded = "data:image/png;base64," + image.ImageCode,
                     TagIds = TagVAlues.Select(x => x.Id).ToList<int>().ToArray(),
-
+                    EmployeeResume = new Resume(),
+                    EmployeeSkill = new Skill(),
+                    EmployeeResumes = new List<Resume>(),
+                    EmployeeSkills= new List<Skill>(),
                 };
                 return View(employeeViewModel);
             }
@@ -307,7 +310,11 @@ namespace oddo.Controllers
                     Countries = _hRContext.Country.ToList<Country>(),
                     RelatedUsers = resPartners,
                     EmployeeDependents = new List<Dependent>(),
-
+                    EmployeeResume = new Resume(),
+                    EmployeeSkill = new Skill(),
+                    EmployeeResumes = _hRContext.Resumes.ToList(),
+                    EmployeeSkills = new List<Skill>(),
+                    EmployeeResumesTypes = _hRContext.ResumeLineTypes.ToList(),
 
                 };
 

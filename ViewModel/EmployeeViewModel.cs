@@ -48,6 +48,11 @@ namespace oddo.ViewModel
         public IFormFile MedicalInsurance { get; set; }
         public IFormFile Documents { get; set; }
         public IFormFile Warningsdeductions { get; set; }
+        public Resume EmployeeResume { get; set; }
+        public List<Resume> EmployeeResumes { get; set; }
+        public List<ResumeLineType> EmployeeResumesTypes { get; set; }
+        public List<Skill> EmployeeSkills { get; set; }
+        public Skill EmployeeSkill { get; set; }
 
     }
 }

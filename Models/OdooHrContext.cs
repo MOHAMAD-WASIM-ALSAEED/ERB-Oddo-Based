@@ -27,7 +27,14 @@ namespace oddo.Models
         public virtual DbSet<Dependent> Dependent { get; set; }
         public virtual DbSet<Resources> Resources { get; set; }
         public virtual DbSet<image> Image { get; set; }
+        public virtual DbSet<Resume> Resumes { get; set; }
+        public virtual DbSet<Skill> Skills { get; set; }
 
+        public virtual DbSet<ResumeLineType> ResumeLineTypes { get; set; }
+       
+        public virtual DbSet<SkillBroker> SkillBrokers { get; set; }
+        public virtual DbSet<SkillLevel> SkillLevels { get; set; }
+        public virtual DbSet<SkillType> SkillTypes { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -974,7 +981,263 @@ namespace oddo.Models
                     .HasMaxLength(255)
                     .HasColumnName("write_uid");
             });
+            modelBuilder.Entity<Resume>(entity =>
+            {
+                entity.ToTable("Resume");
 
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("create_date");
+
+                entity.Property(e => e.CreateUid).HasColumnName("create_uid");
+
+                entity.Property(e => e.DateEnd)
+                    .HasColumnType("datetime")
+                    .HasColumnName("date_end");
+
+                entity.Property(e => e.DateStart)
+                    .HasColumnType("datetime")
+                    .HasColumnName("date_start");
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(255)
+                    .HasColumnName("description");
+
+                entity.Property(e => e.DisplayType)
+                    .HasMaxLength(255)
+                    .HasColumnName("display_type");
+
+                entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
+
+                entity.Property(e => e.LineTypeId).HasColumnName("line_type_id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.WriteDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("write_date");
+
+                entity.Property(e => e.WriteUid).HasColumnName("write_uid");
+            });
+
+            modelBuilder.Entity<Skill>(entity =>
+            {
+                entity.ToTable("skill");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CreateDate)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("create_date");
+
+                entity.Property(e => e.CreateUid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("create_uid");
+
+                entity.Property(e => e.EmployeeId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("employee_id");
+
+                entity.Property(e => e.SkillId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("skill_id");
+
+                entity.Property(e => e.SkillLevelId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("skill_level_id");
+
+                entity.Property(e => e.SkillTypeId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("skill_type_id");
+
+                entity.Property(e => e.WriteDate)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("write_date");
+
+                entity.Property(e => e.WriteUid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("write_uid");
+            });
+        
+
+            modelBuilder.Entity<ResumeLineType>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("ResumeLineType");
+
+                entity.Property(e => e.CreateDate)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("create_date");
+
+                entity.Property(e => e.CreateUid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("create_uid");
+
+                entity.Property(e => e.Id)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.Sequence)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("sequence");
+
+                entity.Property(e => e.WriteDate)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("write_date");
+
+                entity.Property(e => e.WriteUid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("write_uid");
+            });
+            modelBuilder.Entity<SkillBroker>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("SkillBroker");
+
+                entity.Property(e => e.CreateDate)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("create_date");
+
+                entity.Property(e => e.CreateUid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("create_uid");
+
+                entity.Property(e => e.Id)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.SkillTypeId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("skill_type_id");
+
+                entity.Property(e => e.WriteDate)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("write_date");
+
+                entity.Property(e => e.WriteUid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("write_uid");
+            });
+
+            modelBuilder.Entity<SkillLevel>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("skillLevel");
+
+                entity.Property(e => e.CreateDate)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("create_date");
+
+                entity.Property(e => e.CreateUid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("create_uid");
+
+                entity.Property(e => e.Id)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("id");
+
+                entity.Property(e => e.LevelProgress)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("level_progress");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.SkillTypeId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("skill_type_id");
+
+                entity.Property(e => e.WriteDate)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("write_date");
+
+                entity.Property(e => e.WriteUid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("write_uid");
+            });
+
+            modelBuilder.Entity<SkillType>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("SkillType");
+
+                entity.Property(e => e.CreateDate)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("create_date");
+
+                entity.Property(e => e.CreateUid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("create_uid");
+
+                entity.Property(e => e.Id)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.WriteDate)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("write_date");
+
+                entity.Property(e => e.WriteUid)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("write_uid");
+            });
             OnModelCreatingPartial(modelBuilder);
         }
 

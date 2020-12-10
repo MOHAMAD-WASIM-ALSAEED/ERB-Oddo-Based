@@ -11,7 +11,9 @@
         <ol class="breadcrumb bg-white">
             <li class="breadcrumb-item"><a href="/home/index">Employee</a></li>
             <li class="breadcrumb-item"><a>New</a></li>
+
         </ol>
+
     </nav>
     <div class="row ml-3">
         <br />
@@ -23,6 +25,10 @@
     <div class="row">
         <div class="col-8 border-right">
             <div class="card ">
+
+                <button type="button" class="btn btn-danger ml-2" data-toggle="modal" data-target="#SkillModal">
+                    Delete2
+                </button>
                 <table class="table table-bordered float-right">
                     <tr>
                         <td style="width:750px;"></td>
@@ -99,7 +105,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
 
                         <div class="container-fluid m-0 p-0 mt-4" style="margin-top:19px">
                             <div class="row">
@@ -182,7 +188,7 @@
                                     <br />
                                     <p class="card-text b mt-4" style="display:inline">Job Posstion </p>
                                     <div style="display:inline">
-                                        <select onchange="selectchangejob()" id="jobselect"  style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Job.Id" asp-items="@(new SelectList(Model.Jobss, "Id", "Name"))">
+                                        <select onchange="selectchangejob()" id="jobselect" style="border-bottom: 2px solid #cacaca;width: 400px;" asp-for="@Model.Job.Id" asp-items="@(new SelectList(Model.Jobss, "Id", "Name"))">
                                             <option value="" selected="selected" disabled="disabled"></option>
                                         </select>
                                     </div>
@@ -225,7 +231,33 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <p class="card-text disabled" style="font-weight: bold; color: gray;font-size:large"> Resumé empty</p>
-                                                <button type="button" class="btn btn-success">Create a New Entry</button>
+                                                <!--  <button type="button" data-toggle="modal" data-target="#ResumeModal"  class="btn btn-success">Create a New Entry</button>-->
+                                                @foreach (var item in Model.EmployeeResumesTypes)
+                                                {
+                                                    <div class="card border-0" id="@item.Id">
+                                                        <div class="card-header">
+                                                            <b> @item.Name  </b>
+                                                            <button type="button" data-toggle="modal" data-target="#ResumeModal" class="btn btn-secondary  float-right btn-sm ">Add</button>
+                                                        </div>
+                                                        <div class="card-body" id="body_@item.Id">
+                                                            @foreach (var child in Model.EmployeeResumes)
+                                                            {
+                                                                if (item.Id == child.LineTypeId.ToString())
+                                                                {
+                                                                    <div id="@child.Id">
+                                                                        <p class="d-inline">@child.DateStart?.ToString("yyyy-MM-dd")</p><p class="d-inline">-@child.DateEnd?.ToString("yyyy-MM-dd")</p>
+                                                                        <h6 class="card-text">@child.Name</h6>
+                                                                        <p>@child.Description</p>
+                                                                    </div>
+                                                                }
+
+                                                            }
+
+                                                        </div>
+                                                    </div>
+
+                                                }
+
                                             </div>
                                             <div class="col-sm-6">
                                                 <h5>SKILLS</h5>
@@ -353,67 +385,67 @@
                                                     </select>
                                                 </div>
                                                 <div id="hide" hidden>
-                                                <div class="form-row">
-                                                    <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Spouse Complete Name</label>
-                                                    <div class="col-sm-9" style="width: 100%">
-                                                        <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="text" id="inp9" asp-for="@Model.Employee.SpouseCompleteName" required>
-                                                            <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
-                                                                <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
-                                                            </svg>
-                                                            <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
-                                                                <path d="M1 7 5.5 11 L13 1"></path>
-                                                            </svg>
-                                                        </label>
+                                                    <div class="form-row">
+                                                        <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Spouse Complete Name</label>
+                                                        <div class="col-sm-9" style="width: 100%">
+                                                            <label for="inp" class="inp" style="height: 48px;">
+                                                                <input type="text" id="inp9" asp-for="@Model.Employee.SpouseCompleteName" required>
+                                                                <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                                                                    <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                                                                </svg>
+                                                                <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                                                                    <path d="M1 7 5.5 11 L13 1"></path>
+                                                                </svg>
+                                                            </label>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="form-row">
-                                                    <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Spouse Birthdate</label>
-                                                    <div class="col-sm-9" style="width: 100%">
-                                                        <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="date" id="inp11" asp-for="@Model.Employee.SpouseBirthdate" data-date-format="mm/dd/yyyy" required value="@(Model.Employee.SpouseBirthdate.HasValue ? Model.Employee.SpouseBirthdate.Value.ToString("yyyy-MM-dd") : "")">
-                                                            <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
-                                                                <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
-                                                            </svg>
-                                                            <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
-                                                                <path d="M1 7 5.5 11 L13 1"></path>
-                                                            </svg>
-                                                        </label>
+                                                    <div class="form-row">
+                                                        <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Spouse Birthdate</label>
+                                                        <div class="col-sm-9" style="width: 100%">
+                                                            <label for="inp" class="inp" style="height: 48px;">
+                                                                <input type="date" id="inp11" asp-for="@Model.Employee.SpouseBirthdate" data-date-format="mm/dd/yyyy" required value="@(Model.Employee.SpouseBirthdate.HasValue ? Model.Employee.SpouseBirthdate.Value.ToString("yyyy-MM-dd") : "")">
+                                                                <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                                                                    <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                                                                </svg>
+                                                                <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                                                                    <path d="M1 7 5.5 11 L13 1"></path>
+                                                                </svg>
+                                                            </label>
+                                                        </div>
                                                     </div>
-                                                </div>
 
 
-                                                <div class="form-row">
-                                                    <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Second Spouse Complete Name</label>
-                                                    <div class="col-sm-9" style="width: 100%">
-                                                        <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="text" id="inp12" required asp-for="@Model.Employee.XSpouseCompleteName">
-                                                            <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
-                                                                <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
-                                                            </svg>
-                                                            <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
-                                                                <path d="M1 7 5.5 11 L13 1"></path>
-                                                            </svg>
-                                                        </label>
+                                                    <div class="form-row">
+                                                        <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Second Spouse Complete Name</label>
+                                                        <div class="col-sm-9" style="width: 100%">
+                                                            <label for="inp" class="inp" style="height: 48px;">
+                                                                <input type="text" id="inp12" required asp-for="@Model.Employee.XSpouseCompleteName">
+                                                                <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                                                                    <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                                                                </svg>
+                                                                <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                                                                    <path d="M1 7 5.5 11 L13 1"></path>
+                                                                </svg>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <div class="form-row">
+                                                        <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Second Spouse Birthdate</label>
+                                                        <div class="col-sm-9" style="width: 100%">
+                                                            <label for="inp" class="inp" style="height: 48px;">
+                                                                <input type="date" id="inp13" required data-date-format="mm/dd/yyyy" value="@Model.Employee.XSpouseBirthdate" asp-for="@Model.Employee.XSpouseBirthdate">
+                                                                <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                                                                    <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                                                                </svg>
+                                                                <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                                                                    <path d="M1 7 5.5 11 L13 1"></path>
+                                                                </svg>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <br />
-                                                <div class="form-row">
-                                                    <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Second Spouse Birthdate</label>
-                                                    <div class="col-sm-9" style="width: 100%">
-                                                        <label for="inp" class="inp" style="height: 48px;">
-                                                            <input type="date" id="inp13" required data-date-format="mm/dd/yyyy" value="@Model.Employee.XSpouseBirthdate" asp-for="@Model.Employee.XSpouseBirthdate">
-                                                            <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
-                                                                <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
-                                                            </svg>
-                                                            <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
-                                                                <path d="M1 7 5.5 11 L13 1"></path>
-                                                            </svg>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                    </div>
                                                 <h5 class="mt-5">Emergency </h5>
                                                 <div class="form-row">
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label" style="font-size:13px; font-weight:bold;  padding-top:14px">Emergency Contact</label>
@@ -728,29 +760,29 @@
                                                     <div class="col-3">
                                                         <p class="card-text m-0 mt-4 " style="font-weight: bold;display:inline"> Identity Card</p>
                                                     </div>
-                                                    <div class="col-9"  >
+                                                    <div class="col-9">
                                                         <div @(Model.Employee.XStudioIdentityCardFilename == null ? " " : "hidden") id="choosefileDiv1">
-                                                            <input asp-for="@Model.IdentityCard" type="file"  id="choose-file1" onchange="ChangeFile(event)"/>
+                                                            <input asp-for="@Model.IdentityCard" type="file" id="choose-file1" onchange="ChangeFile(event)" />
                                                         </div>
                                                         <div id="choose-file1div" @(Model.Employee.XStudioIdentityCardFilename != null ? " " : "hidden")>
                                                             <input type="text" readonly class="form-control-plaintext w-75" id="choose-file1-label" value="@Model.Employee.XStudioIdentityCardFilename" style="display:inline" asp-for="@Model.Employee.XStudioIdentityCardFilename">
                                                             <div style="display:inline">
-                                                            <a id="choose-file1-a" onclick="EditFile(this)"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;<a id="choose-file1-a1" onclick="removeFile(this)"><i class="fa fa-trash"></i></a>
-                                                             </div>
-                                                        </div>  
+                                                                <a id="choose-file1-a" onclick="EditFile(this)"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;<a id="choose-file1-a1" onclick="removeFile(this)"><i class="fa fa-trash"></i></a>
+                                                            </div>
+                                                        </div>
 
                                                     </div>
 
                                                 </div>
                                             </div>
                                             <div class="col-6">
-                                               
+
                                                 <div class="row">
                                                     <div class="col-4">
                                                         <p class="card-text m-0 mt-4 " style="font-weight: bold;display:inline"> Warnings and deductions</p>
 
                                                     </div>
-                                                    <div class="col-8"  >
+                                                    <div class="col-8">
                                                         <div @(Model.Employee.XStudioFieldXeed7Filename == null ? "" : "hidden") id="choosefileDiv2">
                                                             <input type="file" id="choose-file2" asp-for="@Model.Warningsdeductions" onchange="ChangeFile(event)" />
                                                         </div>
@@ -774,9 +806,9 @@
                                                         <p class="card-text m-0 mt-4 " style="font-weight: bold;display:inline"> Medical Insurance</p>
 
                                                     </div>
-                                                    <div class="col-9" >
+                                                    <div class="col-9">
                                                         <div @(Model.Employee.XStudioMedicalInsurance1Filename == null ? "" : "hidden") id="choosefileDiv3">
-                                                            <input  type="file" id="choose-file3" asp-for="@Model.MedicalInsurance"  onchange="ChangeFile(event)"/>
+                                                            <input type="file" id="choose-file3" asp-for="@Model.MedicalInsurance" onchange="ChangeFile(event)" />
                                                         </div>
                                                         <div id="choose-file3div" @(Model.Employee.XStudioMedicalInsurance1Filename != null ? " " : "hidden")>
                                                             <input type="text" readonly class="form-control-plaintext w-75" id="choose-file3-label" value="@Model.Employee.XStudioMedicalInsurance1Filename" style="display:inline" asp-for="@Model.Employee.XStudioMedicalInsurance1Filename">
@@ -796,8 +828,8 @@
                                                         <p class="card-text m-0 mt-4 " style="font-weight: bold;display:inline"> Documents</p>
 
                                                     </div>
-                                                    <div class="col-9" >
-                                                        <div  @(Model.Employee.XStudioUploadFileFilename == null ? "" : "hidden") id="choosefileDiv4">
+                                                    <div class="col-9">
+                                                        <div @(Model.Employee.XStudioUploadFileFilename == null ? "" : "hidden") id="choosefileDiv4">
                                                             <input type="file" id="choose-file4" asp-for="@Model.Documents" onchange="ChangeFile(event)" />
                                                         </div>
                                                         <div id="choose-file4div" @(Model.Employee.XStudioUploadFileFilename != null ? " " : "hidden")>
@@ -831,6 +863,174 @@
     </div>
 </div>
 
+<div class="modal  fade" id="ResumeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">new Resume</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="sam">
+                    <h6>Name</h6>
+                    <label for="inp" class="inp">
+                        <input type="text" id="ResumeName" placeholder="Title" required asp-for="@Model.EmployeeResume.Name">
+                        <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                            <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                        </svg>
+                        <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                            <path d="M1 7 5.5 11 L13 1"></path>
+                        </svg>
+                    </label>
+                    <div class="container-fluid mt-2 p-0">
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="card-text b mt-4" style="display:inline">Type</p>
+                                <div style="display:inline ;margin-left: 10px">
+                                    <select id="ResumeSelectType" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.EmployeeResume.Id" asp-items="@(new SelectList(Model.EmployeeResumesTypes, "Id", "Name"))">
+                                        <option value="" selected="selected" disabled="disabled"></option>
+
+                                    </select>
+                                </div>
+
+
+                            </div>
+                            <div class="col-6">
+                                <label for="inputEmail3" class="" style="font-size:13px; font-weight:bold;display:inline;  padding-top:14px">Start date </label>
+                                <div style="width: 100%;display:inline">
+                                    <label for="inp" class="inp" style="height: 48px;">
+                                        <input type="date" id="ResumeStartDate" asp-for="@Model.EmployeeResume.DateStart" data-date-format="mm/dd/yyyy" required value="@Model.EmployeeResume.DateStart?.ToString("yyyy-MM-dd")">
+                                        <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                                            <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                                        </svg>
+                                        <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                                            <path d="M1 7 5.5 11 L13 1"></path>
+                                        </svg>
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="card-text b mt-4" style="display:inline">Display Type</p>
+                                <div style="display:inline ;margin-left: 10px">
+                                    <select style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.EmployeeResume.DisplayType" asp-items="@(new SelectList(Model.EmployeeResumes, "Id", "Name"))">
+                                        <option value="" selected="selected" disabled="disabled"></option>
+                                    </select>
+                                </div>
+
+
+                            </div>
+                            <div class="col-6">
+                                <label for="inputEmail3" style="font-size:13px; font-weight:bold;  padding-top:14px;display:inline">End date </label>
+                                <div style="width: 100%;display:inline">
+                                    <label for="inp" class="inp" style="height: 48px; ">
+                                        <input type="date" id="ResumeEnddate" asp-for="@Model.EmployeeResume.DateEnd" data-date-format="mm/dd/yyyy" required value="@Model.EmployeeResume.DateEnd?.ToString("yyyy-MM-dd")">
+                                        <svg width="280px" height="18px" viewBox="0 0 280 18" class="border2">
+                                            <path d="M0,12 L223.166144,12 C217.241379,12 217.899687,12 225.141066,12 C236.003135,12 241.9279,12 249.827586,12 C257.727273,12 264.639498,12 274.514107,12 C281.097179,12 281.755486,12 276.489028,12"></path>
+                                        </svg>
+                                        <svg width="14px" height="12px" viewBox="0 0 14 12" class="check">
+                                            <path d="M1 7 5.5 11 L13 1"></path>
+                                        </svg>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <textarea class="mt-2" id="ResumeDescription" placeholder="Description" cols="150" rows="3" style="border:0px" required asp-for="@Model.EmployeeResume.Description">@Model.EmployeeResume.Description</textarea>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                        <button type="button" onclick="saveResume()" class="btn btn-success" data-dismiss="modal">Save & Close</button>
+                        <button type="button" onclick="saveResume()" class="btn btn-success">Save & New</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal  fade" id="SkillModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">new Resume</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="skills-form" class="mt-2 p-0">
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="card-text b mt-4" style="display:inline">Skill Type</p>
+                            <div style="display:inline ;margin-left: 10px">
+                                <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.Employee.Gender">
+                                    <option value="" selected="selected" disabled="disabled"></option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+
+                        </div>
+                        <div class="col-6">
+                            <p class="card-text b mt-4" style="display:inline">Skill Level</p>
+                            <div style="display:inline ;margin-left: 10px">
+                                <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.Employee.Gender">
+                                    <option value="" selected="selected" disabled="disabled"></option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <p class="card-text b mt-4" style="display:inline">Skill</p>
+                            <div style="display:inline ;margin-left: 10px">
+                                <select id="selectbox" style="border-bottom: 2px solid #cacaca;width: 277px;" asp-for="@Model.Employee.Gender">
+                                    <option value="" selected="selected" disabled="disabled"></option>
+                                    <option value="male">Male</option>
+                                </select>
+                            </div>
+
+
+                        </div>
+                        <div class="col-6">
+
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-2 col-form-label b">Progress</label>
+                                <div class="col-sm-10 m-auto">
+                                    <div class="progress w-25">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                    <button type="button" onclick="window.location.href='/home/CreateSkill'" class="btn btn-success" data-dismiss="modal">Save & Close</button>
+                    <button type="button" class="btn btn-success" id="btn-sava-and-new">Save & New</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts{
 
     @if (Model.EmployeeDependents.Count > 0)
@@ -853,32 +1053,83 @@
             var arr = new Array();
         </script>
     }
-    <script>
+<script>
+    var childcount = 0;
+    var resumes = [];
 
         $(function () {
-            $(".chzn-select").chosen();
-            $('.datepicker').datepicker();
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
+            @{
+                foreach (var item in Model.EmployeeResumes)
+                {
 
-                    reader.onload = function (e) {
-                        $('#blah').attr('src', e.target.result);
-                        $('#encode').attr('value', e.target.result);
-                    }
-
-                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+                <text>
+                    var o = {
+                        Id: '@item.Id',
+                        Name: '@item.Name',
+                        DateStart:'@item.DateStart',
+                        DateEnd:'@item.DateEnd',
+                        lineLineTypeId:'@item.LineTypeId',
+                    };
+                    resumes.push(o)
+                </text>
                 }
             }
-           
+
+            $(".chzn-select").chosen();
+            $('.datepicker').datepicker();
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                        $('#blah').attr('src', e.target.result);
+                        $('#encode').attr('value', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]); // convert to base64 string
+                    }
+                }
+
             $("#imgw").change(function () {
-                readURL(this);
-            });
+                    readURL(this);
+                });
+
+
+
         });
+
+
+
+    function saveResume() {
+        var typeid = $('#ResumeSelectType').val();
+        var startdate = $('#ResumeStartDate').val();
+        var Enddate = $('#ResumeEnddate').val();
+        var discription = $('#ResumeDescription').val();
+        var name = $('#ResumeName').val();
+        var html = [
+            '<div id="c_' + childcount + '">',
+    '<p class="d-inline">' + startdate + '</p><p class="d-inline">-' + Enddate + '</p>',
+    ' <h6 class="card-text">' + name + '</h6>',
+    ' <p>' + discription + '</p>',
+       '</div>'].join('');
+        $('#body_' + typeid).append(html);
+          var o = {
+                        Id: '0',
+                        Name: name,
+                        DateStart: startdate,
+                        DateEnd: Enddate,
+                        lineLineTypeId: typeid,
+                    };
+        resumes.push(o)
+        console.log(resumes);
+        $('#sam')[0].reset();
+
+
+    }
 
         function EditFile(event) {
             switch (event.id) {
-            case 'choose-file1-a': 
+            case 'choose-file1-a':
                 $('#choose-file1').trigger('click');
                     break;
                 case 'choose-file2-a':
@@ -891,7 +1142,7 @@
                     $('#choose-file4').trigger('click');
                     break;
             }
-           
+
 
         }
         function EditEmployeeImage() {
@@ -959,7 +1210,7 @@
 
         function selectchangejob() {
             $("#job").val($('#jobselect option:selected').text())
-            
+
         }
         function DeleteImage() {
 
@@ -981,18 +1232,16 @@
             count++;
             $('#mcontent').append(
                 '<tr id="' + count + '">' +
-                '<td><input id="name_' + count + '" type="text" placeholder="name"/></td>' +
+                '<td><input id="name_' + count + '" type="text" placeholder="name" /></td>' +
                 '<td><input id="birth_' + count + '" type="date" /></td>' +
-                '<td><a href="javascript:;" onclick="Delete(' + count + ')" ><i class="fa fa-trash"></i></a></td>' +
-                '<td><input hidden  type="date" /></td>' +
+                '<td><a href="javascript:;" onclick="Delete(' + count + ')"><i class="fa fa-trash"></i></a></td>' +
+                '<td><input hidden type="date" /></td>' +
                 '</tr>');
             arr.push(count);
             dependentCount++;
             $('#countdependant').text(dependentCount)
         }
         var obj = new Array();
-
-
         function SubmitForm() {
 
 
@@ -1009,7 +1258,7 @@
             $('#DataForm').submit();
 
         }
-    </script>
+</script>
 }
 
 
